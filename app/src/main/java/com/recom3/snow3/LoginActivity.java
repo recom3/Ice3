@@ -417,7 +417,6 @@ public class LoginActivity extends AppCompatActivity {
             UserInfo userInfo = LoginActivity.authSrvc.getUserInfo();
             LoginActivity.this.mUserService.save(new User(userInfo));
 
-            //LoginActivity.this.goToActivity(MainViewPagerActivity.class);
             LoginActivity.this.goToActivity(MainActivityTest.class);
             //LoginActivity.this.mAirwaveService.setBuddyTracking(Boolean.valueOf(false));
         }
