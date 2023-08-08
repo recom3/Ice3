@@ -655,7 +655,7 @@ public class LoginActivity extends AppCompatActivity {
             //Only for testing
             else
             {
-                //LoginActivity.this.goToActivity(MainActivityTest.class);
+                //LoginActivity.this.goToActivity(MainActivity.class);
             }
         }
     }
