@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.recom3.snow3">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+
+    <!--For AcceptCall activity-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
+    <!--This is being tried to answer call in Android 7.0 Nougat (API 24)-->
+    <!--Android 7.1 Nougat (API 25)-->
+    <!--<uses-permission android:name="android.permission.CALL_PRIVILEGED" />-->
+
+    <!--Buddy tracking-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!--Music DB-->
+    <!--Must be explicit asked runtime-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        >
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".AcceptCallActivity"
+            android:launchMode="singleTop"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/AppTheme.Invisible">
+        </activity>
+
+        <service
+            android:name=".service.AuthenticationAirwaveService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.recom3.snow3.service.AUTHENTICATIONAIRWAVESERVICE" />
+            </intent-filter>
+        </service>
+
+        <!--This is used?-->
+        <!-- android:name=".mobilesdk.HUDConnectivityService-->
+        <!--<action android:name="com.recom3.snow3.mobilesdk.HUDCONNECTIVITYSERVICE" />-->
+        <service
+            android:name="com.recom3.jetandroid.services.EngageHudConnectivityService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.recom3.jetandroid.services.ENGAGEHUDCONNECTIVITYSERVICE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.recom3.mobilesdk.buddytracking.BuddyAirwaveService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.recom3.mobilesdk.buddytracking.BUDDYAIRWAVESERVICE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.recom3.snow3.service.TripAirwaveService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.recom3.snow3.service.TRIPAIRWAVESERVICE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.recom3.snow3.service.MediaPlayerHudService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.recom3.snow3.service.MEDIAPLAYERHUDSERVICE" />
+            </intent-filter>
+        </service>
+
+        <!-- android:name="com.recom3.snow3.service.ConnectivityHudService-->
+        <!--<action android:name="com.recom3.snow3.service.CONNECTIVITYHUDSERVICE" />-->
+        <service
+            android:name="com.recom3.snow3.service.ConnectivityHudService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.recom3.snow3.service.CONNECTIVITYHUDSERVICE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name="com.reconinstruments.os.connectivity.HUDWebService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.reconinstruments.os.connectivity.HUDWEBSERVICE" />
+            </intent-filter>
+        </service>
+<!--
+        <service
+            android:name=".NLService"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action
+                    android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+-->
+        <activity
+            android:name=".MainActivityTest"
+            android:label="@string/title_activity_main_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".BrowserReconLoginActivity"
+            android:label="@string/title_activity_browser_login"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <receiver
+            android:name="com.recom3.snow3.mobilesdk.phonecontrol.PhoneReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter >
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+        <provider android:authorities="com.reconinstruments.connect.music" android:name="com.reconinstruments.connect.music.MusicDBContentProvider"/>
+        -->
+        <provider android:authorities="com.recom3.connect.music" android:name="com.recom3.connect.music.MusicDBContentProvider"/>
+    </application>
+
+</manifest>

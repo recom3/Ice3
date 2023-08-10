@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/background_repeat"
+    android:layout_height="match_parent">
+
+    <FrameLayout android:id="@+id/buddies_layout_center_container_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.recom3.snow3.LoginActivity"
+    android:background="@drawable/login_background"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_alignParentLeft="true"
+            android:visibility="invisible"
+            />
+            <!--app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"-->
+
+
+        <Button
+            android:id="@+id/buttonConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect"
+            android:layout_centerInParent="true"
+            android:onClick="onConnect"
+            android:visibility="invisible"
+            />
+
+        <Button
+            android:id="@+id/buttonTestMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test Msg"
+            android:layout_alignParentRight="true"
+            android:onClick="onTest"
+            android:visibility="invisible"
+            />
+
+        </RelativeLayout>
+
+    <RelativeLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <ImageButton android:id="@+id/login_layout_button_login_or_signup" android:background="@drawable/login_signup_login_button_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/login_layout_button_login_or_signup_margin_left"
+            android:onClick="onClick"
+            />
+        <ImageButton android:id="@+id/login_layout_button_explore" android:background="@drawable/login_explore_button_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/login_layout_button_explore_margin_left"
+            android:layout_below="@id/login_layout_button_login_or_signup"
+            android:onClick="onExplore"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textConnected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Not connected"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/gray"/>
+
+</android.support.constraint.ConstraintLayout>

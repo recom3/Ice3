@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="buddies_layout_button_buddy_tracking_width">300.0dip</dimen>
+    <dimen name="list_view_layout_linear_icon_run_margin_left">70.0dip</dimen>
+    <dimen name="list_view_layout_linear_icon_vertical_margin_left">150.0dip</dimen>
+    <dimen name="list_view_layout_linear_icon_speed_margin_left">240.0dip</dimen>
+    <dimen name="login_layout_linear_layout_margin_top">360.0dip</dimen>
+    <dimen name="login_layout_button_login_or_signup_margin_left">1.5dip</dimen>
+    <dimen name="login_layout_button_explore_margin_top">70.0dip</dimen>
+    <dimen name="login_layout_button_explore_margin_left">1.5dip</dimen>
+</resources>

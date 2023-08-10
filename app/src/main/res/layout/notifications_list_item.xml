@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="60.0dip" android:layout_marginLeft="30.0dip" android:layout_marginTop="5.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--
+    <ImageView android:id="@id/notifications_row_icon" android:layout_width="45.0dip" android:layout_height="58.0dip" android:layout_marginLeft="32.0dip" android:layout_marginRight="12.0dip" android:scaleType="fitXY" android:layout_alignParentLeft="true" />
+    <com.reconinstruments.widgets.CustomTextView android:textSize="18.0px" android:textStyle="normal" android:id="@id/notifications_row_time" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="5.0dip" android:layout_marginRight="32.0dip" android:text="time" android:singleLine="true" android:layout_alignParentRight="true" style="@style/selectable_text_shadow" />
+    <com.reconinstruments.widgets.CustomTextView android:textSize="24.0px" android:textStyle="bold" android:ellipsize="marquee" android:id="@id/notifications_row_label" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="0.0dip" android:singleLine="true" android:layout_toLeftOf="@id/notifications_row_time" android:layout_toRightOf="@id/notifications_row_icon" android:layout_alignParentTop="true" style="@style/selectable_text_shadow" />
+    <com.reconinstruments.widgets.CustomTextView android:textSize="18.0px" android:textStyle="bold" android:ellipsize="marquee" android:id="@id/notifications_row_info" android:paddingRight="32.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="-10.0dip" android:singleLine="true" android:layout_toRightOf="@id/notifications_row_icon" android:layout_below="@id/notifications_row_label" android:layout_alignParentBottom="true" style="@style/selectable_text_shadow" />
+    -->
+    <TextView
+        android:id="@+id/notifications_row_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        />
+    <TextView
+        android:id="@+id/notifications_row_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="20dp"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/white"
+        />
+</RelativeLayout>

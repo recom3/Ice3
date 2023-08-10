@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/background_repeat"
+    android:layout_height="match_parent">
+
+
+    <TextView android:textSize="22.0sp"
+        android:textStyle="bold" android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/buddies_layout_text_enable_buddy_tracking" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/buddies_enable_buddy_tracking" />
+
+    <TextView android:textSize="18.0sp" android:textColor="@color/white"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/buddies_layout_text_view_center"
+        android:layout_width="290.0dip"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30.0dip"
+        android:text="@string/buddies_text_view_center" />
+    <!--
+<FrameLayout android:layout_gravity="center_horizontal" android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
+    <TextView android:textSize="14.0sp" android:textStyle="bold" android:layout_gravity="center_horizontal" android:id="@id/buddies_layout_text_view_bottom" android:layout_width="290.0dip" android:layout_height="wrap_content" android:layout_marginTop="30.0dip" android:text="@string/buddies_text_view_bottom" />
+    <Button android:textSize="14.0sp" android:textStyle="bold" android:textColor="@android:color/holo_blue_light" android:id="@id/buddies_layout_button_terms_and_condition" android:background="@null" android:clickable="true" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="141.0dip" android:layout_marginTop="32.0dip" android:text="@string/terms_and_conditions" />
+</FrameLayout>
+<Button android:textStyle="bold" android:layout_gravity="center_horizontal" android:id="@id/buddies_layout_button_buddy_tracking" android:layout_width="@dimen/buddies_layout_button_buddy_tracking_width" android:layout_height="60.0dip" android:layout_marginTop="30.0dip" android:text="@string/buddies_enable_tracking" />
+-->
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"/>
+
+    <!--
+    <Button android:textStyle="bold" android:layout_gravity="center_horizontal"
+        android:id="@+id/buddies_layout_button_buddy_tracking"
+        android:layout_width="@dimen/buddies_layout_button_buddy_tracking_width"
+        android:layout_height="60.0dip" android:layout_marginTop="30.0dip" android:text="@string/buddies_enable_tracking"
+        android:layout_centerInParent="true"
+        />
+        -->
+
+    <Button android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/buddies_layout_button_buddy_tracking"
+        android:layout_width="@dimen/buddies_layout_button_buddy_tracking_width"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/buddies_enable_tracking"
+        android:layout_below="@id/buddies_layout_text_view_center"
+        />
+
+    <!--
+
+    -->
+
+<!--
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Swipe left to\nFirst View"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:minLines="2"
+        android:id="@+id/textView2"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+-->
+
+<!--
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Swipe right to\nThird View"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:minLines="2"
+        android:id="@+id/textView3"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+-->
+</RelativeLayout>
