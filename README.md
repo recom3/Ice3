@@ -9,3 +9,9 @@ Initial functions that will be supported:
 -Music library  
 -Incoming calls  
 -GPS assist  
+
+Testing being performed with:
+
+P10 phone with Android 7
+Redmi 9 with Android 11
+Recon Jet Glasses
