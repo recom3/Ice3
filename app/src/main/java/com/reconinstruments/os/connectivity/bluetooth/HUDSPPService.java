@@ -33,11 +33,8 @@ public class HUDSPPService extends HUDBTBaseService {
     private SparseArray<InStreamThread> n = new SparseArray();
     private AcceptThread[] acceptThread;
 
-    /* JADX INFO: Access modifiers changed from: package-private */
-    /* loaded from: recon_engage_jar.jar:com/reconinstruments/os/connectivity/bluetooth/HUDSPPService$AcceptThread.class */
     public class AcceptThread extends Thread {
 
-        /* renamed from: b  reason: collision with root package name */
         private final BluetoothServerSocket btServerSocket;
         private final int c;
 
@@ -194,7 +191,6 @@ public class HUDSPPService extends HUDBTBaseService {
             this.d = i;
         }
 
-        /* JADX INFO: Access modifiers changed from: private */
         public void a() {
             interrupt();
             new Thread(new Runnable() { // from class: com.reconinstruments.os.connectivity.bluetooth.HUDSPPService.InStreamThread.1
@@ -227,7 +223,6 @@ public class HUDSPPService extends HUDBTBaseService {
             }
         }
 
-        /* JADX WARN: Removed duplicated region for block: B:19:0x007b A[Catch: IOException -> 0x009f, LOOP:1: B:8:0x0056->B:19:0x007b, LOOP_END, TRY_ENTER, TRY_LEAVE, TryCatch #0 {IOException -> 0x009f, blocks: (B:5:0x003d, B:7:0x004a, B:9:0x0057, B:13:0x006b, B:19:0x007b, B:20:0x0090), top: B:28:0x003d }] */
         @Override // java.lang.Thread, java.lang.Runnable
         /*
             Code decompiled incorrectly, please refer to instructions dump.
@@ -327,7 +322,6 @@ public class HUDSPPService extends HUDBTBaseService {
         createSppOutStreamWriter();
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
     public void a(String str) {
         synchronized (this) {
             StringBuilder sb = new StringBuilder("btSocketFailed (called from ").append(str).append(")");
@@ -387,7 +381,6 @@ public class HUDSPPService extends HUDBTBaseService {
     }
     */
 
-    /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:14:0x0034 -> B:10:0x0028). Please submit an issue!!! */
     private void connectThreadClose() {
         ConnectThread[] connectThreadArr;
         if (this.l != null) {

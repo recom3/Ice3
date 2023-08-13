@@ -220,6 +220,7 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
         boolean doHudSrvConnect = true;
         boolean doHudWebSrvConnect = false;
 
+        //!recom3: disconnect task on 60 seconds, why?
         if(doHudSrvConnect) {
             MainActivityTest.mConnectivityHudService.connect(HUDConnectivityService.DeviceType.ANDROID, param1TitleDescriptionModel.getDescription());
             //this.mConnectionTimeHandler.postDelayed(this.mConnectionTimeTask, 15000L);
