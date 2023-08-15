@@ -53,7 +53,6 @@ public class HUDWebService extends Service {
         }
     };
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     /* renamed from: com.reconinstruments.jetandroid.services.HUDWebService$3  reason: invalid class name */
     /* loaded from: recon_engage_jar.jar:com/reconinstruments/jetandroid/services/HUDWebService$3.class */
     public static /* synthetic */ class AnonymousClass3 {
@@ -61,8 +60,6 @@ public class HUDWebService extends Service {
         /* renamed from: a  reason: collision with root package name */
         static final /* synthetic */ int[] f2147a = new int[HUDStateUpdateListener.HUD_STATE.values().length];
 
-        /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:11:0x002f -> B:17:0x001f). Please submit an issue!!! */
-        /* JADX WARN: Unsupported multi-entry loop pattern (BACK_EDGE: B:13:0x0033 -> B:15:0x0014). Please submit an issue!!! */
         static {
             try {
                 f2147a[HUDStateUpdateListener.HUD_STATE.CONNECTED.ordinal()] = 1;

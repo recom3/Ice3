@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
 
         startWebServices();
 
-        //Debug
+        //For incomming call testing
         //startHudService();
 
         //Try to bid to answer calls
@@ -278,11 +278,24 @@ public class LoginActivity extends AppCompatActivity {
         //        Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
         //startActivity(intent);
 
+        //Phone permissions
         int readPhoneState = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
         int read_call_log = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG);
-        int answer_phone_call = ContextCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS);
 
+        int process_outgoing_calls = ContextCompat.checkSelfPermission(this, Manifest.permission.PROCESS_OUTGOING_CALLS);
+        int internet = ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET);
+
+        int answer_phone_call = ContextCompat.checkSelfPermission(this, Manifest.permission.ANSWER_PHONE_CALLS);
         int call_priv = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PRIVILEGED);
+
+        //14.08.2023
+        //From Redmi 9
+        /*
+        08-14 22:36:11.841 1244-4055/? W/BroadcastQueue: Permission Denial: receiving Intent { act=android.intent.action.PHONE_STATE flg=0x1000010 (has extras) } to com.recom3.snow3/.mobilesdk.phonecontrol.PhoneReceiver requires android.permission.READ_CALL_LOG due to sender android (uid 1000)
+        08-14 22:36:12.118 1244-3646/? W/BroadcastQueue: Permission Denial: receiving Intent { act=android.intent.action.PHONE_STATE flg=0x1000010 (has extras) } to com.recom3.snow3/.mobilesdk.phonecontrol.PhoneReceiver requires android.permission.READ_PRIVILEGED_PHONE_STATE due to sender android (uid 1000)
+        */
+        //Manifest.permission.READ_PRIVILEGED_PHONE_STATE
+        //Manifest.permission.READ_CALL_LOG
 
         int read_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
@@ -300,12 +313,12 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         //?
-        if (read_call_log != PackageManager.PERMISSION_GRANTED) {
+        if (process_outgoing_calls != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.PROCESS_OUTGOING_CALLS);
         }
 
         //?
-        if (read_call_log != PackageManager.PERMISSION_GRANTED) {
+        if (internet != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.INTERNET);
         }
 
@@ -465,6 +478,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public static void incommingCall()
     {
+        Log.i("LoginAcivity", "Incommming call");
+
         if(hudSrvc!=null) {
             /*
             HUDConnectivityMessage hUDConnectivityMessage = new HUDConnectivityMessage();
@@ -472,7 +487,7 @@ public class LoginActivity extends AppCompatActivity {
             hUDConnectivityMessage.setRequestKey(0);
             hUDConnectivityMessage.setSender("com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService");
             hUDConnectivityMessage.setData((new MusicMessage(paramPlayerInfo, MusicMessage.Type.STATUS)).toXML().getBytes());
-            Log.d("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
+            Log.i("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
             hudSrvc.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
             */
 
@@ -513,7 +528,7 @@ public class LoginActivity extends AppCompatActivity {
             //hUDConnectivityMessage.setData(bytes);
             hUDConnectivityMessage.setData((new PhoneMessage(PhoneMessage.Status.RINGING, param)).toXML().getBytes());
 
-            Log.d("PhoneServiceSDK", "size of phone status message: " + (hUDConnectivityMessage.toByteArray()).length);
+            Log.i("PhoneServiceSDK", "size of phone status message: " + (hUDConnectivityMessage.toByteArray()).length);
 
             MessageDigest md = null;
             try {
@@ -523,7 +538,7 @@ public class LoginActivity extends AppCompatActivity {
             }
             md.update(hUDConnectivityMessage.getData());
             byte[] digest = md.digest();
-            Log.d("PhoneServiceSDK", "md5: " + md.toString());
+            Log.i("PhoneServiceSDK", "md5: " + md.toString());
 
             //Test deserialize
 
@@ -540,7 +555,7 @@ public class LoginActivity extends AppCompatActivity {
             hUDConnectivityMessage.setRequestKey(0);
             hUDConnectivityMessage.setSender("com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService");
             hUDConnectivityMessage.setData((new MusicMessage(paramPlayerInfo, MusicMessage.Type.STATUS)).toXML().getBytes());
-            Log.d("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
+            Log.i("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
             hudSrvc.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
             */
         }

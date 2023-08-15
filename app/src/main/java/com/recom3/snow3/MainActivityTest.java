@@ -30,9 +30,14 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.recom3.jetandroid.services.EngageHudConnectivityService;
+import com.recom3.snow3.hudconnectivity.HUDConnectivityMessage;
 import com.recom3.snow3.mobilesdk.HUDConnectivityService;
 //import com.recom3.snow3.service.ConnectivityHudService;
+import com.recom3.snow3.mobilesdk.messages.PhoneMessage;
 import com.reconinstruments.os.connectivity.HUDWebService;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class MainActivityTest extends AppCompatActivity implements BuddyEnableCallback {
 
@@ -227,5 +232,90 @@ public class MainActivityTest extends AppCompatActivity implements BuddyEnableCa
 
     public void showBuddiesListView() {
         mSectionsPagerAdapter.notifyDataSetChanged();
+    }
+
+    public static void incommingCall()
+    {
+        Log.i("LoginAcivity", "Incommming call");
+
+        if(mConnectivityHudService!=null) {
+            /*
+            HUDConnectivityMessage hUDConnectivityMessage = new HUDConnectivityMessage();
+            hUDConnectivityMessage.setIntentFilter("RECON_MUSIC_MESSAGE");
+            hUDConnectivityMessage.setRequestKey(0);
+            hUDConnectivityMessage.setSender("com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService");
+            hUDConnectivityMessage.setData((new MusicMessage(paramPlayerInfo, MusicMessage.Type.STATUS)).toXML().getBytes());
+            Log.i("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
+            hudSrvc.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
+            */
+
+            HUDConnectivityMessage hUDConnectivityMessage = new HUDConnectivityMessage();
+
+            //Error: sample trace
+            /*
+            04-13 08:35:46.804 854-915/? D/BTAcceptThread: mServerSocket.accept()
+            04-13 08:35:46.804 854-1174/? D/BTConnectedThread: BEGIN BTConnectedThread OBJECT_CHANNEL Thread[Thread-75,5,main]
+            04-13 08:35:56.453 854-854/? I/BTConnectivityManager: Start receiving new HUDConnectivityMessage data block, total size = 219
+            04-13 08:35:56.453 854-854/? D/BTConnectivityManager: dataReceived= 219
+            04-13 08:35:56.453 854-854/? I/BTConnectivityManager: Stop receiving data, constructing the HUDConnectivityMessage
+            04-13 08:35:56.460 854-854/? I/BTConnectivityManager: HUDConnectivityMessage md5 = 175a68a176e560d53f51395df4b0684b
+            04-13 08:35:56.460 854-854/? D/BTConnectivityManager: Sent out the broadcast to RECON_SMARTPHONE_CONNECTION_MESSAGE
+            04-13 08:35:56.468 854-854/? W/Bundle: Key message expected String but value was a [B.  The default value <null> was returned.
+            04-13 08:35:56.468 585-585/? W/Bundle: Key message expected String but value was a [B.  The default value <null> was returned.
+            04-13 08:35:56.476 854-854/? W/Bundle: Attempt to cast generated internal exception:
+                                                   java.lang.ClassCastException: byte[] cannot be cast to java.lang.String
+                                                       at android.os.Bundle.getString(Bundle.java:1061)
+                                                       at com.reconinstruments.hudservice.HUDService$1.onReceive(HUDService.java:92)
+
+             */
+
+            //hUDConnectivityMessage.setIntentFilter("RECON_SMARTPHONE_CONNECTION_MESSAGE");
+
+            //Nothing happens
+            //hUDConnectivityMessage.setIntentFilter("SMARTPHONE_STATE_UPDATED");
+
+            //hudStateUpdateListener.startListening(this);
+
+            hUDConnectivityMessage.setIntentFilter("RECON_PHONE_MESSAGE");
+            hUDConnectivityMessage.setRequestKey(0);
+            hUDConnectivityMessage.setSender("com.reconinstruments.mobilesdk.phonecontrol.PhoneControlService");
+            String[] param = {"123456", "myfriend", "xx", "yy"};
+            String testStr = new PhoneMessage(PhoneMessage.Status.RINGING, param).toXML().toString();
+
+            byte[] bytes = (new PhoneMessage(PhoneMessage.Status.RINGING, param)).toXML().getBytes();
+            //hUDConnectivityMessage.setData(bytes);
+            hUDConnectivityMessage.setData((new PhoneMessage(PhoneMessage.Status.RINGING, param)).toXML().getBytes());
+
+            Log.i("PhoneServiceSDK", "size of phone status message: " + (hUDConnectivityMessage.toByteArray()).length);
+
+            MessageDigest md = null;
+            try {
+                md = MessageDigest.getInstance("MD5");
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+            md.update(hUDConnectivityMessage.getData());
+            byte[] digest = md.digest();
+            Log.i("PhoneServiceSDK", "md5: " + md.toString());
+
+            //Test deserialize
+
+            HUDConnectivityMessage hudConnectivityMessage = new HUDConnectivityMessage(hUDConnectivityMessage.toByteArray());
+
+            PhoneMessage phnMessage = new PhoneMessage(new String(hudConnectivityMessage.getData()));
+
+            mConnectivityHudService.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
+
+            //To compare with other messages...:
+            /*
+            HUDConnectivityMessage hUDConnectivityMessage = new HUDConnectivityMessage();
+            hUDConnectivityMessage.setIntentFilter("RECON_MUSIC_MESSAGE");
+            hUDConnectivityMessage.setRequestKey(0);
+            hUDConnectivityMessage.setSender("com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService");
+            hUDConnectivityMessage.setData((new MusicMessage(paramPlayerInfo, MusicMessage.Type.STATUS)).toXML().getBytes());
+            Log.i("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
+            hudSrvc.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
+            */
+        }
     }
 }

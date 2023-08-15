@@ -7,6 +7,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.recom3.snow3.LoginActivity;
+import com.recom3.snow3.MainActivityTest;
 
 public class PhoneReceiver extends BroadcastReceiver {
 
@@ -23,7 +24,7 @@ public class PhoneReceiver extends BroadcastReceiver {
 
         if (stateStr.compareToIgnoreCase(TelephonyManager.EXTRA_STATE_RINGING)==0) {
             state = TelephonyManager.CALL_STATE_RINGING;
-            LoginActivity.incommingCall();
+            MainActivityTest.incommingCall();
         }
     }
 }
