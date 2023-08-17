@@ -28,8 +28,8 @@ class HUDStateUpdateListener extends BroadcastReceiver {
     private final String c = "state";
 
     public final void a(Context paramContext) {
-        //This is from JADX
 
+        //This is from JADX
         paramContext.registerReceiver(this, new IntentFilter("HUD_STATE_CHANGED"));
 
         //!!!

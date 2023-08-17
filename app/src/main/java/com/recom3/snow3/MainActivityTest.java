@@ -236,7 +236,7 @@ public class MainActivityTest extends AppCompatActivity implements BuddyEnableCa
 
     public static void incommingCall()
     {
-        Log.i("LoginAcivity", "Incommming call");
+        Log.i("MainAcivity", "Incommming call");
 
         if(mConnectivityHudService!=null) {
             /*

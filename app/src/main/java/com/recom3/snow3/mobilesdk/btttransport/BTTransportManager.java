@@ -86,6 +86,9 @@ public class BTTransportManager {
 
     private ConnectionState mObjectState = ConnectionState.NONE;
 
+    private String m_lstAddress = "";
+    private int m_lstAttempts = 0;
+
     public enum ConnectionState {
         //!!!
         //NONE, LISTEN, CONNECTING, CONNECTED
@@ -195,6 +198,10 @@ public class BTTransportManager {
                 ConnectionState.LISTEN.compareTo(getState(OBJECT_CHANNEL)) == 0 &&
                 ConnectionState.LISTEN.compareTo(getState(FILE_CHANNEL)) == 0)) {
 
+                //Keeping last address and attempt for maybe reconnecting
+                m_lstAddress = address;
+                m_lstAttempts = attempts;
+
                 Log.d(TAG, "starting mConnectThread");
                 broadcastStateChanged(this.mContext, 1);
                 this.mCommandConnectThread = new BTConnectThread(this.mAdapter, null, this, COMMAND_CHANNEL, address, attempts);
@@ -255,8 +262,11 @@ public class BTTransportManager {
             }
         }
 
-        Log.i(TAG, "starting mConnectThread");
+        //Keeping last address and attempt for maybe reconnecting
+        m_lstAddress = address;
+        m_lstAttempts = attempts;
 
+        Log.d(TAG, "starting mConnectThread");
         broadcastStateChanged(mContext, STATE_CONNECTING);
 
         //For reference:
@@ -572,7 +582,7 @@ public class BTTransportManager {
             this.mFileConnectedThread = null;
         }
         if (quit) {
-            Log.d(TAG, "stopping mCommandAcceptThread, mObjectAcceptThread and mFileAcceptThread");
+            Log.i(TAG, "stopping mCommandAcceptThread, mObjectAcceptThread and mFileAcceptThread");
             if (this.mCommandAcceptThread != null) {
                 this.mCommandAcceptThread.cancel();
                 this.mCommandAcceptThread = null;
@@ -624,6 +634,34 @@ public class BTTransportManager {
                                 break;
                             }
                     }
+
+                    //Try to reconnect
+                    //This part is not enabled
+                    if(false && r==null && m_lstAddress.isEmpty()==false)
+                    {
+                        Log.i(TAG, "Reconnecting to HUD...");
+
+                        connect(m_lstAddress, m_lstAttempts);
+
+                        switch (paramChannel) {
+                            case COMMAND_CHANNEL:
+                                synchronized (this) {
+                                    r = this.mCommandConnectedThread;
+                                    break;
+                                }
+                            case OBJECT_CHANNEL:
+                                synchronized (this) {
+                                    r = this.mObjectConnectedThread;
+                                    break;
+                                }
+                            case FILE_CHANNEL:
+                                synchronized (this) {
+                                    r = this.mFileConnectedThread;
+                                    break;
+                                }
+                        }
+                    }
+
                     if (r != null) {
                         if (out.length > BUFFSIZE) {
                             ByteBuffer.allocate(0);
@@ -686,73 +724,7 @@ public class BTTransportManager {
                     break;
             }
 
-/*
-        if (out != null) {
-            if (out.length > 20) {
-                BTConnectedThread r = null;
-                switch (channel) {
-                    case COMMAND_CHANNEL:
-                        synchronized (this) {
-                            r = this.mCommandConnectedThread;
-                            break;
-                        }
-                    case OBJECT_CHANNEL:
-                        synchronized (this) {
-                            r = this.mObjectConnectedThread;
-                            break;
-                        }
-                    case FILE_CHANNEL:
-                        synchronized (this) {
-                            r = this.mFileConnectedThread;
-                            break;
-                        }
-                }
-                if (r != null) {
-                    if (out.length > BUFFSIZE) {
-                        ByteBuffer.allocate(0);
-                        int start = 0;
-                        boolean sending = true;
-                        int i = 1;
-                        while (sending) {
-                            if (BUFFSIZE * i < out.length) {
-                                ByteBuffer.wrap(out, start, BUFFSIZE);
-                                r.write(subArray(out, start, BUFFSIZE));
-                                start = BUFFSIZE * i;
-                                i++;
-                            } else {
-                                ByteBuffer.wrap(out, start, out.length - start);
-                                r.write(subArray(out, start, out.length - start));
-                                sending = false;
-                            }
-                            try {
-                                Thread.sleep(100L);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    } else {
-                        r.write(out);
-                    }
-                    result = true;
-                    try {
-                        Thread.sleep(100L);
-                    } catch (InterruptedException e2) {
-                        e2.printStackTrace();
-                    }
-                } else {
-                    Log.w(TAG, "No Bluetooth device connected, skip to send out the data and broadcast disconnected message out.");
-                    if (currentState != 0) {
-                        broadcastStateChanged(this.mContext, 0);
-                        BTProperty.setBTConnectionState(this.mContext, 0);
-                    }
-                }
-            }
-        }
-        Log.w(TAG, "Skip to send data since the QueueMessage is null");
-        return result;
-        */
-
-            //!!!
+            //!recom3
             return false;
         }
     }

@@ -105,7 +105,7 @@ public class HUDWebService extends Service {
      * This is the responding to the event in update listener
      * @param hud_state
      */
-    static /* synthetic */ void a(HUDWebService hUDWebService, HUDStateUpdateListener.HUD_STATE hud_state) {
+    static void a(HUDWebService hUDWebService, HUDStateUpdateListener.HUD_STATE hud_state) {
         String tag = a;
         Log.i(tag, "updateState" + hud_state);
         switch (AnonymousClass3.f2147a[hud_state.ordinal()]) {
@@ -145,7 +145,7 @@ public class HUDWebService extends Service {
     }
 
     /**
-     * Destroy called code?
+     * Destroy called code
      */
     private void b() {
         WeakReference<IHUDConnectivity> a2;

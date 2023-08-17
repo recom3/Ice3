@@ -4,14 +4,18 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+import android.provider.ContactsContract;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 
+import com.recom3.snow3.mobilesdk.hudconnectivity.ConnectHelper;
 import com.recom3.snow3.mobilesdk.messages.PhoneMessage;
 
 import java.io.IOException;
@@ -19,6 +23,7 @@ import java.lang.reflect.Method;
 
 /**
  * Created by Recom3 on 29/03/2022.
+ * Control of Phone functionality
  */
 
 public class PhoneControlService extends Service {
@@ -186,6 +191,46 @@ public class PhoneControlService extends Service {
             }
             Log.i("PhoneControlService", "message received: " + str);
 
+        }
+    };
+
+    BroadcastReceiver c = new BroadcastReceiver() { // from class: com.reconinstruments.mobilesdk.phonecontrol.PhoneControlService.6
+        /* JADX WARN: Code restructure failed: missing block: B:15:0x009f, code lost:
+            if (r12.equals("") != false) goto L23;
+         */
+        /* JADX WARN: Code restructure failed: missing block: B:20:0x00b2, code lost:
+            if (r11.equals("") != false) goto L22;
+         */
+        @Override // android.content.BroadcastReceiver
+        /*
+            Code decompiled incorrectly, please refer to instructions dump.
+        */
+        public void onReceive(Context context, Intent intent) {
+            String str;
+            Log.i("PhoneControlService", "received message.");
+            Log.i("PhoneControlService", "extras: " + intent.getExtras().toString());
+            if ((intent.hasExtra("state") ? intent.getStringExtra("state") : null).equals(TelephonyManager.EXTRA_STATE_RINGING)) {
+                String str2 = "";
+                if (intent.getExtras() != null) {
+                    String stringExtra = intent.getStringExtra("incoming_number");
+                    Cursor query = context.getContentResolver().query(Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(stringExtra)), new String[]{"display_name"}, null, null, null);
+                    if (query.getCount() > 0) {
+                        query.moveToFirst();
+                        str2 = stringExtra;
+                        str = query.getString(query.getColumnIndexOrThrow("display_name"));
+                    } else {
+                        str2 = stringExtra;
+                        str = "";
+                    }
+                } else {
+                    str = "";
+                }
+                String str3 = str2 != null ? str2 : "Unknown";
+                String str4 = str != null ? str : "Unknown";
+                ConnectHelper.a(context, new PhoneMessage(PhoneMessage.Status.RINGING, str3, str4).a());
+                Log.i("PhoneControlService", "call from number " + str3 + " name " + str4);
+                Log.i("PhoneControlService", "call from " + str3 + " name " + str4);
+            }
         }
     };
 

@@ -202,4 +202,115 @@ public class PhoneRelayReceiver extends BroadcastReceiver {
             tm.acceptRingingCall();
         }
     }
+
+    /*
+Sample trace:
+
+I/LoginAcivity: Incommming call
+I/PhoneServiceSDK: size of phone status message: 224
+I/PhoneServiceSDK: md5: MD5 Message Digest from AndroidOpenSSL, <initialized>
+I/BTConnectivityManager: Putting the message HUDConnectivityMessage [intentFilter=RECON_PHONE_MESSAGE, sender=com.reconinstruments.mobilesdk.phonecontrol.PhoneControlService] into the object queue
+I/BTConnector: Taking the message from the object queue: RECON_PHONE_MESSAGE
+I/BTObjectConnector: Processing the message QueueMessage [sender=com.reconinstruments.mobilesdk.phonecontrol.PhoneControlService, intentFilter=RECON_PHONE_MESSAGE]
+I/BTObjectConnector: Sending the message data: QueueMessage [sender=com.reconinstruments.mobilesdk.phonecontrol.PhoneControlService, intentFilter=RECON_PHONE_MESSAGE]
+I/BTConnectivityManager: Putting the message HUDConnectivityMessage [intentFilter=RECON_MUSIC_MESSAGE, sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService] into the object queue
+I/BTConnector: Taking the message from the object queue: RECON_MUSIC_MESSAGE
+I/BTObjectConnector: Processing the message QueueMessage [sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService, intentFilter=RECON_MUSIC_MESSAGE]
+I/BTObjectConnector: Sending the message data: QueueMessage [sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService, intentFilter=RECON_MUSIC_MESSAGE]
+I/BTConnectivityManager: Putting the message HUDConnectivityMessage [intentFilter=RECON_MUSIC_MESSAGE, sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService] into the object queue
+I/BTConnectivityManager: Putting the message HUDConnectivityMessage [intentFilter=RECON_MUSIC_MESSAGE, sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService] into the object queue
+I/BTConnectivityManager: Putting the message HUDConnectivityMessage [intentFilter=RECON_MUSIC_MESSAGE, sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService] into the object queue
+W/BTTransportManager: Skip to send data since the QueueMessage is null
+W/BTTransportManager: Skip to send data since the QueueMessage is null
+I/BTConnectivityManager: Received message from HUD=���������������������
+                         HUDService������INTENT_OLD_API_MESSAGE��������<recon intent="CALLER_ID_RESOLUTION"><caller_id>+491624264301</caller_id></recon>��������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+I/BTConnectivityManager: Start receiving new HUDConnectivityMessage data block, total size = 133
+I/BTConnectivityManager: Stop receiving data, constructing the HUDConnectivityMessage
+I/BTConnectivityManager: Intent filter=INTENT_OLD_API_MESSAGE
+I/BTConnectivityManager: HUDConnectivityMessage md5 = 6efd6a0e2401d04a0ebe2819790b88b2
+I/SendBroadcastPermission: action:INTENT_OLD_API_MESSAGE, mPermissionType:0
+I/BTConnectivityManager: Sent out the broadcast to INTENT_OLD_API_MESSAGE
+W/Bundle: Key message expected String but value was a [B.  The default value <null> was returned.
+W/Bundle: Attempt to cast generated internal exception:
+          java.lang.ClassCastException: byte[] cannot be cast to java.lang.String
+              at android.os.BaseBundle.getString(BaseBundle.java:999)
+              at android.content.Intent.getStringExtra(Intent.java:6318)
+              at com.reconinstruments.applauncher.phone.PhoneRelayReceiver.onReceive(PhoneRelayReceiver.java:88)
+              at android.app.LoadedApk$ReceiverDispatcher$Args.run(LoadedApk.java:1222)
+              at android.os.Handler.handleCallback(Handler.java:761)
+              at android.os.Handler.dispatchMessage(Handler.java:98)
+              at android.os.Looper.loop(Looper.java:156)
+              at android.app.ActivityThread.main(ActivityThread.java:6577)
+              at java.lang.reflect.Method.invoke(Native Method)
+              at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:942)
+              at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:832)
+W/System.err: java.lang.NullPointerException: Attempt to invoke virtual method 'int java.lang.String.length()' on a null object reference
+W/System.err:     at java.io.StringReader.<init>(StringReader.java:50)
+W/System.err:     at com.reconinstruments.modlivemobile.dto.message.XMLMessage.parseSimpleMessageNode(XMLMessage.java:159)
+W/System.err:     at com.reconinstruments.modlivemobile.dto.message.PhoneMessage.<init>(PhoneMessage.java:56)
+W/System.err:     at com.reconinstruments.applauncher.phone.PhoneRelayReceiver.onReceive(PhoneRelayReceiver.java:88)
+W/System.err:     at android.app.LoadedApk$ReceiverDispatcher$Args.run(LoadedApk.java:1222)
+W/System.err:     at android.os.Handler.handleCallback(Handler.java:761)
+W/System.err:     at android.os.Handler.dispatchMessage(Handler.java:98)
+W/System.err:     at android.os.Looper.loop(Looper.java:156)
+W/System.err:     at android.app.ActivityThread.main(ActivityThread.java:6577)
+W/System.err:     at java.lang.reflect.Method.invoke(Native Method)
+W/System.err:     at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:942)
+W/System.err:     at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:832)
+E/CallRelayReceiver: Attempt to invoke interface method 'java.lang.String org.w3c.dom.Node.getNodeName()' on a null object reference
+E/CallRelayReceiver: No enum constant com.reconinstruments.modlivemobile.dto.message.PhoneMessage.Type.caller_id
+E/CallRelayReceiver: Attempt to invoke virtual method 'boolean com.reconinstruments.modlivemobile.dto.message.PhoneMessage.isControl()' on a null object reference
+I/BTConnector: Taking the message from the object queue: RECON_MUSIC_MESSAGE
+I/BTObjectConnector: Processing the message QueueMessage [sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService, intentFilter=RECON_MUSIC_MESSAGE]
+I/BTObjectConnector: Sending the message data: QueueMessage [sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService, intentFilter=RECON_MUSIC_MESSAGE]
+I/BTConnector: Taking the message from the object queue: RECON_MUSIC_MESSAGE
+I/BTObjectConnector: Processing the message QueueMessage [sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService, intentFilter=RECON_MUSIC_MESSAGE]
+I/BTObjectConnector: Sending the message data: QueueMessage [sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService, intentFilter=RECON_MUSIC_MESSAGE]
+W/BTTransportManager: Skip to send data since the QueueMessage is null
+W/BTTransportManager: Skip to send data since the QueueMessage is null
+I/BTConnector: Taking the message from the object queue: RECON_MUSIC_MESSAGE
+I/BTObjectConnector: Processing the message QueueMessage [sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService, intentFilter=RECON_MUSIC_MESSAGE]
+I/BTObjectConnector: Sending the message data: QueueMessage [sender=com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService, intentFilter=RECON_MUSIC_MESSAGE]
+W/BTTransportManager: Skip to send data since the QueueMessage is null
+I/BTConnectivityManager: Received message from HUD=���������������������
+                         HUDService������INTENT_OLD_API_MESSAGE��������<recon intent="RECON_PHONE_MESSAGE"><CONTROL type="ANSWER" number="" name="" title="" body="" /></recon>���������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������������
+I/BTConnectivityManager: Start receiving new HUDConnectivityMessage data block, total size = 156
+I/BTConnectivityManager: Stop receiving data, constructing the HUDConnectivityMessage
+I/BTConnectivityManager: Intent filter=INTENT_OLD_API_MESSAGE
+I/BTConnectivityManager: HUDConnectivityMessage md5 = d5dfcac919cdd13a2b490a641810cfb6
+I/SendBroadcastPermission: action:INTENT_OLD_API_MESSAGE, mPermissionType:0
+I/BTConnectivityManager: Sent out the broadcast to INTENT_OLD_API_MESSAGE
+W/Bundle: Key message expected String but value was a [B.  The default value <null> was returned.
+W/Bundle: Attempt to cast generated internal exception:
+          java.lang.ClassCastException: byte[] cannot be cast to java.lang.String
+              at android.os.BaseBundle.getString(BaseBundle.java:999)
+              at android.content.Intent.getStringExtra(Intent.java:6318)
+              at com.reconinstruments.applauncher.phone.PhoneRelayReceiver.onReceive(PhoneRelayReceiver.java:88)
+              at android.app.LoadedApk$ReceiverDispatcher$Args.run(LoadedApk.java:1222)
+              at android.os.Handler.handleCallback(Handler.java:761)
+              at android.os.Handler.dispatchMessage(Handler.java:98)
+              at android.os.Looper.loop(Looper.java:156)
+              at android.app.ActivityThread.main(ActivityThread.java:6577)
+              at java.lang.reflect.Method.invoke(Native Method)
+              at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:942)
+              at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:832)
+W/System.err: java.lang.NullPointerException: Attempt to invoke virtual method 'int java.lang.String.length()' on a null object reference
+W/System.err:     at java.io.StringReader.<init>(StringReader.java:50)
+W/System.err:     at com.reconinstruments.modlivemobile.dto.message.XMLMessage.parseSimpleMessageNode(XMLMessage.java:159)
+W/System.err:     at com.reconinstruments.modlivemobile.dto.message.PhoneMessage.<init>(PhoneMessage.java:56)
+W/System.err:     at com.reconinstruments.applauncher.phone.PhoneRelayReceiver.onReceive(PhoneRelayReceiver.java:88)
+W/System.err:     at android.app.LoadedApk$ReceiverDispatcher$Args.run(LoadedApk.java:1222)
+W/System.err:     at android.os.Handler.handleCallback(Handler.java:761)
+W/System.err:     at android.os.Handler.dispatchMessage(Handler.java:98)
+W/System.err:     at android.os.Looper.loop(Looper.java:156)
+W/System.err:     at android.app.ActivityThread.main(ActivityThread.java:6577)
+W/System.err:     at java.lang.reflect.Method.invoke(Native Method)
+W/System.err:     at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:942)
+W/System.err:     at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:832)
+E/CallRelayReceiver: Attempt to invoke interface method 'java.lang.String org.w3c.dom.Node.getNodeName()' on a null object reference
+I/CallRelayReceiver: Answering call
+I/SendBroadcastPermission: action:com.recom3.ANSWER_CALL, mPermissionType:0
+I/CallRelayReceiver: Ansered call
+
+     */
 }

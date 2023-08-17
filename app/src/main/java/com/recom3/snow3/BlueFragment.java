@@ -11,6 +11,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,8 @@ import com.recom3.snow3.service.MediaPlayerHudService;
  */
 
 public class BlueFragment extends Fragment implements PairedListDeviceDialogFragment.PairedListDeviceDialogListener {
+
+    public static final String TAG = BlueFragment.class.getSimpleName();
 
     //private IStartActivityDelegate mStartActivityDelegate;
 
@@ -145,6 +148,7 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
     }
 
     private void setStateConnected() {
+        Log.i(TAG, "setStateConnected");
         //this.mPairingHudConnectionStatusFragment.setStateConnected();
             //this.mStatusLabel.setText(getString(getConnectedString()));
             //this.mPairingConnectionStatusIconFragment.setStateConnected();
@@ -154,7 +158,7 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
             //this.mLoadingIcon.setVisibility(8);
             //this.mWarningIcon.setVisibility(8);
         //this.mPairingRemoteConnectionStatusFragment.setStateUnsupported();
-        //this.mConnectionTimeHandler.removeCallbacks(this.mConnectionTimeTask);
+        this.mConnectionTimeHandler.removeCallbacks(this.mConnectionTimeTask);
         this.mGgoggleImageButton.setEnabled(true);
         this.mConnectionStatusTextView.setText(R.string.pairing_tap_to_disconnect);
     }
@@ -223,8 +227,9 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
         //!recom3: disconnect task on 60 seconds, why?
         if(doHudSrvConnect) {
             MainActivityTest.mConnectivityHudService.connect(HUDConnectivityService.DeviceType.ANDROID, param1TitleDescriptionModel.getDescription());
-            //this.mConnectionTimeHandler.postDelayed(this.mConnectionTimeTask, 15000L);
-            this.mConnectionTimeHandler.postDelayed(this.mConnectionTimeTask, 60000L);
+
+            //!recom3: desconection time out task is commented, because we need to be connected in all moment
+            this.mConnectionTimeHandler.postDelayed(this.mConnectionTimeTask, 15000L);
         }
 
         if(doHudWebSrvConnect)
