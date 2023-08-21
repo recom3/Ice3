@@ -37,20 +37,20 @@ public class DBManager {
     private DBState mState = DBState.CHECKING;
 
     private IDBBuilder onBuildMusicDB = new IDBBuilder() {
-        public void onDBBuild(DBManager.DBState param1DBState) {
-            //!!!!
-            //DBManager.access$002(DBManager.this, param1DBState);
-            if (param1DBState == DBManager.DBState.ERROR || param1DBState == DBManager.DBState.NOSTORAGE) {
-                DBManager.this.respHandler.onErrorBuildingDB(param1DBState);
+        public void onDBBuild(DBManager.DBState state) {
+            DBManager.this.mState = state;
+            if (state == DBState.ERROR || state == DBState.NOSTORAGE) {
+                DBManager.this.respHandler.onErrorBuildingDB(state);
                 return;
             }
             if (MediaPlayerService.hudSrvc != null) {
-                if (MediaPlayerService.hudSrvc.getConnectionState() == HUDStateUpdateListener.HUD_STATE.CONNECTED)
+                if (MediaPlayerService.hudSrvc.getConnectionState() == HUDStateUpdateListener.HUD_STATE.CONNECTED) {
                     DBManager.this.buildGoggleDb();
+                }
             } else {
-                Log.e("DBManager", "hudService connection for media is NULL");
+                Log.e(DBManager.TAG, "hudService connection for media is NULL");
             }
-            DBManager.this.respHandler.onBuildMusicDB(param1DBState);
+            DBManager.this.respHandler.onBuildMusicDB(state);
         }
 
         public void onDBProgressUpdate(DBManager.DBState param1DBState) {
@@ -81,8 +81,6 @@ public class DBManager {
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
-            //this(file);
-            //this(fileInputStream);
             bufferedInputStream.read(arrayOfByte, 0, arrayOfByte.length);
             bufferedInputStream.close();
         } catch (FileNotFoundException fileNotFoundException) {
@@ -90,7 +88,7 @@ public class DBManager {
         } catch (IOException iOException) {
             iOException.printStackTrace();
         }
-        Log.d("DBManager", "file size in bytes: " + i);
+        Log.i("DBManager", "file size in bytes: " + i);
         return writeFile(arrayOfByte).getBytes();
     }
 
@@ -100,7 +98,7 @@ public class DBManager {
         if (str1.endsWith(".db")) {
             BufferedOutputStream bufferedOutputStream = null;
             str1 = str1.replace(".db", "2.db");
-            Log.d("DBManager", "new path is :" + str1);
+            Log.i("DBManager", "new path is :" + str1);
             str2 = null;
             try {
                 File file = new File(str1);
@@ -112,7 +110,6 @@ public class DBManager {
                 fileNotFoundException.printStackTrace();
             }
             try {
-                //!!!!
                 bufferedOutputStream.write(paramArrayOfbyte);
             } catch (IOException iOException) {
                 Log.e("DBManager", "caught exception: " + iOException);
@@ -145,17 +142,17 @@ public class DBManager {
         String str2 = performChecksum(paramArrayOfbyte) + ".tmp";
         File file2 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp/");
         if (!file2.mkdirs())
-            Log.d("DBManager", "Parent directories were not created. Possibly since they already exist.");
+            Log.i("DBManager", "Parent directories were not created. Possibly since they already exist.");
         str2 = file2.getAbsolutePath() + "/" + str2;
-        Log.d("DBManager", "temporary path: " + str2);
+        Log.i("DBManager", "temporary path: " + str2);
         file2 = new File(str2);
         boolean bool = false;
         if (file2.exists())
             bool = file2.delete();
         if (bool) {
-            Log.d("DBManager", "file was succesfully deleted");
+            Log.i("DBManager", "file was succesfully deleted");
         } else {
-            Log.d("DBManager", "no file found to delete");
+            Log.i("DBManager", "no file found to delete");
         }
         File file1 = new File(str2);
         try {
@@ -187,7 +184,7 @@ public class DBManager {
     }
 
     public void buildGoggleDb() {
-        Log.d("DBManager", "checking goggle DB for latest local checksum");
+        Log.i("DBManager", "checking goggle DB for latest local checksum");
         checkGoggleDB();
     }
 

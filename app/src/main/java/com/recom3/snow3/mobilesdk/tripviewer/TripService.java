@@ -52,7 +52,7 @@ public class TripService extends EngageSdkService {
     private BroadcastReceiver hudTripSyncer = new BroadcastReceiver() { // from class: com.reconinstruments.mobilesdk.tripviewer.TripService.1
         @Override // android.content.BroadcastReceiver
         public void onReceive(Context c, Intent intent) {
-            Log.d(TripService.TAG, "Received broadcast, action: " + intent.getAction());
+            Log.i(TripService.TAG, "Received broadcast, action: " + intent.getAction());
             if (intent.getAction().equals(TripSyncManager.downloadTripFromHUD)) {
                 Bundle b = intent.getExtras();
                 HUDConnectivityMessage msg = new HUDConnectivityMessage(b.getByteArray("message"));
@@ -82,7 +82,7 @@ public class TripService extends EngageSdkService {
                     File day = new File(directory.getAbsolutePath(), TripService.mLastDayName);
                     File event = new File(directory.getAbsolutePath(), TripService.mLastEventName);
                     File id = new File(directory.getAbsolutePath(), "ID.RIB");
-                    Log.d(TripService.TAG, "SUCCESS got both files, uploading files to server");
+                    Log.i(TripService.TAG, "SUCCESS got both files, uploading files to server");
                     TripService.this.tripSyncMgr.postTrip(day, event, id);
                 }
             } else if (intent.getAction().equals(TripSyncManager.successTripRequest)) {
@@ -106,7 +106,7 @@ public class TripService extends EngageSdkService {
             } else if (intent.getAction().equals(TripSyncManager.mPath)) {
                 boolean result = intent.getBooleanExtra("result", false);
                 if (result) {
-                    Log.d(TripService.TAG, "message was successfully sent");
+                    Log.i(TripService.TAG, "message was successfully sent");
                     return;
                 }
                 TripService.syncFinished();
@@ -118,7 +118,7 @@ public class TripService extends EngageSdkService {
         @Override // android.content.BroadcastReceiver
         public void onReceive(Context c, Intent intent) {
             if (intent.getAction().equals(TripService.ID_INTENT)) {
-                Log.d(TripService.TAG, "received broadcast with intent: " + intent.getAction());
+                Log.i(TripService.TAG, "received broadcast with intent: " + intent.getAction());
                 byte[] msgBytes = intent.getExtras().getByteArray("message");
                 HUDConnectivityMessage hMsg = new HUDConnectivityMessage(msgBytes);
                 TripService.this.parseFileAndSaveFile(hMsg.getData(), "EngageTripTransfer", "ID.RIB");
@@ -235,11 +235,11 @@ public class TripService extends EngageSdkService {
         try {
             b = readFile(new String(filePathBytes));
         } catch (IOException e) {
-            Log.d(TAG, "Error reading file from storage");
+            Log.i(TAG, "Error reading file from storage");
         }
         File directory = getDir(path, 0);
         File fileToDel = new File(directory.getAbsolutePath(), filename);
-        Log.d(TAG, "path to delete file: " + fileToDel.getAbsolutePath());
+        Log.i(TAG, "path to delete file: " + fileToDel.getAbsolutePath());
         if (fileToDel.exists()) {
             fileToDel.delete();
         }
@@ -251,7 +251,7 @@ public class TripService extends EngageSdkService {
                 bos.write(b);
                 bos.flush();
                 bos.close();
-                Log.d(TAG, "success writting file to: " + fullPath);
+                Log.i(TAG, "success writting file to: " + fullPath);
                 return true;
             } catch (IOException e2) {
                 Log.w(TAG, "caught exception writing to file: " + e2);
@@ -275,7 +275,7 @@ public class TripService extends EngageSdkService {
             }
             byte[] data = new byte[length];
             f.readFully(data);
-            Log.d(TAG, "raw file: " + data.length);
+            Log.i(TAG, "raw file: " + data.length);
             return data;
         } finally {
             f.close();

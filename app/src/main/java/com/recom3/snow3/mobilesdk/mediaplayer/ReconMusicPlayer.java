@@ -108,7 +108,7 @@ public class ReconMusicPlayer extends MediaPlayer {
                 String str1 = cursor2.getString(0);
                 str1 = "is_music != 0 AND _id = \"" + str1 + "\"";
                 cursor1 = this.mediaSrvc.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, arrayOfString, str1, null, null);
-                Log.d("ReconMusicPlayer", "DUPLICATES, we do not have a unique song with this information, making arbitrary choice!!");
+                Log.i("ReconMusicPlayer", "DUPLICATES, we do not have a unique song with this information, making arbitrary choice!!");
             }
         }
         return cursor1;
@@ -133,7 +133,7 @@ public class ReconMusicPlayer extends MediaPlayer {
             cursor = this.mediaSrvc.getContentResolver().query(uri2, projection2, null, null, null);
             String[] columns = cursor.getColumnNames();
             for (int i = 0; i < columns.length; i++) {
-                Log.d(TAG, "column1: " + columns[i]);
+                Log.i(TAG, "column1: " + columns[i]);
             }
         }
         cursor.moveToFirst();
@@ -150,7 +150,7 @@ public class ReconMusicPlayer extends MediaPlayer {
         Cursor cursor2 = findPlaylistCursor(title, artist);
         String[] columns2 = cursor2.getColumnNames();
         for (int i2 = 0; i2 < columns2.length; i2++) {
-            Log.d(TAG, "column2: " + columns2[i2]);
+            Log.i(TAG, "column2: " + columns2[i2]);
         }
         return cursor2;
     }
@@ -166,7 +166,7 @@ public class ReconMusicPlayer extends MediaPlayer {
         this.song = paramSongInfo;
         String str = "is_music != 0 AND _id = " + paramSongInfo.songId;
         Cursor cursor = this.mediaSrvc.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, new String[] { "_id", "title", "artist", "album", "_data", "album_id" }, str, null, null);
-        Log.d("ReconMusicPlayer", "songId requested: " + paramSongInfo.songId + " cursor size: " + cursor.getCount());
+        Log.i("ReconMusicPlayer", "songId requested: " + paramSongInfo.songId + " cursor size: " + cursor.getCount());
         if (paramSongInfo.srcType.toString().equals("PLAYLIST_SONGS"))
             cursor = handlePlaylistSong();
         cursor.moveToFirst();
@@ -261,10 +261,10 @@ public class ReconMusicPlayer extends MediaPlayer {
 
         boolean playlistNoSong = true;
         synchronized (this) {
-            Log.d(TAG, "MODLive message: " + msg.info.toString());
+            Log.i(TAG, "MODLive message: " + msg.info.toString());
             if (msg.info != null) {
                 if (msg.info.song != null) {
-                    Log.d(TAG, "MODLive message: " + msg.info.song.toString());
+                    Log.i(TAG, "MODLive message: " + msg.info.song.toString());
                     if (this.song == null || !msg.info.song.equals(this.song)) {
                         MusicMessage.SongInfo song = msg.info.song;
                         boolean empty = song.songId == this.NO_MEDIA;
@@ -272,7 +272,7 @@ public class ReconMusicPlayer extends MediaPlayer {
                             playlistNoSong = false;
                         }
                         if (empty || playlistNoSong) {
-                            Log.d(TAG, "no song id passed. not loading any song");
+                            Log.i(TAG, "no song id passed. not loading any song");
                         } else {
                             Cursor cursor = MusicCursorGenerator.getNewSongListSelectionCursor(this.mediaSrvc, song.songId, song.srcType, song.srcId);
                             ReconNextTrackFinder.flagToGenerateNewShuffleCursor();
@@ -302,7 +302,7 @@ public class ReconMusicPlayer extends MediaPlayer {
                 if (msg.info.volume != null) {
                     int volIndex = (int) (msg.info.volume.floatValue() * this.audioManager.getStreamMaxVolume(3));
                     this.audioManager.setStreamVolume(3, volIndex, 4);
-                    Log.d(TAG, "Volume set to: " + msg.info.volume + " index: " + volIndex);
+                    Log.i(TAG, "Volume set to: " + msg.info.volume + " index: " + volIndex);
                     setVolume(1.0f, 1.0f);
                     this.mute = false;
                 }
@@ -372,7 +372,7 @@ public class ReconMusicPlayer extends MediaPlayer {
             return;
         }
         ReconNextTrackFinder.setPlayingCursor(paramCursor);
-        Log.d("ReconMusicPlayer", "loading song with cursor. cursor size: " + paramCursor.getCount());
+        Log.i("ReconMusicPlayer", "loading song with cursor. cursor size: " + paramCursor.getCount());
         if (!paramCursor.isAfterLast() && !paramCursor.isBeforeFirst()) {
             if (this.song == null) {
                 this.song = new MusicMessage.SongInfo(paramCursor.getString(0), MusicDBFrontEnd.MusicListType.SONGS, "-1");
@@ -384,7 +384,7 @@ public class ReconMusicPlayer extends MediaPlayer {
             return;
         }
         if (paramCursor.moveToFirst()) {
-            Log.d("ReconMusicPlayer", "retrying to load song!");
+            Log.i("ReconMusicPlayer", "retrying to load song!");
             if (!paramCursor.isAfterLast() && !paramCursor.isBeforeFirst()) {
                 if (this.song == null) {
                     this.song = new MusicMessage.SongInfo(paramCursor.getString(0), MusicDBFrontEnd.MusicListType.SONGS, "-1");

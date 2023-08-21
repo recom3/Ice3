@@ -29,14 +29,14 @@ public class FileUtils {
       byteArrayOutputStream.close();
       byte[] arrayOfByte = byteArrayOutputStream.toByteArray();
       gZIPOutputStream.close();
-      Log.d("FileUtils", "binary length: " + paramArrayOfbyte.length);
-      Log.d("FileUtils", "gzipped length: " + arrayOfByte.length);
+      Log.i("FileUtils", "binary length: " + paramArrayOfbyte.length);
+      Log.i("FileUtils", "gzipped length: " + arrayOfByte.length);
       paramArrayOfbyte = Base64.encodeBase64(arrayOfByte);
-      Log.d("FileUtils", "base64 length: " + paramArrayOfbyte.length);
-      Log.d("FileUtils", "base64 string: " + new String(paramArrayOfbyte));
+      Log.i("FileUtils", "base64 length: " + paramArrayOfbyte.length);
+      Log.i("FileUtils", "base64 string: " + new String(paramArrayOfbyte));
       str = new String(paramArrayOfbyte);
     } catch (IOException iOException) {
-      Log.d("FileUtils", "error gzipping data stream", iOException);
+      Log.i("FileUtils", "error gzipping data stream", iOException);
       iOException = null;
     } 
     //return (String)iOException;
@@ -80,10 +80,10 @@ public class FileUtils {
       str = md5(str.getBytes(), 0);
       paramString = str;
     } catch (FileNotFoundException fileNotFoundException) {
-      Log.d("FileUtils", "Tried to get checksum on missing file: " + paramString);
+      Log.i("FileUtils", "Tried to get checksum on missing file: " + paramString);
       paramString = "";
     } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException) {
-      Log.d("FileUtils", "Tried to get checksum on empty file: " + paramString, arrayIndexOutOfBoundsException);
+      Log.i("FileUtils", "Tried to get checksum on empty file: " + paramString, arrayIndexOutOfBoundsException);
       paramString = "";
     } 
     return paramString;
@@ -116,7 +116,7 @@ public class FileUtils {
       //this(paramFile);
       arrayOfByte = readByteArray(fileInputStream, paramInt);
     } catch (FileNotFoundException fileNotFoundException) {
-      Log.d("FileUtils", "failed to read byte array", fileNotFoundException);
+      Log.i("FileUtils", "failed to read byte array", fileNotFoundException);
       fileNotFoundException = null;
     } 
     return arrayOfByte;
@@ -132,7 +132,7 @@ public class FileUtils {
         paramInputStream.read(arrayOfByte4);
         arrayOfByte3 = arrayOfByte4;
       } catch (IOException iOException) {
-        Log.d("FileUtils", "failed to read byte array", iOException);
+        Log.i("FileUtils", "failed to read byte array", iOException);
         iOException = null;
       } 
       //return (byte[])iOException;

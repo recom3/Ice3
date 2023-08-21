@@ -111,7 +111,7 @@ public abstract class BTConnector extends Thread {
             StringBuilder stringBuilder = new StringBuilder();
             queueMessage3 = queueMessage1;
             queueMessage3 = queueMessage1;
-            Log.d("BTConnector", stringBuilder.append("Taking the message from the file queue: ").append(queueMessage1.getIntentFilter()).toString());
+            Log.i("BTConnector", stringBuilder.append("Taking the message from the file queue: ").append(queueMessage1.getIntentFilter()).toString());
             queueMessage = queueMessage1;
         }
         */
@@ -131,9 +131,9 @@ public abstract class BTConnector extends Thread {
             case OBJECT_CHANNEL:
                 BTConnectivityManager.mObjectQueue.clear();
             case FILE_CHANNEL:
+                BTConnectivityManager.mFileQueue.clear();
                 break;
         }
-        BTConnectivityManager.mFileQueue.clear();
     }
 
     abstract boolean processing(QueueMessage paramQueueMessage);

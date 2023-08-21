@@ -91,7 +91,7 @@ public class DateUtils {
         try {
             l = jsonFormat.parse(paramString).getTime();
         } catch (ParseException parseException) {
-            Log.d("DateUtils", "failed to parse json date string", parseException);
+            Log.i("DateUtils", "failed to parse json date string", parseException);
             l = 0L;
         }
         return l;

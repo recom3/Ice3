@@ -38,7 +38,7 @@ public class DBBuilderTask extends ConcurrentAsyncTask<Void, DBManager.DBState, 
                     if (bundle.getString("file").contains("reconmusic.db")) {
                         String str2 = bundle.getString("sum");
                         String str1 = FileUtils.md5(param1Context.getDatabasePath("reconmusic.db").getPath(), true);
-                        Log.d("DBBuilderTaskSDK", "Local checksum: " + str1 + " remote checksum: " + str2);
+                        Log.i("DBBuilderTaskSDK", "Local checksum: " + str1 + " remote checksum: " + str2);
                         if (str2.equals(str1)) {
                             //!!!!
                             //DBBuilderTask.access$002(DBBuilderTask.this, DBManager.DBState.READY);
@@ -57,7 +57,7 @@ public class DBBuilderTask extends ConcurrentAsyncTask<Void, DBManager.DBState, 
                         String remoteSum = sumInfo.getString("sum");
                         String localPath = context.getDatabasePath(MusicDBContentProvider.DATABASE_NAME).getPath();
                         String localSum = FileUtils.md5(localPath, true);
-                        Log.d(DBBuilderTask.TAG, "Local checksum: " + localSum + " remote checksum: " + remoteSum);
+                        Log.i(DBBuilderTask.TAG, "Local checksum: " + localSum + " remote checksum: " + remoteSum);
                         if (remoteSum.equals(localSum)) {
                             DBBuilderTask.this.state = DBManager.DBState.READY;
                             DBBuilderTask.this.buildThread.interrupt();

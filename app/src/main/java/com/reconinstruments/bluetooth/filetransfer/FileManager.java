@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Chus on 20/08/2023.
+ * Created by recom3 on 20/08/2023.
  */
 
 public class FileManager extends ConnectionManager {
@@ -33,7 +33,7 @@ public class FileManager extends ConnectionManager {
     }
 
     public void addPendingDownload(FileTransferThread.FileTransfer transfer) {
-        Log.d(this.TAG, "new download pending: " + transfer.remotePath.path);
+        Log.i(this.TAG, "new download pending: " + transfer.remotePath.path);
         synchronized (this.pendingDownloads) {
             this.pendingDownloads.add(transfer);
         }
@@ -49,7 +49,7 @@ public class FileManager extends ConnectionManager {
                     return;
                 }
             }
-            Log.d(this.TAG, "Failed to receive unexpected file");
+            Log.i(this.TAG, "Failed to receive unexpected file");
         }
     }
 
@@ -75,12 +75,12 @@ public class FileManager extends ConnectionManager {
     public void handleFileTransferMessage(String action, String message) {
         if (action.equals(XMLMessage.TRANSFER_REQUEST_MESSAGE)) {
             TransferRequestMessage.RequestBundle reqBundle = TransferRequestMessage.parseRequest(message);
-            Log.d(this.TAG, "received file transfer message type: " + reqBundle.type);
+            Log.i(this.TAG, "received file transfer message type: " + reqBundle.type);
             if (reqBundle.type == TransferRequestMessage.RequestType.DIR_REQUEST) {
                 String dirMessage = TransferResponseMessage.compose(new TransferResponseMessage.ResponseBundle(TransferResponseMessage.TransferResponse.DIR, null));
                 this.service.writeXMLMessage(dirMessage);
             } else if (reqBundle.type == TransferRequestMessage.RequestType.FILE_REQUEST) {
-                Log.d(this.TAG, "queuing upload: " + reqBundle.filePath.getFilePath(this.service));
+                Log.i(this.TAG, "queuing upload: " + reqBundle.filePath.getFilePath(this.service));
                 queueTransfer(new FileTransferThread.FileTransfer(reqBundle.filePath));
             } else if (reqBundle.type == TransferRequestMessage.RequestType.FILE_CHECK) {
                 this.syncHelper.sendChecksum(reqBundle.filePath);

@@ -163,7 +163,7 @@ public class HUDSPPService extends HUDBTBaseService {
                 }
             } catch (Exception e3) {
                 StringBuilder sb=new StringBuilder("Connect Failed socket #").append(this.d);
-                Log.d(this.getClass().getName(), sb.toString());
+                Log.i(this.getClass().getName(), sb.toString());
                 try {
                     this.bluetoothSocket.close();
                 }

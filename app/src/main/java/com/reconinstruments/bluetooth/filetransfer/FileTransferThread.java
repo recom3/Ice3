@@ -20,7 +20,7 @@ import java.io.Serializable;
 import java.util.Stack;
 
 /**
- * Created by Chus on 20/08/2023.
+ * Created by recom3 on 20/08/2023.
  */
 
 public class FileTransferThread extends ConnectedThread {
@@ -66,16 +66,16 @@ public class FileTransferThread extends ConnectedThread {
     public FileTransferThread(BluetoothSocket socket, ConnectionManager service) {
         super(service);
         this.bufferSize = 25600;
-        Log.d(this.TAG, getName() + "(" + socket + ")");
+        Log.i(this.TAG, getName() + "(" + socket + ")");
         this.socket = socket;
         this.transfers = new Stack<>();
     }
 
     public void addTransfer(FileTransfer transfer) {
         try {
-            Log.d(this.TAG, "queue " + (transfer.upload ? "upload" : "download") + " " + transfer.localPath.path);
+            Log.i(this.TAG, "queue " + (transfer.upload ? "upload" : "download") + " " + transfer.localPath.path);
         } catch (NullPointerException n) {
-            Log.d(this.TAG, "transfer missing path ", n);
+            Log.i(this.TAG, "transfer missing path ", n);
         }
         this.transfers.add(transfer);
         interrupt();
@@ -83,7 +83,7 @@ public class FileTransferThread extends ConnectedThread {
 
     @Override // java.lang.Thread, java.lang.Runnable
     public void run() {
-        Log.d(this.TAG, getName() + ": FileTransferThread.run()");
+        Log.i(this.TAG, getName() + ": FileTransferThread.run()");
         while (!this.cancelled) {
             this.connMgr.setState(ConnectionManager.ConnectState.CONNECTED);
             if (this.transfers.size() == 0) {
@@ -91,7 +91,7 @@ public class FileTransferThread extends ConnectedThread {
                     try {
                         Thread.sleep(60000L);
                     } catch (InterruptedException e) {
-                        Log.d(this.TAG, getName() + ": sleep interrupted");
+                        Log.i(this.TAG, getName() + ": sleep interrupted");
                     }
                 }
             }
@@ -109,7 +109,7 @@ public class FileTransferThread extends ConnectedThread {
     }
 
     private void download() {
-        Log.d(this.TAG, getName() + " download(" + this.currentTransfer.localPath.getFilePath(this.service) + "," + this.currentTransfer.fileSize + ")");
+        Log.i(this.TAG, getName() + " download(" + this.currentTransfer.localPath.getFilePath(this.service) + "," + this.currentTransfer.fileSize + ")");
         try {
             File saveFile = new File(this.currentTransfer.localPath.getFilePath(this.service));
             saveFile.getParentFile().mkdirs();
@@ -147,17 +147,17 @@ public class FileTransferThread extends ConnectedThread {
                         continue;
                     }
                 } catch (IOException e) {
-                    Log.d(this.TAG, getName() + ": Failed to read", e);
+                    Log.i(this.TAG, getName() + ": Failed to read", e);
                     cancel();
                 }
             }
         } catch (FileNotFoundException e2) {
-            Log.d(this.TAG, "couldn't open file for download!", e2);
+            Log.i(this.TAG, "couldn't open file for download!", e2);
         }
     }
 
     private void upload() {
-        Log.d(this.TAG, getName() + " upload(" + this.currentTransfer.localPath.getFilePath(this.service) + "," + this.currentTransfer.fileSize + ")");
+        Log.i(this.TAG, getName() + " upload(" + this.currentTransfer.localPath.getFilePath(this.service) + "," + this.currentTransfer.fileSize + ")");
         try {
             File sendFile = new File(this.currentTransfer.localPath.getFilePath(this.service));
             this.fileInput = new FileInputStream(sendFile);
@@ -169,21 +169,21 @@ public class FileTransferThread extends ConnectedThread {
             int sent = 0;
             while (!this.cancelled) {
                 try {
-                    Log.d(this.TAG, getName() + ": input stream.read()");
+                    Log.i(this.TAG, getName() + ": input stream.read()");
                     int type = this.btInStream.read();
-                    Log.d(this.TAG, getName() + ": read byte " + type);
+                    Log.i(this.TAG, getName() + ": read byte " + type);
                     if (type == TransferCode.REQUEST_DATA.ordinal()) {
                         int readCount = this.fileInput.read(dataBuffer, 0, 25600);
                         write(dataBuffer, 0, readCount);
                         sent += readCount;
-                        Log.d(this.TAG, getName() + ": sent bytes " + sent);
+                        Log.i(this.TAG, getName() + ": sent bytes " + sent);
                         if (sent == this.currentTransfer.fileSize) {
                             while (this.btInStream.read() != TransferCode.RECEIVE_COMPLETE.ordinal()) {
                                 try {
                                     sleepThread(50);
                                 //} catch (IOException e) {
                                 } catch (Exception e) {
-                                    Log.d(this.TAG, getName() + ": failed to read", e);
+                                    Log.i(this.TAG, getName() + ": failed to read", e);
                                 }
                             }
                             finishedUpload();
@@ -229,7 +229,7 @@ public class FileTransferThread extends ConnectedThread {
         fileTransferComplete.putExtra(MusicMessage.ATTR_STATE, ConnectHelper.TransferState.FINISHED_UPLOAD);
         fileTransferComplete.putExtra("uploadedFile", this.currentTransfer.localPath);
         this.service.sendBroadcast(fileTransferComplete);
-        Log.d(this.TAG, "finished upload: " + this.currentTransfer.localPath.getFilePath(this.service) + " size: " + this.currentTransfer.fileSize);
+        Log.i(this.TAG, "finished upload: " + this.currentTransfer.localPath.getFilePath(this.service) + " size: " + this.currentTransfer.fileSize);
     }
 
     private void finishedDownload() {
@@ -238,7 +238,7 @@ public class FileTransferThread extends ConnectedThread {
         fileTransferComplete.putExtra("savedFile", this.currentTransfer.localPath);
         fileTransferComplete.putExtra("requestedFile", this.currentTransfer.remotePath);
         this.service.sendBroadcast(fileTransferComplete);
-        Log.d(this.TAG, "finished download: " + this.currentTransfer.localPath.getFilePath(this.service) + " size: " + this.currentTransfer.fileSize);
+        Log.i(this.TAG, "finished download: " + this.currentTransfer.localPath.getFilePath(this.service) + " size: " + this.currentTransfer.fileSize);
     }
 
     private void write(TransferCode type) {

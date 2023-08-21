@@ -49,24 +49,24 @@ public class BuddyService extends EngageSdkService implements IBuddyManager, Loc
 
     private ServiceConnection AuthConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName param1ComponentName, IBinder param1IBinder) {
-            Log.d(BuddyService.TAG, "EngageAuthentication Connected!");
+            Log.i(BuddyService.TAG, "EngageAuthentication Connected!");
             BuddyService.authSrvc = (AuthenticationService)((EngageSdkService.LocalBinder)param1IBinder).getService();
         }
 
         public void onServiceDisconnected(ComponentName param1ComponentName) {
-            Log.d(BuddyService.TAG, "EngageAuthentication Disconnected!");
+            Log.i(BuddyService.TAG, "EngageAuthentication Disconnected!");
             BuddyService.authSrvc = null;
         }
     };
 
     private ServiceConnection HudConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName param1ComponentName, IBinder param1IBinder) {
-            Log.d(BuddyService.TAG, "BuddyService Connected to HUDService!");
+            Log.i(BuddyService.TAG, "BuddyService Connected to HUDService!");
             BuddyService.hudSrvc = ((HUDConnectivityService.LocalBinder)param1IBinder).getService();
         }
 
         public void onServiceDisconnected(ComponentName param1ComponentName) {
-            Log.d(BuddyService.TAG, "BuddyService Disconnected to HUDService!");
+            Log.i(BuddyService.TAG, "BuddyService Disconnected to HUDService!");
             BuddyService.hudSrvc = null;
         }
     };
@@ -114,7 +114,7 @@ public class BuddyService extends EngageSdkService implements IBuddyManager, Loc
                 sendBuddies(arrayList);
                 return;
             }
-            Log.d(TAG, "No buddies with new locations to send");
+            Log.i(TAG, "No buddies with new locations to send");
         }
         */
     }

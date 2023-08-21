@@ -30,7 +30,7 @@ public class DBBuilderUtils {
         Cursor cursor = paramContext.getContentResolver().query(uri, arrayOfString, null, null, null);
         if (DBChecker.initCursor(cursor)) {
             i = 0 + writeTableToReconDB(paramContext, cursor, paramSQLiteDatabase, uri);
-            Log.d("BuilderUtils", "writing playlists from google content");
+            Log.i("BuilderUtils", "writing playlists from google content");
         }
         int j = i;
         if (i == 0) {
@@ -40,7 +40,7 @@ public class DBBuilderUtils {
             j = i;
             if (DBChecker.initCursor(cursor1)) {
                 j = i + writeTableToReconDB(paramContext, cursor1, paramSQLiteDatabase, uri);
-                Log.d("BuilderUtils", "writing playlists from external content");
+                Log.i("BuilderUtils", "writing playlists from external content");
                 cursor = cursor1;
             }
         }
@@ -75,7 +75,7 @@ public class DBBuilderUtils {
             }
             if (paramBoolean) {
                 insertHelper.bind(paramArrayOfString.length + 1, i + 1);
-                Log.d("BuilderUtils", "recon_playlist_order: " + (i + 1));
+                Log.i("BuilderUtils", "recon_playlist_order: " + (i + 1));
             }
             insertHelper.execute();
             j = i + 1;
@@ -100,7 +100,7 @@ public class DBBuilderUtils {
                 uri = MediaStore.Audio.Playlists.Members.getContentUri("external", j);
             }
             int k = writeTable(paramContext, paramSQLiteDatabase, "playlist" + j, uri, MusicDBPlaylistColumnsProvider.getPlaylistSongsBuildColumns(1), MusicDBPlaylistColumnsProvider.getPlaylistSongsBuildColumnsTypes(), null, true);
-            Log.d("BuilderUtils", "saved " + k + " songs to table playlist" + j + " from uri " + uri.toString());
+            Log.i("BuilderUtils", "saved " + k + " songs to table playlist" + j + " from uri " + uri.toString());
             j = i + 1;
             i = j;
             if (!paramCursor.moveToNext())

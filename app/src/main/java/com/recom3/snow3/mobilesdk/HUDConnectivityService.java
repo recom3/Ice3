@@ -66,19 +66,19 @@ public class HUDConnectivityService extends Service {
                     default:
                         return;
                     case BluetoothAdapter.STATE_TURNING_OFF://13:
-                        Log.d("HUDConnectivityService", "Bluetooth is turning off...");
+                        Log.i("HUDConnectivityService", "Bluetooth is turning off...");
                         HUDConnectivityService.this.stop();
                     case BluetoothAdapter.STATE_OFF://10:
-                        Log.d("HUDConnectivityService", "Bluetooth is off");
+                        Log.i("HUDConnectivityService", "Bluetooth is off");
                         intent = new Intent("android.bluetooth.adapter.action.REQUEST_ENABLE");
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);//0x10000000
                         //!!!
                         //HUDConnectivityService.this.mContext.startActivity(intent);
-                        Log.d("HUDConnectivityService", "Ask the user to enable the bluetooth first.");
+                        Log.i("HUDConnectivityService", "Ask the user to enable the bluetooth first.");
                     case BluetoothAdapter.STATE_ON://12:
                         break;
                 }
-                Log.d("HUDConnectivityService", "Bluetooth is on");
+                Log.i("HUDConnectivityService", "Bluetooth is on");
                 //!!!
                 //HUDConnectivityService.this.start();
             }
@@ -95,7 +95,7 @@ public class HUDConnectivityService extends Service {
             if (str1.equals("com.reconinstruments.mobilesdk.hudconnectivity.connect")) {
                 str1 = param1Intent.getStringExtra("address");
                 str2 = param1Intent.getStringExtra("deviceType");
-                Log.d("HUDConnectivityService", "Received the connect message, address " + str1);
+                Log.i("HUDConnectivityService", "Received the connect message, address " + str1);
                 if (str2 == null) {
                     HUDConnectivityService.this.connect(HUDConnectivityService.DeviceType.ANDROID, str1);
                     return;
@@ -108,7 +108,7 @@ public class HUDConnectivityService extends Service {
                 return;
             }
             if (str1.equals("com.reconinstruments.mobilesdk.hudconnectivity.disconnect")) {
-                Log.d("HUDConnectivityService", "Received the disconnect message");
+                Log.i("HUDConnectivityService", "Received the disconnect message");
                 //str1 = str2.getStringExtra("deviceType");
                 str1 = param1Intent.getStringExtra("deviceType");
                 HUDConnectivityService.this.disconnect(HUDConnectivityService.DeviceType.ANDROID);
@@ -128,7 +128,7 @@ public class HUDConnectivityService extends Service {
                 byte[] arrayOfByte = param1Intent.getByteArrayExtra(HUDConnectivityMessage.TAG);
                 if (arrayOfByte != null && arrayOfByte.length > 0 && arrayOfByte.length <= 25600) {
                     hUDConnectivityMessage = new HUDConnectivityMessage(arrayOfByte);
-                    Log.d("HUDConnectivityService", "Received the message " + hUDConnectivityMessage.toString());
+                    Log.i("HUDConnectivityService", "Received the message " + hUDConnectivityMessage.toString());
                     HUDConnectivityService.this.push(hUDConnectivityMessage, HUDConnectivityService.Channel.COMMAND_CHANNEL);
                     return;
                 }
@@ -140,7 +140,7 @@ public class HUDConnectivityService extends Service {
                 byte[] arrayOfByte = param1Intent.getByteArrayExtra(HUDConnectivityMessage.TAG);
                 if (arrayOfByte != null && arrayOfByte.length > 0 && arrayOfByte.length <= 25600) {
                     hUDConnectivityMessage = new HUDConnectivityMessage(arrayOfByte);
-                    Log.d("HUDConnectivityService", "Received the message " + hUDConnectivityMessage.toString());
+                    Log.i("HUDConnectivityService", "Received the message " + hUDConnectivityMessage.toString());
                     HUDConnectivityService.this.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
                     return;
                 }
@@ -152,7 +152,7 @@ public class HUDConnectivityService extends Service {
                 byte[] arrayOfByte = param1Intent.getByteArrayExtra(HUDConnectivityMessage.TAG);
                 if (arrayOfByte != null && arrayOfByte.length > 0) {
                     HUDConnectivityMessage hUDConnectivityMessage1 = new HUDConnectivityMessage(arrayOfByte);
-                    Log.d("HUDConnectivityService", "Received the message " + hUDConnectivityMessage1.toString());
+                    Log.i("HUDConnectivityService", "Received the message " + hUDConnectivityMessage1.toString());
                     HUDConnectivityService.this.push(hUDConnectivityMessage1, HUDConnectivityService.Channel.FILE_CHANNEL);
                 }
             }
@@ -316,7 +316,7 @@ public class HUDConnectivityService extends Service {
             //if (bTConnectivityManager.d != null)
             //    bTConnectivityManager.d.b(queueMessage);
         //}
-        Log.d("HUDConnectivityService", "BTConnectivityManager doesn't started yet");
+        Log.i("HUDConnectivityService", "BTConnectivityManager doesn't started yet");
     }
 /*
     public void requestToDisconnect() {

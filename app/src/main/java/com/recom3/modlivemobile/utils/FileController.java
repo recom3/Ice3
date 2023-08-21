@@ -132,9 +132,9 @@ public class FileController {
         j = paramInt * 30; 
       return parseTripFile(FileUtils.readByteArray(fileInputStream, j), paramInt, i);
     } catch (FileNotFoundException fileNotFoundException) {
-      Log.d("FileController", "failed to parse Trip File", fileNotFoundException);
+      Log.i("FileController", "failed to parse Trip File", fileNotFoundException);
     } catch (IOException iOException) {
-      Log.d("FileController", "failed to parse RIB File", iOException);
+      Log.i("FileController", "failed to parse RIB File", iOException);
     } 
     return null;
   }
@@ -183,7 +183,7 @@ public class FileController {
         k = paramInt2 - j + 1;
         int n = k / m;
         if (n == 0) {
-          Log.d("FileController", "File has no trip data");
+          Log.i("FileController", "File has no trip data");
           paramArrayOfbyte = null;
           // Byte code: goto -> 10
         } 
@@ -212,7 +212,7 @@ public class FileController {
             tripData.data = arrayOfInt3;
             stringBuilder2 = new StringBuilder("ribData size: ");
             //this("ribData size: ");
-            Log.d("FileController", stringBuilder2.append(Memory.sizeOf(arrayOfInt3[1]) * n).toString());
+            Log.i("FileController", stringBuilder2.append(Memory.sizeOf(arrayOfInt3[1]) * n).toString());
             return tripData;
           }
 
@@ -258,7 +258,7 @@ public class FileController {
         //break;
       } 
     } catch (Exception exception) {
-      Log.d("FileController", "failed to parse RIB run", exception);
+      Log.i("FileController", "failed to parse RIB run", exception);
       exception = null;
     } 
     //return (TripData)exception;
@@ -362,7 +362,7 @@ public class FileController {
   public static void saveFileToExternalStorage(String paramString, byte[] paramArrayOfbyte) throws FileNotFoundException {
     File file = new File(paramString);
     if (Build.VERSION.SDK_INT > 9 && !file.setWritable(true, false))
-      Log.d("FileController", "Failed to make file writable"); 
+      Log.i("FileController", "Failed to make file writable");
     try {
       file.getParentFile().mkdirs();
       FileOutputStream fileOutputStream = new FileOutputStream(file);
@@ -371,7 +371,7 @@ public class FileController {
       fileOutputStream.close();
       StringBuilder stringBuilder = new StringBuilder("Saved file: ");
       //this("Saved file: ");
-      Log.d("FileController", stringBuilder.append(file.getAbsolutePath()).toString());
+      Log.i("FileController", stringBuilder.append(file.getAbsolutePath()).toString());
     } catch (FileNotFoundException fileNotFoundException) {
       throw fileNotFoundException;
     } catch (IOException iOException) {

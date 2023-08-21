@@ -165,7 +165,7 @@ public class MusicDBContentProvider extends ContentProvider {
     }
 
     public Uri insert(Uri paramUri, ContentValues paramContentValues) {
-        Log.d("MusicDBContentProvider", paramContentValues.toString());
+        Log.i("MusicDBContentProvider", paramContentValues.toString());
         TableCode tableCode = TableCode.values()[uriMatcher.match(paramUri)];
         String str1 = tableCode.name();
         String str2 = str1;
@@ -211,7 +211,7 @@ public class MusicDBContentProvider extends ContentProvider {
             } else {
                 str = "";
             }
-            Log.d("MusicDBContentProvider", stringBuilder1.append(str).toString());
+            Log.i("MusicDBContentProvider", stringBuilder1.append(str).toString());
             if (database == null)
                 return false;
         } catch (Exception exception) {
@@ -223,22 +223,22 @@ public class MusicDBContentProvider extends ContentProvider {
 
     public Cursor query(Uri paramUri, String[] paramArrayOfString1, String paramString1, String[] paramArrayOfString2, String paramString2) {
         if (!FileUtils.hasStorage(false)) {
-            Log.d("MusicDBContentProvider", "Can't query music db, storage not available");
+            Log.i("MusicDBContentProvider", "Can't query music db, storage not available");
             return null;
         }
         if (database == null) {
-            Log.d("MusicDBContentProvider", "Can't query music db, database is null");
+            Log.i("MusicDBContentProvider", "Can't query music db, database is null");
             return null;
         }
         if (!database.isOpen()) {
-            Log.d("MusicDBContentProvider", "Can't query music db, database is closed");
+            Log.i("MusicDBContentProvider", "Can't query music db, database is closed");
             return null;
         }
         if (this.emptyDB)
-            Log.d("MusicDBContentProvider", "Can't query music db, no songs");
-        Log.d("MusicDBContentProvider", "database page size: " + database.getPageSize());
+            Log.i("MusicDBContentProvider", "Can't query music db, no songs");
+        Log.i("MusicDBContentProvider", "database page size: " + database.getPageSize());
         int i = uriMatcher.match(paramUri);
-        Log.d("MusicDBContentProvider", "musicdb uri code: " + i);
+        Log.i("MusicDBContentProvider", "musicdb uri code: " + i);
         if (i == -1)
             return (Cursor)new MatrixCursor(new String[0]);
         TableCode tableCode = TableCode.values()[i];
@@ -267,7 +267,7 @@ public class MusicDBContentProvider extends ContentProvider {
         File file = cpContext.getDatabasePath("reconmusic.db");
         if (file.exists()) {
             file.delete();
-            Log.d("MusicDBContentProvider", "deleted old database, recreating");
+            Log.i("MusicDBContentProvider", "deleted old database, recreating");
         }
         openOrCreateDatabase();
     }

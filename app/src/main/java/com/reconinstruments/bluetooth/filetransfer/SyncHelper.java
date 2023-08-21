@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by Chus on 20/08/2023.
+ * Created by recom3 on 20/08/2023.
  */
 
 public class SyncHelper {
@@ -64,8 +64,8 @@ public class SyncHelper {
                 if (ca.checkPath.fileEquals(path)) {
                     String remoteSum = bundle.getSum();
                     String localSum = getChecksum(ca.localPath);
-                    Log.d(this.TAG, "remote db checksum: " + remoteSum);
-                    Log.d(this.TAG, "local  db checksum: " + localSum);
+                    Log.i(this.TAG, "remote db checksum: " + remoteSum);
+                    Log.i(this.TAG, "local  db checksum: " + localSum);
                     if (!remoteSum.equals(localSum)) {
                         if (ca.action == SyncRequest.Action.PUSH) {
                             TransferRequestMessage.RequestBundle reqBundle = new TransferRequestMessage.RequestBundle(TransferRequestMessage.RequestType.FILE_PUSH, ca.localPath, path);
@@ -90,10 +90,10 @@ public class SyncHelper {
 
     public String getChecksum(FileUtils.FilePath path) {
         String pathString = path.getFilePath(this.service);
-        Log.d(this.TAG, "checking local music db checksum to send locally " + pathString);
+        Log.i(this.TAG, "checking local music db checksum to send locally " + pathString);
         boolean db = false;
         if (pathString.endsWith(".db")) {
-            Log.d(this.TAG, "offsetting md5 to ignore header");
+            Log.i(this.TAG, "offsetting md5 to ignore header");
             db = true;
         }
         return FileUtils.md5(pathString, db);

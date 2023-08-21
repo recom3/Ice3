@@ -51,10 +51,10 @@ public class InternetUtils {
     public static boolean isInternetConnected(Context paramContext) {
         NetworkInfo networkInfo = ((ConnectivityManager)paramContext.getSystemService(Context.CONNECTIVITY_SERVICE/*"connectivity"*/)).getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
-            Log.d("InternetUtils", networkInfo.toString());
+            Log.i("InternetUtils", networkInfo.toString());
             return true;
         }
-        Log.d("InternetUtils", "Internet Not Connected");
+        Log.i("InternetUtils", "Internet Not Connected");
         return false;
     }
 }

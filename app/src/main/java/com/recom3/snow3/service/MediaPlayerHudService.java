@@ -1,5 +1,7 @@
 package com.recom3.snow3.service;
 
+import android.util.Log;
+
 import com.recom3.jetandroid.services.EngageHudConnectivityService;
 import com.recom3.snow3.mobilesdk.MediaPlayerService;
 import com.recom3.snow3.mobilesdk.mediaplayer.DBManager;
@@ -10,20 +12,19 @@ import com.recom3.snow3.mobilesdk.mediaplayer.IDBManager;
  */
 
 public class MediaPlayerHudService extends MediaPlayerService {
+    public static final String TAG = MediaPlayerService.class.getSimpleName();
+
     private IDBManager onDBBuilt = new IDBManager() {
         public void onBuildMusicDB(DBManager.DBState param1DBState) {
-            //!!!!
-            //Logcat.d("----------------------- DONE");
+            Log.i(TAG, "----------------------- DONE");
         }
 
         public void onErrorBuildingDB(DBManager.DBState param1DBState) {
-            //!!!!
-            //Logcat.e("----------------------- ERROR");
+            Log.e(TAG, "----------------------- ERROR");
         }
 
         public void onMusicDBProgress(DBManager.DBState param1DBState) {
-            //!!!!
-            //Logcat.e("----------------------- PROCESSING");
+            Log.e(TAG, "----------------------- PROCESSING");
         }
     };
 

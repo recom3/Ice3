@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by Chus on 21/08/2023.
+ * Created by recom3 on 21/08/2023.
  */
 
 public class ReconMessageValidator {

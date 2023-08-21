@@ -66,7 +66,7 @@ class BTConnectThread extends Thread {
     }
 
     void cancel() {
-        Log.d("BTConnectThread", "cancel " + this);
+        Log.i("BTConnectThread", "cancel " + this);
         try {
             this.mSocket.close();
         } catch (IOException iOException) {
@@ -105,22 +105,22 @@ class BTConnectThread extends Thread {
         else {
 
             setName("BTConnectThread " + this);
-            Log.d(TAG, "BEGIN " + getName());
+            Log.i(TAG, "BEGIN " + getName());
             this.mAdapter.cancelDiscovery();
             int count = 0;
             boolean success = false;
 
             while (this.mSocket != null && count <= this.connectionAttempts && !success) {
                 try {
-                    Log.d(TAG, "mSocket.connect() " + getName());
+                    Log.i(TAG, "mSocket.connect() " + getName());
                     this.mSocket.connect();
                     success = true;
                     count = 0;
                 } catch (IOException e) {
-                    Log.d(TAG, "IOException: Could not connect()");
+                    Log.i(TAG, "IOException: Could not connect()");
                     if (count == this.connectionAttempts) {
                         try {
-                            Log.d(TAG, "mSocket.close() " + getName());
+                            Log.i(TAG, "mSocket.close() " + getName());
                             this.mSocket.close();
                         } catch (IOException e2) {
                             Log.w(TAG, "unable to close() socket during connection failure. " + e2.getMessage());
@@ -130,7 +130,7 @@ class BTConnectThread extends Thread {
                         return;
                     }
                 }
-                Log.d(TAG, "Finished attempt " + count + " to connect " + getName() + ". success: " + success);
+                Log.i(TAG, "Finished attempt " + count + " to connect " + getName() + ". success: " + success);
                 count++;
                 if (count >= 3) {
                     try {

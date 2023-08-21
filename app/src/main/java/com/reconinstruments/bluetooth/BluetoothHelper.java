@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * Created by Chus on 20/08/2023.
+ * Created by recom3 on 20/08/2023.
  */
 
 public class BluetoothHelper {
@@ -58,6 +58,6 @@ public class BluetoothHelper {
         extras.putSerializable("type", type);
         myi.putExtras(extras);
         context.sendBroadcast(myi);
-        Log.d(TAG, "messageFrontEnd: " + message + " type: " + type.name());
+        Log.i(TAG, "messageFrontEnd: " + message + " type: " + type.name());
     }
 }

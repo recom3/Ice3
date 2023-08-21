@@ -92,7 +92,7 @@ public class DBChecker {
             Log.e("MusicDBChecker", "cursor is null");
         }
         String str = FileUtils.md5(byteArrayOutputStream.toByteArray(), 0);
-        Log.d("MusicDBChecker", "internal db md5 checksum: " + str);
+        Log.i("MusicDBChecker", "internal db md5 checksum: " + str);
         return str;
     }
 
@@ -106,7 +106,7 @@ public class DBChecker {
         cursorToByteStream(paramContext.getContentResolver().query(uri, MusicDBPlaylistColumnsProvider.reconPlaylistTableChecksumColumns, null, null, MusicDBPlaylistColumnsProvider.reconPlaylistOrder), byteArrayOutputStream);
         readLocalPlaylists(paramContext, byteArrayOutputStream);
         String str = FileUtils.md5(byteArrayOutputStream.toByteArray(), 0);
-        Log.d("MusicDBChecker", "local db md5 checksum: " + str);
+        Log.i("MusicDBChecker", "local db md5 checksum: " + str);
         return str;
     }
 
@@ -121,7 +121,7 @@ public class DBChecker {
                 Cursor cursor1 = paramContext.getContentResolver().query(uri2, MusicDBPlaylistColumnsProvider.getPlaylistsTableChecksumColumns(2), null, null, null);
                 int j = cursor1.getCount();
                 cursorToByteStream(cursor1, paramByteArrayOutputStream);
-                Log.d("MusicDBChecker", "reading " + j + " internal playlists from external content, since google content was empty.");
+                Log.i("MusicDBChecker", "reading " + j + " internal playlists from external content, since google content was empty.");
                 return uri2;
             }
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -131,7 +131,7 @@ public class DBChecker {
                 Cursor cursor1 = paramContext.getContentResolver().query(uri2, MusicDBPlaylistColumnsProvider.getPlaylistsTableChecksumColumns(2), null, null, null);
                 int j = cursor1.getCount();
                 cursorToByteStream(cursor1, paramByteArrayOutputStream);
-                Log.d("MusicDBChecker", "reading " + j + " internal playlists from external content, since google content was empty.");
+                Log.i("MusicDBChecker", "reading " + j + " internal playlists from external content, since google content was empty.");
                 return uri2;
             }
         }
@@ -139,7 +139,7 @@ public class DBChecker {
         int i = cursor.getCount();//uri2.getCount();
         //cursorToByteStream((Cursor)uri2, paramByteArrayOutputStream);
         cursorToByteStream((Cursor)cursor, paramByteArrayOutputStream);
-        Log.d("MusicDBChecker", "reading " + i + " internal playlists from google content");
+        Log.i("MusicDBChecker", "reading " + i + " internal playlists from google content");
         return uri1;
     }
 
@@ -191,7 +191,7 @@ public class DBChecker {
     private static Cursor testCursor(Context paramContext, Uri paramUri) {
         Cursor cursor = paramContext.getContentResolver().query(paramUri, new String[] { "_id", "audio_id", "artist", "title", "SongId" }, null, null, null);
         int i = cursor.getCount();
-        Log.d("MusicDBChecker", "reading all " + i + " internal playlist columns from google content");
+        Log.i("MusicDBChecker", "reading all " + i + " internal playlist columns from google content");
         cursor.getColumnNames();
         return cursor;
     }

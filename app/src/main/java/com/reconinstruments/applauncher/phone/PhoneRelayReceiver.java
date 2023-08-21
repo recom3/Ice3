@@ -32,10 +32,10 @@ public class PhoneRelayReceiver extends BroadcastReceiver {
     }
 
     private void doWhenCallEnded(Context paramContext) {
-        Log.d("CallRelayReceiver", "Phone call ended");
+        Log.i("CallRelayReceiver", "Phone call ended");
         this.mCallRelayreceiveservice.alreadyInACall = false;
         if (this.mCallRelayreceiveservice.mBLEServiceConnectionManager.isiOSMode()) {
-            Log.d("CallRelayReceiver", "we are in iOS Mode");
+            Log.i("CallRelayReceiver", "we are in iOS Mode");
             Intent intent1 = new Intent("RECON_IOS_BLUETOOTH_HEADSET_COMMAND");
             intent1.putExtra("command", 4);
             paramContext.sendBroadcast(intent1);
@@ -46,10 +46,10 @@ public class PhoneRelayReceiver extends BroadcastReceiver {
     }
 
     private void doWhenCallStarted(Context paramContext) {
-        Log.d("CallRelayReceiver", "Phone call Started");
+        Log.i("CallRelayReceiver", "Phone call Started");
         this.mCallRelayreceiveservice.alreadyInACall = true;
         if (this.mCallRelayreceiveservice.mBLEServiceConnectionManager.isiOSMode()) {
-            Log.d("CallRelayReceiver", "we are in iOS Mode");
+            Log.i("CallRelayReceiver", "we are in iOS Mode");
             Intent intent = new Intent("RECON_IOS_BLUETOOTH_HEADSET_COMMAND");
             intent.putExtra("command", 3);
             paramContext.sendBroadcast(intent);
@@ -57,9 +57,9 @@ public class PhoneRelayReceiver extends BroadcastReceiver {
     }
 
     private void doWhenRefreshNeeded(Context paramContext) {
-        Log.d("CallRelayReceiver", "Refresh needed");
+        Log.i("CallRelayReceiver", "Refresh needed");
         if (this.mCallRelayreceiveservice.mBLEServiceConnectionManager.isiOSMode()) {
-            Log.d("CallRelayReceiver", "we are in iOS Mode");
+            Log.i("CallRelayReceiver", "we are in iOS Mode");
             Intent intent = new Intent("RECON_IOS_BLUETOOTH_HEADSET_COMMAND");
             intent.putExtra("command", 5);
             paramContext.sendBroadcast(intent);
@@ -110,17 +110,17 @@ public class PhoneRelayReceiver extends BroadcastReceiver {
             }
         }
         try {
-            Log.d("CallRelayReceiver", "control: " + phoneMessage.isControl() + " type: " + phoneMessage.type.name());
+            Log.i("CallRelayReceiver", "control: " + phoneMessage.isControl() + " type: " + phoneMessage.type.name());
             if (!phoneMessage.isControl()) {
                 if (phoneMessage.type == PhoneMessage.Status.RINGING) {
-                    Log.d("CallRelayReceiver", "CallRelayReceiver received incoming call!");
+                    Log.i("CallRelayReceiver", "CallRelayReceiver received incoming call!");
                     this.mCallRelayreceiveservice.isiOS = false;
                     this.mCallRelayreceiveservice.isHfp = false;
                     this.mCallRelayreceiveservice.gotCall(phoneMessage.name, phoneMessage.number);
                     return;
                 }
                 if (phoneMessage.type == PhoneMessage.Status.GOTSMS) {
-                    Log.d("SMS_RECEIVER", "SMS received by receiver");
+                    Log.i("SMS_RECEIVER", "SMS received by receiver");
                     this.mCallRelayreceiveservice.gotSMS(phoneMessage.name, phoneMessage.number, phoneMessage.body);
                     return;
                 }

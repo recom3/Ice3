@@ -46,7 +46,7 @@ public class EngageLocationManager implements GoogleApiClient.ConnectionCallback
 
     private Runnable hudLocationAvailableRunnable = new Runnable() {
         public void run() {
-            Log.d(EngageLocationManager.TAG, "HUD location available timer timout! Disabling phone location services.");
+            Log.i(EngageLocationManager.TAG, "HUD location available timer timout! Disabling phone location services.");
             //!
             //EngageLocationManager.this.locationClient.removeLocationUpdates(EngageLocationManager.this);
         }
@@ -56,7 +56,7 @@ public class EngageLocationManager implements GoogleApiClient.ConnectionCallback
 
     private Runnable hudLocationWatchdogRunnable = new Runnable() {
         public void run() {
-            Log.d(EngageLocationManager.TAG, "HUD location watchdog timer timout! Restarting phone location services.");
+            Log.i(EngageLocationManager.TAG, "HUD location watchdog timer timout! Restarting phone location services.");
             //!
             //EngageLocationManager.access$1002(EngageLocationManager.this, null);
             //EngageLocationManager.access$302(EngageLocationManager.this, false);
@@ -68,7 +68,7 @@ public class EngageLocationManager implements GoogleApiClient.ConnectionCallback
         public void onReceive(Context param1Context, Intent param1Intent) {
             if (param1Intent.getAction().equals("RECON_LOCATION_RELAY")) {
                 Location location = LocationMessage.parse(param1Intent.getExtras().getString("message"));
-                Log.d(EngageLocationManager.TAG, "HUD location received. Accuracy: " + location.getAccuracy());
+                Log.i(EngageLocationManager.TAG, "HUD location received. Accuracy: " + location.getAccuracy());
                 EngageLocationManager.this.startHudLocationWatchdogTimer();
                 if (EngageLocationManager.this.prevHudLocation == null) {
                     EngageLocationManager.this.startHudLocationAvailableTimer();
@@ -87,11 +87,11 @@ public class EngageLocationManager implements GoogleApiClient.ConnectionCallback
     private HUDStateUpdateListener hudStateListener = new HUDStateUpdateListener() {
         public void onHUDStateUpdate(HUDStateUpdateListener.HUD_STATE param1HUD_STATE) {
             if (param1HUD_STATE == HUDStateUpdateListener.HUD_STATE.CONNECTED) {
-                Log.d(EngageLocationManager.TAG, "HUD connected, starting requesting HUD location...");
+                Log.i(EngageLocationManager.TAG, "HUD connected, starting requesting HUD location...");
                 EngageLocationManager.this.requestHudLocationUpdates(EngageLocationManager.hudInterval);
                 return;
             }
-            Log.d(EngageLocationManager.TAG, "HUD disconnected, (re)starting phone location services");
+            Log.i(EngageLocationManager.TAG, "HUD disconnected, (re)starting phone location services");
             //EngageLocationManager.access$302(EngageLocationManager.this, false);
             EngageLocationManager.this.hudLocationHandler.removeCallbacks(EngageLocationManager.this.hudLocationAvailableRunnable);
             EngageLocationManager.this.hudLocationHandler.removeCallbacks(EngageLocationManager.this.hudLocationWatchdogRunnable);
@@ -132,7 +132,7 @@ public class EngageLocationManager implements GoogleApiClient.ConnectionCallback
     }
 
     private void requestHudLocationUpdates(int paramInt) {
-        Log.d(TAG, "requesting HUD location updates");
+        Log.i(TAG, "requesting HUD location updates");
         this.prevHudLocation = null;
         this.receivingHudLocations = false;
         LocationRequestMessage.LocationRequest locationRequest = new LocationRequestMessage.LocationRequest(LocationRequestMessage.LocationCommand.ENABLE, paramInt);
@@ -140,7 +140,7 @@ public class EngageLocationManager implements GoogleApiClient.ConnectionCallback
     }
 
     private void requestStopHudLocationUpdates() {
-        Log.d(TAG, "requesting STOP HUD location updates");
+        Log.i(TAG, "requesting STOP HUD location updates");
         LocationRequestMessage.LocationRequest locationRequest = new LocationRequestMessage.LocationRequest(LocationRequestMessage.LocationCommand.DISABLE);
         ConnectHelper.broadcastXML((Context)this.hudService, LocationRequestMessage.compose(locationRequest));
     }
@@ -204,7 +204,7 @@ public class EngageLocationManager implements GoogleApiClient.ConnectionCallback
     }
 
     public void onConnected(Bundle paramBundle) {
-        Log.d(TAG, "Location services connected, requesting updates");
+        Log.i(TAG, "Location services connected, requesting updates");
         //!
         //this.locationClient.requestLocationUpdates(this.locationRequest, this);
     }
@@ -221,7 +221,7 @@ public class EngageLocationManager implements GoogleApiClient.ConnectionCallback
     public void onLocationChanged(Location paramLocation) {
         StringBuilder stringBuilder = new StringBuilder();
         paramLocation.dump((Printer)new StringBuilderPrinter(stringBuilder), "\n");
-        Log.d(TAG, stringBuilder.toString());
+        Log.i(TAG, stringBuilder.toString());
         if (this.receivingHudLocations) {
             if (paramLocation.getProvider().equals("MOD Live"))
                 notifyListners(paramLocation);

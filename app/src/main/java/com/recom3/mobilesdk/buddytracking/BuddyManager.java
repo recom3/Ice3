@@ -36,7 +36,7 @@ public class BuddyManager {
 
             if (param1EngageWebResponse.mResponseCode == 200) {
                 BuddyManager.this.updateWithEpochTime(param1EngageWebResponse.mResponseString);
-                Log.d("BuddyManager", "buddy update: " + param1EngageWebResponse.mResponseString);
+                Log.i("BuddyManager", "buddy update: " + param1EngageWebResponse.mResponseString);
                 JSONException jSONException1 = null;
                 HashMap<String, Buddy> hashMap = null;
                 try {
@@ -49,7 +49,7 @@ public class BuddyManager {
                 BuddyManager.this.mAllBuddyHolder.mergeNewBuddies((HashMap<String, Buddy>)hashMap);
                 BuddyManager.this.mAllBuddyHolder.updateBuddiesStatus(BuddyManager.this.updated_time);
                 BuddyManager.this.mIBManager.onBuddiesUpdated(BuddyManager.this.mDeltaBuddyHolder.toXml());
-                Log.d("BuddyManager", "concluded updating buddies");
+                Log.i("BuddyManager", "concluded updating buddies");
                 return;
             }
             Log.e("BuddyManager", "error msg: " + ((EngageWebResponse)param1EngageWebResponse).mResponseString);
@@ -61,7 +61,7 @@ public class BuddyManager {
 
     public void updateBuddies() {
         //if (InternetUtils.isInternetConnected((Context)BuddyService.authSrvc)) {
-            Log.d("BuddyManager", "UPDATING BUDDIES REQUEST");
+            Log.i("BuddyManager", "UPDATING BUDDIES REQUEST");
             if(BuddyService.authSrvc!=null) {
                 String str = BuddyService.authSrvc.getUserInfo().getAccessToken();
                 EngageWebClient engageWebClient = new EngageWebClient(this.mUpdateBuddiesListener);

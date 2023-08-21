@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
- * Created by Chus on 20/08/2023.
+ * Created by recom3 on 20/08/2023.
  */
 
 public abstract class ConnectedThread extends BluetoothThread {
@@ -27,10 +27,10 @@ public abstract class ConnectedThread extends BluetoothThread {
             this.btOutStream = ((BluetoothSocket) this.socket).getOutputStream();
             return true;
         } catch (IOException e) {
-            Log.d(this.TAG, getName() + ": failed to get streams", e);
+            Log.i(this.TAG, getName() + ": failed to get streams", e);
             return false;
         } catch (NullPointerException e2) {
-            Log.d(this.TAG, getName() + ": failed to get streams", e2);
+            Log.i(this.TAG, getName() + ": failed to get streams", e2);
             return false;
         }
     }
@@ -46,7 +46,7 @@ public abstract class ConnectedThread extends BluetoothThread {
         try {
             this.btOutStream.write(buffer, index, size);
         } catch (IOException e) {
-            Log.d(this.TAG, getName() + ": Exception during write", e);
+            Log.i(this.TAG, getName() + ": Exception during write", e);
         }
     }
 
@@ -54,7 +54,7 @@ public abstract class ConnectedThread extends BluetoothThread {
         try {
             this.btOutStream.write(write);
         } catch (IOException e) {
-            Log.d(this.TAG, getName() + ": Exception during write", e);
+            Log.i(this.TAG, getName() + ": Exception during write", e);
         }
     }
 }

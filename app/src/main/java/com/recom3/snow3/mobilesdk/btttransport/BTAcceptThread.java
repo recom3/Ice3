@@ -42,7 +42,7 @@ class BTAcceptThread extends Thread {
             try {
                 StringBuilder stringBuilder1 = new StringBuilder();
                 //this();
-                Log.d("BTAcceptThread", stringBuilder1.append("listenUsingRfcommWithServiceRecord on ").append(paramString).toString());
+                Log.i("BTAcceptThread", stringBuilder1.append("listenUsingRfcommWithServiceRecord on ").append(paramString).toString());
                 BluetoothServerSocket bluetoothServerSocket1 = this.mAdapter.listenUsingRfcommWithServiceRecord(paramString, paramUUID);
                 bluetoothServerSocket = bluetoothServerSocket1;
             } catch (IOException iOException) {
@@ -51,14 +51,14 @@ class BTAcceptThread extends Thread {
             }
             //!!!! maybe not initialized
             this.mServerSocket = bluetoothServerSocket;
-            Log.d("BTAcceptThread", "channel " + paramChannel.name() + " attempt:" + b);
+            Log.i("BTAcceptThread", "channel " + paramChannel.name() + " attempt:" + b);
             StringBuilder stringBuilder = (new StringBuilder()).append("socket null: ");
             if (this.mServerSocket == null) {
                 bool = true;
             } else {
                 bool = false;
             }
-            Log.d("BTAcceptThread", stringBuilder.append(bool).toString());
+            Log.i("BTAcceptThread", stringBuilder.append(bool).toString());
             b++;
         }
         if (this.mServerSocket == null) {
@@ -82,7 +82,7 @@ class BTAcceptThread extends Thread {
     }
 
     void cancel() {
-        Log.d("BTAcceptThread", "cancel " + this);
+        Log.i("BTAcceptThread", "cancel " + this);
         try {
             if (this.mServerSocket != null) {
                 this.mServerSocket.close();
@@ -96,17 +96,17 @@ class BTAcceptThread extends Thread {
 
     public void run() {
         setName("BTAcceptThread " + this.mChannel.name() + " " + this);
-        Log.d(TAG, "BEGIN " + getName());
+        Log.i(TAG, "BEGIN " + getName());
         Log.w(TAG, "mSErverSocket is null : " + (this.mServerSocket == null));
         while (true) {
             if (this.mServerSocket != null) {
                 try {
-                    Log.d(TAG, "mServerSocket.accept()");
+                    Log.i(TAG, "mServerSocket.accept()");
                     if (this.mServerSocket != null) {
                         BluetoothSocket socket = this.mServerSocket.accept();
                         Log.i(TAG, this.mChannel.name() + " connecting request came in");
                         if (socket != null) {
-                            Log.d(TAG, "Accepted incoming request from " + socket.getRemoteDevice().getName());
+                            Log.i(TAG, "Accepted incoming request from " + socket.getRemoteDevice().getName());
                             this.mManager.resetDeviceType();
                             synchronized (this.mManager) {
                                 switch (getChannelState()) {
@@ -126,7 +126,7 @@ class BTAcceptThread extends Thread {
                                     case NONE:
                                     case CONNECTED:
                                         try {
-                                            Log.d(TAG, "closing the socket on " + this.mUuid + ". ");
+                                            Log.i(TAG, "closing the socket on " + this.mUuid + ". ");
                                             socket.close();
                                             break;
                                         } catch (IOException e) {
@@ -148,6 +148,6 @@ class BTAcceptThread extends Thread {
                 }
             }
         }
-        //Log.d(TAG, "END BTAcceptThread");
+        //Log.i(TAG, "END BTAcceptThread");
     }
 }

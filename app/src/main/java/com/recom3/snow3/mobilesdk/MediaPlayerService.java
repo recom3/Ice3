@@ -95,8 +95,8 @@ public abstract class MediaPlayerService extends EngageSdkService {
                         return;
                     }
                     if (MediaPlayerService.this.getDbMgr().getMusicDBBuilderState().equals(DBManager.DBState.READY)) {
-                        MediaPlayerService.this.getDbMgr().buildGoggleDb();
                         Log.i("MediaPlayerServiceSDK", "request for building db for goggles");
+                        MediaPlayerService.this.getDbMgr().buildGoggleDb();
                     }
                 }
                 return;

@@ -254,18 +254,18 @@ public class BTConnectivityManager {
             }
             Intent i = new Intent(cMsg.getIntentFilter());
             if (file) {
-                Log.d(TAG, "Changing file for a pointer in HUD message");
+                Log.i(TAG, "Changing file for a pointer in HUD message");
                 String filePath = writeFile(uncompress(cMsg.getData()));
                 cMsg.setData(filePath.getBytes());
             }
             i.putExtra("message", cMsg.toByteArray());
             this.mContext.sendBroadcast(i);
-            Log.d(TAG, "Sent out the broadcast to " + cMsg.getIntentFilter());
+            Log.i(TAG, "Sent out the broadcast to " + cMsg.getIntentFilter());
             if (Constants.showToast) {
                 Toast.makeText(this.mContext.getApplicationContext(), "Sent out the broadcast to " + cMsg.getIntentFilter(), 1).show();
             }
         } else if (cMsg != null) {
-            Log.d(TAG, "Received the message " + cMsg.toString());
+            Log.i(TAG, "Received the message " + cMsg.toString());
         } else {
             Log.w(TAG, "Can't construct a HUDConnectivityMessage");
         }
@@ -373,7 +373,7 @@ public class BTConnectivityManager {
     }
 
     private void resetBuffer() {
-        Log.d("BTConnectivityManager", "Reset the receiving data buffer");
+        Log.i("BTConnectivityManager", "Reset the receiving data buffer");
         this.receiving = false;
         this.totalReceived = 0;
         this.dataReceived = 0;
@@ -412,7 +412,7 @@ public class BTConnectivityManager {
 
                 if(paramBoolean) {
 
-                    Log.d("BTConnectivityManager", "Changing file for a pointer in HUD message");
+                    Log.i("BTConnectivityManager", "Changing file for a pointer in HUD message");
                     String pointer = writeFile(uncompress(hudConnectivityMessage.getData()));
                     hudConnectivityMessage.setData(pointer.getBytes());
                 }
@@ -456,14 +456,14 @@ public class BTConnectivityManager {
                     qMsg.setData(new byte[0]);
                 intent.putExtra(HUDConnectivityMessage.TAG, (Parcelable)qMsg.toHUDConnectivityMessage());
                 BTConnectivityManager.this.mContext.sendBroadcast(intent);
-                Log.d("BTConnectivityManager", "HUDConnectivityCallBack broadcast " + qMsg.toHUDConnectivityMessage().toString() + " with result " + param1Boolean);
+                Log.i("BTConnectivityManager", "HUDConnectivityCallBack broadcast " + qMsg.toHUDConnectivityMessage().toString() + " with result " + param1Boolean);
             }
         });
     }
 
     private byte[] uncompress(byte[] paramArrayOfbyte) {
         GZIPInputStream gZIPInputStream3 = null;
-        Log.d("BTConnectivityManager", "uncompressing file byte array");
+        Log.i("BTConnectivityManager", "uncompressing file byte array");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         GZIPInputStream gZIPInputStream1 = null;
         GZIPInputStream gZIPInputStream2 = null;
@@ -582,7 +582,7 @@ public class BTConnectivityManager {
             interruptedException.printStackTrace();
             //}
             StringBuilder stringBuilder = new StringBuilder();
-            Log.d("BTConnectivityManager", stringBuilder.append("Putting the message ").append(interruptedException.toString()).append(" into the file queue").toString());
+            Log.i("BTConnectivityManager", stringBuilder.append("Putting the message ").append(interruptedException.toString()).append(" into the file queue").toString());
             if (Constants.showToast) {
                 Context context = this.mContext.getApplicationContext();
                 StringBuilder stringBuilder1 = new StringBuilder();
@@ -687,7 +687,7 @@ public class BTConnectivityManager {
 
         if(mBtFileConnector==null)
         {
-            mBtFileConnector = new BTObjectConnector(mContext, mBTTransportManager);
+            mBtFileConnector = new BTFileConnector(mContext, mBTTransportManager);
 
             mBtFileConnector.start();
         }
@@ -839,9 +839,9 @@ public class BTConnectivityManager {
         String str2 = performChecksum(paramArrayOfbyte) + ".tmp";
         File file2 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp/");
         if (!file2.mkdirs())
-            Log.d("BTConnectivityManager", "Parent directories were not created. Possibly since they already exist.");
+            Log.i("BTConnectivityManager", "Parent directories were not created. Possibly since they already exist.");
         String str3 = file2.getAbsolutePath() + "/" + str2;
-        Log.d("BTConnectivityManager", "temporary path: " + str3);
+        Log.i("BTConnectivityManager", "temporary path: " + str3);
         File file1 = new File(str3);
         if (file1.exists())
             file1.delete();
@@ -918,7 +918,7 @@ public class BTConnectivityManager {
             this.receivingBuff.put(paramArrayOfbyte, 0, paramInt);
             this.dataReceived += paramInt;
         }
-        Log.d("BTConnectivityManager", "dataReceived= " + this.dataReceived);
+        Log.i("BTConnectivityManager", "dataReceived= " + this.dataReceived);
         if (this.receivingBuff.remaining() == 0) {
             sendHUDConnectivityMessage(this.receivingBuff.array(), false);
             this.receiving = false;
@@ -956,7 +956,7 @@ public class BTConnectivityManager {
             this.receivingBuff.put(paramArrayOfbyte, 0, paramInt);
             this.dataReceived += paramInt;
         }
-        Log.d("BTConnectivityManager", "dataReceived= " + this.dataReceived);
+        Log.i("BTConnectivityManager", "dataReceived= " + this.dataReceived);
         if (this.receivingBuff.remaining() == 0) {
 
             sendHUDConnectivityMessage(this.receivingBuff.array(), paramBoolean);

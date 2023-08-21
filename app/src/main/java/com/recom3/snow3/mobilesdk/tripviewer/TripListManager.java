@@ -32,7 +32,7 @@ public class TripListManager {
             }
             try {
                 UserBest userBest = new UserBest(new JSONObject(response.mResponseString));
-                Log.d(TripListManager.TAG, "successfully got user best");
+                Log.i(TripListManager.TAG, "successfully got user best");
                 TripListManager.this.mResponseHandler.onGotUserBest(userBest);
             } catch (JSONException e) {
                 Log.e(TripListManager.TAG, "Error parsing JSON: " + response.mResponseString);
@@ -53,7 +53,7 @@ public class TripListManager {
                 for (int i = 0; i < ary.length(); i++) {
                     tripList.add(new Trip(ary.getJSONObject(i)));
                 }
-                Log.d(TripListManager.TAG, "successfully got trip list");
+                Log.i(TripListManager.TAG, "successfully got trip list");
                 TripListManager.this.mResponseHandler.onGotTripList(tripList);
             } catch (JSONException e) {
                 Log.e(TripListManager.TAG, "Error parsing JSON: " + response.mResponseString);
@@ -70,7 +70,7 @@ public class TripListManager {
             }
             try {
                 JSONObject jsonResult = new JSONObject(response.mResponseString);
-                Log.d(TripListManager.TAG, "successfully got trip meta");
+                Log.i(TripListManager.TAG, "successfully got trip meta");
                 TripListManager.this.mResponseHandler.onGotTripMeta(new TripMeta(jsonResult));
             } catch (JSONException e) {
                 Log.e(TripListManager.TAG, "Error parsing JSON: " + response.mResponseString);
@@ -87,7 +87,7 @@ public class TripListManager {
             }
             try {
                 Run run = new Run(new JSONObject(response.mResponseString));
-                Log.d(TripListManager.TAG, "successfully got run");
+                Log.i(TripListManager.TAG, "successfully got run");
                 TripListManager.this.mResponseHandler.onGotRun(run);
             } catch (JSONException e) {
                 Log.e(TripListManager.TAG, "Error parsing JSON: " + response.mResponseString);
@@ -109,7 +109,7 @@ public class TripListManager {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     runs.add(new Run(jsonArray.getJSONObject(i)));
                 }
-                Log.d(TripListManager.TAG, "successfully got all runs");
+                Log.i(TripListManager.TAG, "successfully got all runs");
                 TripListManager.this.mResponseHandler.onGotAllRuns(runs);
             } catch (JSONException e) {
                 Log.e(TripListManager.TAG, "Error parsing JSON: " + response.mResponseString);
@@ -123,7 +123,7 @@ public class TripListManager {
     }
 
     public EngageWebClientRequest getUserBest() {
-        Log.d(TAG, "REQUEST FOR USER BEST");
+        Log.i(TAG, "REQUEST FOR USER BEST");
         UserBest ub = new UserBest();
         ub.best_max_alt = "1000";
         ub.best_max_speed = "90";
@@ -136,14 +136,14 @@ public class TripListManager {
     }
 
     public EngageWebClientRequest getTripList() {
-        Log.d(TAG, "REQUEST FOR TRIP LIST");
+        Log.i(TAG, "REQUEST FOR TRIP LIST");
         EngageWebClient ewc = new EngageWebClient(this.getTripListHandler);
         String token = TripService.authSrvc.getUserInfo().getAccessToken();
         return ewc.sendReqWithAuth(EngageWebClientRequest.HTTP_METHOD.GET, TripService.URL_TRIP, token, null);
     }
 
     public EngageWebClientRequest getTripMetaData(String id) {
-        Log.d(TAG, "REQUEST FOR TRIP META");
+        Log.i(TAG, "REQUEST FOR TRIP META");
         String path = "/trips/" + id + ".json";
         String token = TripService.authSrvc.getUserInfo().getAccessToken();
         Map<String, String> map = new HashMap<>();
@@ -153,7 +153,7 @@ public class TripListManager {
     }
 
     public EngageWebClientRequest getRun(String id, String segment, String frequency) {
-        Log.d(TAG, "REQUEST FOR RUN DATA");
+        Log.i(TAG, "REQUEST FOR RUN DATA");
         String path = "/trips/" + id + ".json";
         String token = TripService.authSrvc.getUserInfo().getAccessToken();
         EngageWebClient ewc = new EngageWebClient(this.getRunHandler);
@@ -167,7 +167,7 @@ public class TripListManager {
     }
 
     public EngageWebClientRequest getAllRuns(String id, String frequency) {
-        Log.d(TAG, "REQUEST FOR ALL RUNS");
+        Log.i(TAG, "REQUEST FOR ALL RUNS");
         String path = "/trips/" + id + ".json";
         String token = TripService.authSrvc.getUserInfo().getAccessToken();
         EngageWebClient ewc = new EngageWebClient(this.getAllRunsHandler);

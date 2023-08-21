@@ -175,11 +175,11 @@ public class BTMfiSessionManager {
             bool = true;
         }
         if (bool) {
-            Log.d("BTMfiSessionManager", "notifying client callback");
+            Log.i("BTMfiSessionManager", "notifying client callback");
             this.clientEventCallback.setSessionResult(paramInt1, paramInt2);
             return;
         }
-        Log.d("BTMfiSessionManager", "notifying server callback");
+        Log.i("BTMfiSessionManager", "notifying server callback");
         this.serverEventCallback.setSessionResult(paramInt1, paramInt2);
     }
 
@@ -213,7 +213,7 @@ public class BTMfiSessionManager {
 
     private byte[] uncompress(byte[] paramArrayOfbyte) {
         GZIPInputStream gZIPInputStream3;
-        Log.d("BTMfiSessionManager", "uncompressing file byte array");
+        Log.i("BTMfiSessionManager", "uncompressing file byte array");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         GZIPInputStream gZIPInputStream1 = null;
         GZIPInputStream gZIPInputStream2 = null;
@@ -277,15 +277,15 @@ public class BTMfiSessionManager {
         boolean bool1 = false;
         if (paramString.endsWith(".txt")) {
             if (!(new File(paramString.replace("imcomingMessage.txt", ""))).mkdirs())
-                Log.d("BTMfiSessionManager", "Parent directories were not created. Possibly since they already exist.");
+                Log.i("BTMfiSessionManager", "Parent directories were not created. Possibly since they already exist.");
             File file2 = new File(paramString);
             boolean bool = false;
             if (file2.exists())
                 bool = file2.delete();
             if (bool) {
-                Log.d("BTMfiSessionManager", "File was succesfully deleted");
+                Log.i("BTMfiSessionManager", "File was succesfully deleted");
             } else {
-                Log.d("BTMfiSessionManager", "no file found to delete");
+                Log.i("BTMfiSessionManager", "no file found to delete");
             }
             File file1 = new File(paramString);
             try {
@@ -326,7 +326,7 @@ public class BTMfiSessionManager {
     }
 
     public void cancelPacket(boolean paramBoolean, final int packetID) {
-        Log.d("BTMfiSessionManager", "cancelPacket");
+        Log.i("BTMfiSessionManager", "cancelPacket");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
@@ -337,7 +337,7 @@ public class BTMfiSessionManager {
                 }
                 if (serialPortServerManager != null) {
                     int i = serialPortServerManager.cancelPacket(packetID);
-                    Log.d("BTMfiSessionManager", "cancelPacket() result: " + i);
+                    Log.i("BTMfiSessionManager", "cancelPacket() result: " + i);
                     return;
                 }
                 Log.w("BTMfiSessionManager", "cancelPacket() result: The selected Manager is not initialized");
@@ -350,13 +350,13 @@ public class BTMfiSessionManager {
     }
 
     public void closeServer() {
-        Log.d("BTMfiSessionManager", "closeServer");
+        Log.i("BTMfiSessionManager", "closeServer");
         (new Thread() {
             public void run() {
                 if (BTMfiSessionManager.this.serialPortServerManager != null) {
                     BTMfiSessionManager.this.serialPortServerManager.dispose();
                     BTMfiSessionManager.access$102(BTMfiSessionManager.this, null);
-                    Log.d("BTMfiSessionManager", "Close Server result: Success");
+                    Log.i("BTMfiSessionManager", "Close Server result: Success");
                     return;
                 }
                 Log.w("BTMfiSessionManager", "Close Server result: No server is currently active.");
@@ -369,13 +369,13 @@ public class BTMfiSessionManager {
             public void run() {
                 if (BTMfiSessionManager.this.serialPortClientManager != null) {
                     int i = BTMfiSessionManager.this.serialPortClientManager.configureMFiSettings(2060, 800, null, new SPPM.MFiAccessoryInfo(512L, BluetoothAdapter.getDefaultAdapter().getName(), 65536, 65536, "Recon Instruments", "Jet", "40984E5CCE15", 7), new SPPM.MFiProtocol[] { new SPPM.MFiProtocol("com.reconinstruments.command", SPPM.MFiProtocolMatchAction.NONE), new SPPM.MFiProtocol("com.reconinstruments.object", SPPM.MFiProtocolMatchAction.NONE), new SPPM.MFiProtocol("com.reconinstruments.file", SPPM.MFiProtocolMatchAction.NONE) }"12345ABCDE", null, "en", null);
-                    Log.d("BTMfiSessionManager", "configureMFiSettings() client result: " + i);
+                    Log.i("BTMfiSessionManager", "configureMFiSettings() client result: " + i);
                     BTMfiSessionManager.this.showToast("configureMFiSettings() result: " + i);
                 }
                 SystemClock.sleep(100L);
                 if (BTMfiSessionManager.this.serialPortServerManager != null) {
                     int i = BTMfiSessionManager.this.serialPortServerManager.configureMFiSettings(2060, 800, null, new SPPM.MFiAccessoryInfo(512L, BluetoothAdapter.getDefaultAdapter().getName(), 65536, 65536, "Recon Instruments", "Jet", "40984E5CCE15", 7), new SPPM.MFiProtocol[] { new SPPM.MFiProtocol("com.reconinstruments.command", SPPM.MFiProtocolMatchAction.NONE), new SPPM.MFiProtocol("com.reconinstruments.object", SPPM.MFiProtocolMatchAction.NONE), new SPPM.MFiProtocol("com.reconinstruments.file", SPPM.MFiProtocolMatchAction.NONE) }"12345ABCDE", null, "en", null);
-                    Log.d("BTMfiSessionManager", "configureMFiSettings() server result: " + i);
+                    Log.i("BTMfiSessionManager", "configureMFiSettings() server result: " + i);
                     BTMfiSessionManager.this.showToast("configureMFiSettings() result: " + i);
                 }
             }
@@ -383,7 +383,7 @@ public class BTMfiSessionManager {
     }
 
     public void connectRemoteDevice(final int portNumber, final boolean waitForConnection) {
-        Log.d("BTMfiSessionManager", "connectRemoteDevice");
+        Log.i("BTMfiSessionManager", "connectRemoteDevice");
         (new Thread() {
             public void run() {
                 EnumSet<SPPM.SerialPortClientManager.ConnectionFlags> enumSet = EnumSet.noneOf(SPPM.SerialPortClientManager.ConnectionFlags.class);
@@ -393,7 +393,7 @@ public class BTMfiSessionManager {
                 if (BTMfiSessionManager.this.serialPortClientManager != null) {
                     BluetoothAddress bluetoothAddress = BTMfiSessionManager.this.getRemoteDeviceAddress();
                     if (bluetoothAddress == null) {
-                        Log.d("BTMfiSessionManager", "ERROR: Bluetooth address is not formatted correctly.");
+                        Log.i("BTMfiSessionManager", "ERROR: Bluetooth address is not formatted correctly.");
                         return;
                     }
                     int i = BTMfiSessionManager.this.serialPortClientManager.connectRemoteDevice(bluetoothAddress, portNumber, enumSet, waitForConnection);
@@ -409,7 +409,7 @@ public class BTMfiSessionManager {
                     } else {
                         BTMfiSessionManager.this.setInUse(false);
                     }
-                    Log.d("BTMfiSessionManager", "connectRemoteDevice() result: " + i);
+                    Log.i("BTMfiSessionManager", "connectRemoteDevice() result: " + i);
                     BTMfiSessionManager.this.showToast("connectRemoteDevice() result: " + i);
                     return;
                 }
@@ -419,12 +419,12 @@ public class BTMfiSessionManager {
     }
 
     public void connectionRequestResponse(final boolean accept) {
-        Log.d("BTMfiSessionManager", "connectionRequestResponse");
+        Log.i("BTMfiSessionManager", "connectionRequestResponse");
         (new Thread() {
             public void run() {
                 if (BTMfiSessionManager.this.serialPortServerManager != null) {
                     int i = BTMfiSessionManager.this.serialPortServerManager.connectionRequestResponse(accept);
-                    Log.d("BTMfiSessionManager", "connectionRequestResponse() result: " + i);
+                    Log.i("BTMfiSessionManager", "connectionRequestResponse() result: " + i);
                     return;
                 }
                 Log.w("BTMfiSessionManager", "connectionRequestResponse() result: There is not active server port");
@@ -433,15 +433,15 @@ public class BTMfiSessionManager {
     }
 
     public void disconnectRemoteDevice(boolean paramBoolean, final int flushTimeout) {
-        Log.d("BTMfiSessionManager", "disconnectRemoteDevice");
+        Log.i("BTMfiSessionManager", "disconnectRemoteDevice");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
                 if (BTMfiSessionManager.connectingRoute != 2) {
-                    Log.d("BTMfiSessionManager", "serialPortClientManager disconnectRemoteDevice()");
+                    Log.i("BTMfiSessionManager", "serialPortClientManager disconnectRemoteDevice()");
                     SPPM.SerialPortClientManager serialPortClientManager = BTMfiSessionManager.this.serialPortClientManager;
                 } else {
-                    Log.d("BTMfiSessionManager", "serialPortServerManager disconnectRemoteDevice()");
+                    Log.i("BTMfiSessionManager", "serialPortServerManager disconnectRemoteDevice()");
                     serialPortServerManager = BTMfiSessionManager.this.serialPortServerManager;
                 }
                 if (serialPortServerManager != null) {
@@ -455,9 +455,9 @@ public class BTMfiSessionManager {
                     BTMfiSessionManager.this.clientEventCallback.setDefaultValuesForSessions();
                     SystemClock.sleep(500L);
                     int i = BTMfiSessionManager.this.serialPortClientManager.disconnectRemoteDevice(flushTimeout);
-                    Log.d("BTMfiSessionManager", "disconnectRemoteDevice() result: " + i);
+                    Log.i("BTMfiSessionManager", "disconnectRemoteDevice() result: " + i);
                     i = BTMfiSessionManager.this.serialPortServerManager.disconnectRemoteDevice(flushTimeout);
-                    Log.d("BTMfiSessionManager", "disconnectRemoteDevice() result: " + i);
+                    Log.i("BTMfiSessionManager", "disconnectRemoteDevice() result: " + i);
                     BTMfiSessionManager.this.showToast("disconnectRemoteDevice() result: " + i);
                     return;
                 }
@@ -499,7 +499,7 @@ public class BTMfiSessionManager {
                         SPPM.SerialPortServerManager serialPortServerManager = new SPPM.SerialPortServerManager();
                         this(BTMfiSessionManager.this.serverEventCallback, enumSet);
                         BTMfiSessionManager.access$102(bTMfiSessionManager, serialPortServerManager);
-                        Log.d("BTMfiSessionManager", "Open Server result: Success");
+                        Log.i("BTMfiSessionManager", "Open Server result: Success");
                     } catch (ServerNotReachableException serverNotReachableException) {
                         serverNotReachableException.printStackTrace();
                         Log.w("BTMfiSessionManager", "Open Server result: Unable to communicate with Platform Manager service");
@@ -515,7 +515,7 @@ public class BTMfiSessionManager {
     }
 
     public void openSessionRequestResponse(boolean paramBoolean1, final int sessionID, final boolean accept) {
-        Log.d("BTMfiSessionManager", "openSessionRequestResponse");
+        Log.i("BTMfiSessionManager", "openSessionRequestResponse");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
@@ -527,7 +527,7 @@ public class BTMfiSessionManager {
                 if (serialPortServerManager != null) {
                     int i = serialPortServerManager.openSessionRequestResponse(sessionID, accept);
                     BTMfiSessionManager.this.notifyCallbackWithSessionResult((SPPM)serialPortServerManager, sessionID, i);
-                    Log.d("BTMfiSessionManager", "openSessionRequestResponse() result: " + i);
+                    Log.i("BTMfiSessionManager", "openSessionRequestResponse() result: " + i);
                     return;
                 }
                 Log.w("BTMfiSessionManager", "openSessionRequestResponse() result: The selected Manager is not initialized");
@@ -536,7 +536,7 @@ public class BTMfiSessionManager {
     }
 
     public void queryConnectionType(boolean paramBoolean) {
-        Log.d("BTMfiSessionManager", "queryConnectionType");
+        Log.i("BTMfiSessionManager", "queryConnectionType");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
@@ -552,11 +552,11 @@ public class BTMfiSessionManager {
                             default:
                                 return;
                             case SPP:
-                                Log.d("BTMfiSessionManager", "queryConnectionType() result: SPP");
+                                Log.i("BTMfiSessionManager", "queryConnectionType() result: SPP");
                             case MFI:
                                 break;
                         }
-                        Log.d("BTMfiSessionManager", "queryConnectionType() result: MFi");
+                        Log.i("BTMfiSessionManager", "queryConnectionType() result: MFi");
                     }
                     Log.w("BTMfiSessionManager", "queryConnectionType() result: Not currently connected");
                 }
@@ -566,7 +566,7 @@ public class BTMfiSessionManager {
     }
 
     public void queryRemoteDeviceServices(String paramString, EnumSet<SPPM.PortStatus> paramEnumSet, boolean paramBoolean, int paramInt) {
-        Log.d("BTMfiSessionManager", "queryRemoteDeviceServices");
+        Log.i("BTMfiSessionManager", "queryRemoteDeviceServices");
         (new Thread() {
             public void run() {
                 BluetoothAddress bluetoothAddress;
@@ -581,16 +581,16 @@ public class BTMfiSessionManager {
                 }
                 SPPM.ServiceRecordInformation[] arrayOfServiceRecordInformation = BTMfiSessionManager.this.serialPortClientManager.queryRemoteDeviceServices(bluetoothAddress);
                 if (arrayOfServiceRecordInformation != null) {
-                    Log.d("BTMfiSessionManager", "queryRemoteDeviceServices():");
+                    Log.i("BTMfiSessionManager", "queryRemoteDeviceServices():");
                     int i = arrayOfServiceRecordInformation.length;
                     byte b = 0;
                     while (true) {
                         if (b < i) {
                             SPPM.ServiceRecordInformation serviceRecordInformation = arrayOfServiceRecordInformation[b];
-                            Log.d("BTMfiSessionManager", "Service Record Handle     : " + serviceRecordInformation.serviceRecordHandle);
-                            Log.d("BTMfiSessionManager", "Service Class             : " + serviceRecordInformation.serviceClassID.toString());
-                            Log.d("BTMfiSessionManager", "Service Name              : " + serviceRecordInformation.serviceName);
-                            Log.d("BTMfiSessionManager", "Service RFCOMM Port Number: " + serviceRecordInformation.rfcommPortNumber);
+                            Log.i("BTMfiSessionManager", "Service Record Handle     : " + serviceRecordInformation.serviceRecordHandle);
+                            Log.i("BTMfiSessionManager", "Service Class             : " + serviceRecordInformation.serviceClassID.toString());
+                            Log.i("BTMfiSessionManager", "Service Name              : " + serviceRecordInformation.serviceName);
+                            Log.i("BTMfiSessionManager", "Service RFCOMM Port Number: " + serviceRecordInformation.rfcommPortNumber);
                             b++;
                             continue;
                         }
@@ -603,7 +603,7 @@ public class BTMfiSessionManager {
     }
 
     public void readData(boolean paramBoolean) {
-        Log.d("BTMfiSessionManager", "readData");
+        Log.i("BTMfiSessionManager", "readData");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager2;
@@ -617,7 +617,7 @@ public class BTMfiSessionManager {
                     String str;
                     byte[] arrayOfByte = new byte[1024];
                     int i = serialPortServerManager2.readData(arrayOfByte, 0);
-                    Log.d("BTMfiSessionManager", "readData() result: " + i);
+                    Log.i("BTMfiSessionManager", "readData() result: " + i);
                     BTMfiSessionManager.this.showToast("readData() result: " + i);
                     byte b = 0;
                     serialPortServerManager2 = serialPortServerManager1;
@@ -626,7 +626,7 @@ public class BTMfiSessionManager {
                         b++;
                     }
                     if (str != null)
-                        Log.d("BTMfiSessionManager", str);
+                        Log.i("BTMfiSessionManager", str);
                     return;
                 }
                 Log.w("BTMfiSessionManager", "readData() result: The selected Manager is not initialized");
@@ -673,7 +673,7 @@ public class BTMfiSessionManager {
     }
 
     public void sendLineStatus(boolean paramBoolean, final EnumSet<SPPM.LineStatus> lineStatus) {
-        Log.d("BTMfiSessionManager", "sendLineStatus");
+        Log.i("BTMfiSessionManager", "sendLineStatus");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
@@ -684,7 +684,7 @@ public class BTMfiSessionManager {
                 }
                 if (serialPortServerManager != null) {
                     int i = serialPortServerManager.sendLineStatus(lineStatus);
-                    Log.d("BTMfiSessionManager", "sendLineStatus() result: " + i);
+                    Log.i("BTMfiSessionManager", "sendLineStatus() result: " + i);
                     return;
                 }
                 Log.w("BTMfiSessionManager", "sendLineStatus() result: The selected Manager is not initialized");
@@ -693,7 +693,7 @@ public class BTMfiSessionManager {
     }
 
     public void sendNonSessionData(boolean paramBoolean, final int lingoID, final int commandID, final int transactionID) {
-        Log.d("BTMfiSessionManager", "sendNonSessionData");
+        Log.i("BTMfiSessionManager", "sendNonSessionData");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
@@ -704,7 +704,7 @@ public class BTMfiSessionManager {
                 }
                 if (serialPortServerManager != null) {
                     int i = serialPortServerManager.sendNonSessionData(lingoID, commandID, transactionID, "This is a non-session data test message".getBytes());
-                    Log.d("BTMfiSessionManager", "sendNonSessionData() result: " + i);
+                    Log.i("BTMfiSessionManager", "sendNonSessionData() result: " + i);
                     BTMfiSessionManager.this.showToast("sendNonSessionData() result: " + i);
                     return;
                 }
@@ -714,7 +714,7 @@ public class BTMfiSessionManager {
     }
 
     public void sendPortStatus(boolean paramBoolean1, final EnumSet<SPPM.PortStatus> portStatus, final boolean breakSignal, final int breakTimeout) {
-        Log.d("BTMfiSessionManager", "sendPortStatus");
+        Log.i("BTMfiSessionManager", "sendPortStatus");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
@@ -725,7 +725,7 @@ public class BTMfiSessionManager {
                 }
                 if (serialPortServerManager != null) {
                     int i = serialPortServerManager.sendPortStatus(portStatus, breakSignal, breakTimeout);
-                    Log.d("BTMfiSessionManager", "sendPortStatus() result: " + i);
+                    Log.i("BTMfiSessionManager", "sendPortStatus() result: " + i);
                     return;
                 }
                 Log.w("BTMfiSessionManager", "sendPortStatus() result: The selected Manager is not initialized");
@@ -759,7 +759,7 @@ public class BTMfiSessionManager {
     }
 
     public void writeData(boolean paramBoolean) {
-        Log.d("BTMfiSessionManager", "writeData");
+        Log.i("BTMfiSessionManager", "writeData");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
@@ -770,7 +770,7 @@ public class BTMfiSessionManager {
                 }
                 if (serialPortServerManager != null) {
                     int i = serialPortServerManager.writeData("This is an SPP data test message".getBytes(), 5000);
-                    Log.d("BTMfiSessionManager", "writeData() result: " + i);
+                    Log.i("BTMfiSessionManager", "writeData() result: " + i);
                     BTMfiSessionManager.this.showToast("writeData() result: " + i);
                     return;
                 }
@@ -780,7 +780,7 @@ public class BTMfiSessionManager {
     }
 
     public void writeDataArbitrary(boolean paramBoolean, final String arbitraryDataString, final int writeTimeout) {
-        Log.d("BTMfiSessionManager", "writeDataArbitrary");
+        Log.i("BTMfiSessionManager", "writeDataArbitrary");
         (new Thread() {
             public void run() {
                 SPPM.SerialPortServerManager serialPortServerManager;
@@ -791,7 +791,7 @@ public class BTMfiSessionManager {
                 }
                 if (serialPortServerManager != null) {
                     int i = serialPortServerManager.writeData(arbitraryDataString.getBytes(), writeTimeout);
-                    Log.d("BTMfiSessionManager", "writeData() result: " + i);
+                    Log.i("BTMfiSessionManager", "writeData() result: " + i);
                     return;
                 }
                 Log.w("BTMfiSessionManager", "writeData() result: The selected Manager is not initialized");
@@ -804,17 +804,17 @@ public class BTMfiSessionManager {
         String str2 = performChecksum(paramArrayOfbyte) + ".tmp";
         File file2 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/tmp/");
         if (!file2.mkdirs())
-            Log.d("BTMfiSessionManager", "Parent directories were not created. Possibly since they already exist.");
+            Log.i("BTMfiSessionManager", "Parent directories were not created. Possibly since they already exist.");
         str2 = file2.getAbsolutePath() + "/" + str2;
-        Log.d("BTMfiSessionManager", "temporary path: " + str2);
+        Log.i("BTMfiSessionManager", "temporary path: " + str2);
         file2 = new File(str2);
         boolean bool = false;
         if (file2.exists())
             bool = file2.delete();
         if (bool) {
-            Log.d("BTMfiSessionManager", "file was succesfully deleted");
+            Log.i("BTMfiSessionManager", "file was succesfully deleted");
         } else {
-            Log.d("BTMfiSessionManager", "no file found to delete");
+            Log.i("BTMfiSessionManager", "no file found to delete");
         }
         File file1 = new File(str2);
         try {

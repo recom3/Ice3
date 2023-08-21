@@ -47,7 +47,7 @@ class HUDStateUpdateListener extends BroadcastReceiver {
     public void onReceive(Context paramContext, Intent paramIntent) {
         int i = paramIntent.getExtras().getInt("state");
         if (i > (HUDStateUpdateListener.HUD_STATE.values()).length - 1) {
-            Log.d(a, String.format("Received unknown %s intent with state: %d", new Object[] { "HUD_STATE_CHANGED", Integer.valueOf(i) }));
+            Log.i(a, String.format("Received unknown %s intent with state: %d", new Object[] { "HUD_STATE_CHANGED", Integer.valueOf(i) }));
             return;
         }
         a(HUDStateUpdateListener.HUD_STATE.values()[i]);

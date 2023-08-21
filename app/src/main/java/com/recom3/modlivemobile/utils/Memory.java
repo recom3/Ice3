@@ -22,7 +22,7 @@ class Memory {
         int j = tyteArr.length;
         i = j;
       } catch (Exception exception) {
-        Log.d("Memory", "error getting sizeOf", exception);
+        Log.i("Memory", "error getting sizeOf", exception);
       }  
     return i;
   }

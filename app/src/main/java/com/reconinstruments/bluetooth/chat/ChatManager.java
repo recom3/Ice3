@@ -4,7 +4,7 @@ import com.reconinstruments.bluetooth.BluetoothService;
 import com.reconinstruments.bluetooth.ConnectionManager;
 
 /**
- * Created by Chus on 21/08/2023.
+ * Created by recom3 on 21/08/2023.
  */
 
 public class ChatManager extends ConnectionManager {

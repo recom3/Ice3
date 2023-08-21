@@ -109,7 +109,7 @@ public class BTTransportManager {
 
     public static void broadcastStateChanged(Context paramContext, int paramInt) {
         currentState = paramInt;
-        Log.d("BTTransportManager", "currentState changed to " + currentState);
+        Log.i("BTTransportManager", "currentState changed to " + currentState);
         BTProperty.setBTConnectionState(paramContext, paramInt);
         Intent intent = new Intent("HUD_STATE_CHANGED");
         intent.putExtra("state", currentState);
@@ -202,7 +202,7 @@ public class BTTransportManager {
                 m_lstAddress = address;
                 m_lstAttempts = attempts;
 
-                Log.d(TAG, "starting mConnectThread");
+                Log.i(TAG, "starting mConnectThread");
                 broadcastStateChanged(this.mContext, 1);
                 this.mCommandConnectThread = new BTConnectThread(this.mAdapter, null, this, COMMAND_CHANNEL, address, attempts);
                 this.mCommandConnectThread.start();
@@ -223,7 +223,7 @@ public class BTTransportManager {
                 setState(FILE_CHANNEL, ConnectionState.CONNECTING);
                 this.mFileConnectThread = new BTConnectThread(this.mAdapter, null, this, FILE_CHANNEL, address, attempts);
                 this.mFileConnectThread.start();
-                Log.d(TAG, "starting mCommandConnectedThread/mObjectConnectedThread/mFileConnectedThread");
+                Log.i(TAG, "starting mCommandConnectedThread/mObjectConnectedThread/mFileConnectedThread");
             } else {
                 Log.w(TAG, "Skipped. Connecting or Connected already.");
             }
@@ -266,7 +266,7 @@ public class BTTransportManager {
         m_lstAddress = address;
         m_lstAttempts = attempts;
 
-        Log.d(TAG, "starting mConnectThread");
+        Log.i(TAG, "starting mConnectThread");
         broadcastStateChanged(mContext, STATE_CONNECTING);
 
         //For reference:
@@ -322,11 +322,14 @@ public class BTTransportManager {
         */
 
             try {
-                //mCommandConnectThread = new BTConnectThread(mAdapter, btDevice,
-                //        this, HUDConnectivityService.Channel.COMMAND_CHANNEL, UUID_COMMAND.toString(), 1);
+                mCommandConnectThread = new BTConnectThread(mAdapter, btDevice,
+                        this, HUDConnectivityService.Channel.COMMAND_CHANNEL, UUID_COMMAND.toString(), 1);
 
                 mObjectConnectThread = new BTConnectThread(mAdapter, btDevice,
                         this, OBJECT_CHANNEL, UUID_OBJECT.toString(), 1);
+
+                mFileConnectThread = new BTConnectThread(mAdapter, btDevice,
+                        this, HUDConnectivityService.Channel.FILE_CHANNEL, UUID_COMMAND.toString(), 1);
 
             } catch (Exception e) {
                 Log.e(TAG, "Socket's create() method failed", e);
@@ -334,6 +337,10 @@ public class BTTransportManager {
         }
 
         mObjectConnectThread.start();
+
+        mCommandConnectThread.start();
+
+        mFileConnectThread.start();
 
     }
 
@@ -535,7 +542,7 @@ public class BTTransportManager {
         }
 
         if(paramBoolean) {
-            Log.d(TAG, "starting mCommandAcceptThread, mObjectAcceptThread and mFileAcceptThread");
+            Log.i(TAG, "starting mCommandAcceptThread, mObjectAcceptThread and mFileAcceptThread");
             setState(HUDConnectivityService.Channel.COMMAND_CHANNEL, ConnectionState.LISTEN);
             setState(HUDConnectivityService.Channel.OBJECT_CHANNEL, ConnectionState.LISTEN);
             setState(HUDConnectivityService.Channel.FILE_CHANNEL, ConnectionState.LISTEN);
@@ -696,10 +703,13 @@ public class BTTransportManager {
                         }
                     } else {
                         Log.w(TAG, "No Bluetooth device connected, skip to send out the data and broadcast disconnected message out.");
+                        //!recom3
+                        /*
                         if (currentState != 0) {
                             broadcastStateChanged(this.mContext, 0);
                             BTProperty.setBTConnectionState(this.mContext, 0);
                         }
+                        */
                     }
                 }
             }

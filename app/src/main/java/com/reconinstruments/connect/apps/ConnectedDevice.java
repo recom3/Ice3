@@ -11,7 +11,7 @@ import com.reconinstruments.connect.util.CursorUtils;
 import java.util.HashMap;
 
 /**
- * Created by Chus on 20/08/2023.
+ * Created by recom3 on 20/08/2023.
  */
 
 public class ConnectedDevice {

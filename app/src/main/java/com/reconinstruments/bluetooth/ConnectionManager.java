@@ -11,7 +11,7 @@ import com.reconinstruments.bluetooth.filetransfer.FileTransferThread;
 import java.util.UUID;
 
 /**
- * Created by Chus on 20/08/2023.
+ * Created by recom3 on 20/08/2023.
  */
 
 public class ConnectionManager {
@@ -53,7 +53,7 @@ public class ConnectionManager {
     }
 
     public ConnectionManager(BluetoothService service, BTType type) {
-        Log.d(this.TAG, type.name() + " constructor called");
+        Log.i(this.TAG, type.name() + " constructor called");
         this.type = type;
         this.service = service;
         this.threadMessageHandler = new Handler() { // from class: com.reconinstruments.bluetooth.ConnectionManager.1
@@ -65,12 +65,11 @@ public class ConnectionManager {
         };
     }
 
-    /* JADX INFO: Access modifiers changed from: private */
     public synchronized void startNextThread() {
         if (this.currentThread != null) {
             cancelThread();
         } else {
-            Log.d(this.TAG, this.type.name() + " starting thread: " + this.nextThread.name());
+            Log.i(this.TAG, this.type.name() + " starting thread: " + this.nextThread.name());
             switch (this.nextThread) {
                 case NONE:
                     setState(ConnectState.NONE);
@@ -85,7 +84,7 @@ public class ConnectionManager {
                         this.currentThread.start();
                         break;
                     } else {
-                        Log.d(this.TAG, this.type.name() + " Can't start connect thread, device is null!");
+                        Log.i(this.TAG, this.type.name() + " Can't start connect thread, device is null!");
                         setState(ConnectState.NONE);
                         break;
                     }
@@ -99,7 +98,7 @@ public class ConnectionManager {
                         this.currentThread.start();
                         break;
                     } else {
-                        Log.d(this.TAG, this.type.name() + " Can't start connected thread, socket is null!");
+                        Log.i(this.TAG, this.type.name() + " Can't start connected thread, socket is null!");
                         setState(ConnectState.NONE);
                         break;
                     }
@@ -110,7 +109,7 @@ public class ConnectionManager {
 
     /* JADX INFO: Access modifiers changed from: protected */
     public synchronized void startListening() {
-        Log.d(this.TAG, "startListening()");
+        Log.i(this.TAG, "startListening()");
         this.nextThread = ThreadType.ACCEPT;
         startNextThread();
     }
@@ -129,7 +128,7 @@ public class ConnectionManager {
 
     public synchronized void setState(ConnectState newState) {
         if (this.state != newState) {
-            Log.d(this.TAG, this.type.name() + " setState() " + this.state.name() + " -> " + newState.name());
+            Log.i(this.TAG, this.type.name() + " setState() " + this.state.name() + " -> " + newState.name());
             this.state = newState;
             this.service.onStateChanged();
         }
@@ -139,7 +138,6 @@ public class ConnectionManager {
         return this.state;
     }
 
-    /* JADX INFO: Access modifiers changed from: protected */
     public boolean isConnected() {
         return this.currentThread != null && (this.currentThread instanceof ConnectedThread);
     }

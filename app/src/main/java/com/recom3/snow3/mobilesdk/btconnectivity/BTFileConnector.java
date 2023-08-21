@@ -19,12 +19,12 @@ public class BTFileConnector extends BTConnector {
     }
 
     boolean processing(QueueMessage paramQueueMessage) {
-        Log.d("BTFileConnector", "Processing the message " + paramQueueMessage.toString());
+        Log.i("BTFileConnector", "Processing the message " + paramQueueMessage.toString());
         //if (BTMfiSessionManager.getInstance(this.mContext).isInUse()) {
-        //    Log.d("BTObjectConnector", "Sending the message data to iOS device: " + paramQueueMessage.toString());
+        //    Log.i("BTObjectConnector", "Sending the message data to iOS device: " + paramQueueMessage.toString());
         //    return BTMfiSessionManager.getInstance(this.mContext).sendSessionData(HUDConnectivityService.Channel.FILE_CHANNEL, paramQueueMessage.toByteArray());
         //}
-        Log.d("BTFileConnector", "Sending the message data: " + paramQueueMessage.toString());
+        Log.i("BTFileConnector", "Sending the message data: " + paramQueueMessage.toString());
         return this.mBTTransportManager.write(HUDConnectivityService.Channel.FILE_CHANNEL, paramQueueMessage.toByteArray());
     }
 }

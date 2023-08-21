@@ -137,7 +137,7 @@ public class Trip {
             this.trip_sport = json.getString("sport");
             this.trip_resort = json.getString("resort");
             this.trip_country = json.getString("country");
-            Log.d(this.TAG, "Finished parsing trip " + this.trip_id);
+            Log.i(this.TAG, "Finished parsing trip " + this.trip_id);
         } catch (JSONException e) {
             Log.e(this.TAG, "Error parsing JSON: " + json.toString());
             throw new RuntimeException(e);

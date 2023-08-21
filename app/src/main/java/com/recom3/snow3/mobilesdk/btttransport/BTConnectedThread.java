@@ -58,7 +58,7 @@ class BTConnectedThread extends Thread {
     }
 
     void cancel() {
-        Log.d("BTConnectedThread", "cancel " + this);
+        Log.i("BTConnectedThread", "cancel " + this);
         try {
             this.mSocket.close();
         } catch (IOException iOException) {

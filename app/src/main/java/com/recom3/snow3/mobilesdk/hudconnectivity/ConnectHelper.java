@@ -48,7 +48,7 @@ public class ConnectHelper {
     }
 
     public static void requestFile(Context paramContext, FileUtils.FilePath paramFilePath1, FileUtils.FilePath paramFilePath2) {
-        Log.d("ConnectHelper", "File requested: " + paramFilePath1.path);
+        Log.i("ConnectHelper", "File requested: " + paramFilePath1.path);
         FileUtils.FilePath filePath = paramFilePath2;
         if (paramFilePath2 == null)
             filePath = paramFilePath1;
@@ -61,7 +61,7 @@ public class ConnectHelper {
     }
 
     public static void requestTripList(Context paramContext) {
-        Log.d("ConnectHelper", "File List requested!");
+        Log.i("ConnectHelper", "File List requested!");
         //!
         //broadcastXML(paramContext, TransferRequestMessage.compose(new TransferRequestMessage.RequestBundle(TransferRequestMessage.RequestType.DIR_REQUEST, null)));
     }

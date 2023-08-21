@@ -56,7 +56,7 @@ public class EngageWebResponse {
                 dateParseException.printStackTrace();
             }
             this.mResponseTime = i;
-            Log.d("EngageWebResponse", "time of response: " + i);
+            Log.i("EngageWebResponse", "time of response: " + i);
             return;
         }
         this.mResponse = null;

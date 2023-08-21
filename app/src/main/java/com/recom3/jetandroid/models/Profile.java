@@ -32,7 +32,7 @@ public class Profile {
             try {
                 editor.putString("user_info", paramLoggedInUser.b().toString());
             } catch (Exception exception) {
-                Log.d(a, "Could not save login info: " + exception.getMessage());
+                Log.i(a, "Could not save login info: " + exception.getMessage());
             }
         editor.apply();
     }
@@ -82,7 +82,7 @@ public class Profile {
                 LoggedInUser loggedInUser1 = new LoggedInUser(jSONObject);
                 loggedInUser = loggedInUser1;
             } catch (JSONException jSONException) {
-                Log.d(a, "Could not parse saved user info object: " + jSONException.getMessage());
+                Log.i(a, "Could not parse saved user info object: " + jSONException.getMessage());
                 Log.e(a, "Saved user info object: " + str);
             }
         return loggedInUser;

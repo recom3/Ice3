@@ -65,7 +65,7 @@ public class EngageHudConnectivityService extends HUDConnectivityService {
         }
 
         public void onServiceDisconnected(ComponentName param1ComponentName) {
-            //Log.d(EngageHudConnectivityService.b(), "Phone control service disconnected");
+            //Log.i(EngageHudConnectivityService.b(), "Phone control service disconnected");
             //this.a.f = false;
         }
     };
@@ -126,7 +126,7 @@ public class EngageHudConnectivityService extends HUDConnectivityService {
             //!!!
             //if (hUDConnectivityMessage.getAction().equals("INTENT_OLD_API_MESSAGE")) {
             if (hUDConnectivityMessage.getInfo().equals("INTENT_OLD_API_MESSAGE")) {
-                Log.d(EngageHudConnectivityService.b(""), "mMODLiveReceiver receieved INTENT_OLD_API_MESSAGE");
+                Log.i(EngageHudConnectivityService.b(""), "mMODLiveReceiver receieved INTENT_OLD_API_MESSAGE");
                 //!!!
                 //str = EngageHudConnectivityService.a((Intent)hUDConnectivityMessage);
                 str = hUDConnectivityMessage.getInfo();
@@ -143,7 +143,7 @@ public class EngageHudConnectivityService extends HUDConnectivityService {
                 return;
             }
             if (param1Intent.getAction().equals("AFTER_CONNECT")) {
-                Log.d(EngageHudConnectivityService.b(""), "mMODLiveReceiver receieved INTENT_AFTER_CONNECT");
+                Log.i(EngageHudConnectivityService.b(""), "mMODLiveReceiver receieved INTENT_AFTER_CONNECT");
                 //!!!
                 //str = EngageHudConnectivityService.a((Intent)str);
                 str = hUDConnectivityMessage.getInfo();

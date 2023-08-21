@@ -40,7 +40,7 @@ public class ReconAGps {
                     .getAttribute("value")
             );
         } catch (Exception e) {
-            Log.d("ReconAGps", "Invalid location xml");
+            Log.i("ReconAGps", "Invalid location xml");
             throw new InvalidUpdatePeriodXml();
         }
     }

@@ -41,15 +41,15 @@ public class HUDWebService extends Service {
         }
 
         public final void a(IHUDConnectivity.ConnectionState param1ConnectionState) {
-            Log.d(HUDWebService.this.a, "onConnectionStateChanged(): " + param1ConnectionState);
+            Log.i(HUDWebService.this.a, "onConnectionStateChanged(): " + param1ConnectionState);
         }
 
         public final void a(IHUDConnectivity.NetworkEvent param1NetworkEvent, boolean param1Boolean) {
-            Log.d(HUDWebService.this.a, "onNetworkEvent(): " + param1NetworkEvent + ", hasNetworkAccess: " + param1Boolean);
+            Log.i(HUDWebService.this.a, "onNetworkEvent(): " + param1NetworkEvent + ", hasNetworkAccess: " + param1Boolean);
         }
 
         public final void a(String param1String) {
-            Log.d(HUDWebService.this.a, "onDeviceName(): " + param1String);
+            Log.i(HUDWebService.this.a, "onDeviceName(): " + param1String);
         }
     };
 
@@ -89,7 +89,7 @@ public class HUDWebService extends Service {
 
         /*
         super.onCreate();
-        Log.d(f2143a, "onCreate()");
+        Log.i(f2143a, "onCreate()");
         this.hudConnectivityManager = new HUDConnectivityManager();
         this.hudStateUpdateListener = new HUDStateUpdateListener() { // from class: com.reconinstruments.jetandroid.services.HUDWebService.1
             @Override // com.reconinstruments.mobilesdk.hudconnectivity.HUDStateUpdateListener
@@ -132,7 +132,7 @@ public class HUDWebService extends Service {
                     }
                     return;
                 } catch (Exception e) {
-                    Log.d(f2143a, "Failed to init HUDConnectivityManager", e);
+                    Log.i(f2143a, "Failed to init HUDConnectivityManager", e);
                     return;
                 }
             case 2:
@@ -195,13 +195,13 @@ public class HUDWebService extends Service {
 
     public void onDestroy() {
         super.onDestroy();
-        Log.d(a, "onDestroy()");
+        Log.i(a, "onDestroy()");
         unregisterReceiver((BroadcastReceiver)this.hudStateUpdateListener);
         b();
     }
 
     public int onStartCommand(Intent paramIntent, int paramInt1, int paramInt2) {
-        Log.d(a, "onStartCommand()");
+        Log.i(a, "onStartCommand()");
         //return 1;
         return START_STICKY;
     }
@@ -238,7 +238,7 @@ public class HUDWebService extends Service {
             }
             return;
         } catch (Exception e) {
-            Log.d(f2143a, "Failed to init HUDConnectivityManager", e);
+            Log.i(f2143a, "Failed to init HUDConnectivityManager", e);
             return;
         }
     }

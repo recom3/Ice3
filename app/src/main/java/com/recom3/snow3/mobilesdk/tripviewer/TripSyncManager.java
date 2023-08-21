@@ -43,7 +43,7 @@ public class TripSyncManager {
         public void onConnectionFinished(EngageWebResponse response) {
             if (response.mResponseCode == 200) {
                 TripSyncManager.this.sendDeleteTripFileRequest();
-                Log.d(TripSyncManager.TAG, "successfully posted trip");
+                Log.i(TripSyncManager.TAG, "successfully posted trip");
                 if (TripSyncManager.this.mResponseHandler != null) {
                     TripSyncManager.this.mResponseHandler.onPostedTrip();
                     return;
@@ -61,7 +61,7 @@ public class TripSyncManager {
         @Override // com.reconinstruments.mobilesdk.engageweb.IEngageWebClientCallback
         public void onConnectionFinished(EngageWebResponse response) {
             if (response.mResponseCode == 200) {
-                Log.d(TripSyncManager.TAG, "successfully deleted trip");
+                Log.i(TripSyncManager.TAG, "successfully deleted trip");
                 if (TripSyncManager.this.mResponseHandler != null) {
                     TripSyncManager.this.mResponseHandler.onDeletedTrip();
                     return;
@@ -142,7 +142,7 @@ public class TripSyncManager {
     private String writeXmlForDeleteTrip() {
         String s = "<recon intent=\"" + deleteTripRequest + "\">";
         String s2 = (s + "<delete dayMD5=\"" + TripService.mLastDayMd5 + "\" eventMD5=\"" + TripService.mLastEventMd5 + "\" dayName=\"" + TripService.mLastDayName + "\" eventName=\"" + TripService.mLastEventName + "\"/>") + "</recon>";
-        Log.d(TAG, "delete XML: " + s2);
+        Log.i(TAG, "delete XML: " + s2);
         return s2;
     }
 
@@ -192,7 +192,7 @@ public class TripSyncManager {
             }
             byte[] data = new byte[length];
             f.readFully(data);
-            Log.d(TAG, "raw file: " + data.length);
+            Log.i(TAG, "raw file: " + data.length);
             return data;
         } finally {
             f.close();
@@ -208,12 +208,12 @@ public class TripSyncManager {
             bs.close();
             byte[] buffer = bs.toByteArray();
             gzin.close();
-            Log.d(TAG, "gzipped length: " + buffer.length);
+            Log.i(TAG, "gzipped length: " + buffer.length);
             byte[] buffer2 = Base64.encode(buffer, 2);
-            Log.d(TAG, "base64 length: " + buffer2.length);
+            Log.i(TAG, "base64 length: " + buffer2.length);
             return new String(buffer2);
         } catch (IOException e) {
-            Log.d(TAG, "error gzipping data stream", e);
+            Log.i(TAG, "error gzipping data stream", e);
             return null;
         }
     }

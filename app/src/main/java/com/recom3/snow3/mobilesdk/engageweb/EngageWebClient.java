@@ -38,25 +38,25 @@ public class EngageWebClient {
             String str2 = str1;
             if (str1 == null)
                 str2 = "";
-            Log.d(TAG, "response body: " + str2);
+            Log.i(TAG, "response body: " + str2);
             if (paramEngageWebResponse.mResponseCode == 200) {
-                Log.d(TAG, "response code 200, success for method: " + paramEngageWebResponse.mRequest.getMethod());
+                Log.i(TAG, "response code 200, success for method: " + paramEngageWebResponse.mRequest.getMethod());
                 this.mResponseHandler.onConnectionFinished(paramEngageWebResponse);
                 return false;
             }
-            Log.d(TAG, "FAILED REQUEST, response code: " + paramEngageWebResponse.mResponseCode);
+            Log.i(TAG, "FAILED REQUEST, response code: " + paramEngageWebResponse.mResponseCode);
             this.mResponseHandler.onConnectionFinished(paramEngageWebResponse);
         }
         return false;
     }
 
     public EngageWebClientRequest sendReq(EngageWebClientRequest.HTTP_METHOD paramHTTP_METHOD, String paramString, boolean paramBoolean, Map<String, String> paramMap) {
-        Log.d(TAG, paramHTTP_METHOD.name() + " request to " + getApiServerUrl() + paramString);
+        Log.i(TAG, paramHTTP_METHOD.name() + " request to " + getApiServerUrl() + paramString);
         return (EngageWebClientRequest)(new EngageWebClientRequest(paramHTTP_METHOD, getApiServerUrl(), paramString, paramBoolean, paramMap, null)).concurrentExecute((EngageWebClient[]) new EngageWebClient[] { this });
     }
 
     public EngageWebClientRequest sendReqWithAuth(EngageWebClientRequest.HTTP_METHOD paramHTTP_METHOD, String paramString1, String paramString2, Map<String, String> paramMap) {
-        Log.d(TAG, paramHTTP_METHOD.name() + " request to " + getApiServerUrl() + paramString1);
+        Log.i(TAG, paramHTTP_METHOD.name() + " request to " + getApiServerUrl() + paramString1);
         return (EngageWebClientRequest)(new EngageWebClientRequest(paramHTTP_METHOD, getApiServerUrl(), paramString1, true, paramMap, paramString2)).concurrentExecute((EngageWebClient[]) new EngageWebClient[] { this });
     }
 

@@ -21,7 +21,7 @@ class BTObjectConnector extends BTConnector {
     boolean processing(QueueMessage paramQueueMessage) {
         Log.i("BTObjectConnector", "Processing the message " + paramQueueMessage.toString());
         //if (BTMfiSessionManager.getInstance(this.mContext).isInUse()) {
-        //    Log.d("BTObjectConnector", "Sending the message data to iOS device: " + paramQueueMessage.toString());
+        //    Log.i("BTObjectConnector", "Sending the message data to iOS device: " + paramQueueMessage.toString());
         //    return BTMfiSessionManager.getInstance(this.mContext).sendSessionData(HUDConnectivityService.Channel.OBJECT_CHANNEL, paramQueueMessage.toByteArray());
         //}
         Log.i("BTObjectConnector", "Sending the message data: " + paramQueueMessage.toString());

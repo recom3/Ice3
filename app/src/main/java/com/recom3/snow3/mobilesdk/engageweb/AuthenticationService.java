@@ -131,7 +131,7 @@ public class AuthenticationService extends EngageSdkService {
     }
 
     public void changePassword(IAuthenticationManagerCallback paramIAuthenticationManagerCallback, String paramString1, String paramString2) {
-        Log.d(TAG, "POST CHANGE PASSWORD");
+        Log.i(TAG, "POST CHANGE PASSWORD");
         if (paramIAuthenticationManagerCallback == null)
             paramIAuthenticationManagerCallback = this.nopCallback;
         if (InternetUtils.isInternetConnected((Context)this))
@@ -157,7 +157,7 @@ public class AuthenticationService extends EngageSdkService {
     }
 
     public void createEngageAccount(IAuthenticationManagerCallback paramIAuthenticationManagerCallback, String paramString1, String paramString2, String paramString3, String paramString4, String paramString5) {
-        Log.d(TAG, "CREATE ACCOUNT REQUEST");
+        Log.i(TAG, "CREATE ACCOUNT REQUEST");
         if (paramIAuthenticationManagerCallback == null)
             paramIAuthenticationManagerCallback = this.nopCallback;
         if (InternetUtils.isInternetConnected((Context)this)) {

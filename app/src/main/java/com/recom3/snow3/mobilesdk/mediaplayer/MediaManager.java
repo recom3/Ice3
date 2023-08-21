@@ -36,7 +36,7 @@ public class MediaManager {
     }
 
     public void loadSongWithCursor(Cursor paramCursor) {
-        Log.d("ReconMediaManager", "loading song with new cursor!");
+        Log.i("ReconMediaManager", "loading song with new cursor!");
         ReconNextTrackFinder.flagToGenerateNewShuffleCursor();
         getMPlayer().loadSongWithCursor(paramCursor);
     }

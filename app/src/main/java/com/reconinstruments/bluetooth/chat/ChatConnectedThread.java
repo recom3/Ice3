@@ -14,7 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 /**
- * Created by Chus on 21/08/2023.
+ * Created by recom3 on 21/08/2023.
  */
 
 public class ChatConnectedThread extends ConnectedThread {
@@ -23,14 +23,14 @@ public class ChatConnectedThread extends ConnectedThread {
     public ChatConnectedThread(BluetoothSocket socket, ConnectionManager service) {
         super(service);
         this.xmlValidator = new ReconMessageValidator();
-        Log.d(this.TAG, getName() + "(" + socket + ")");
+        Log.i(this.TAG, getName() + "(" + socket + ")");
         this.socket = socket;
         getStreams();
     }
 
     @Override // java.lang.Thread, java.lang.Runnable
     public void run() {
-        Log.d(this.TAG, getName() + ".run()");
+        Log.i(this.TAG, getName() + ".run()");
         while (!this.cancelled) {
             this.connMgr.setState(ConnectionManager.ConnectState.CONNECTED);
             try {
@@ -43,7 +43,7 @@ public class ChatConnectedThread extends ConnectedThread {
                     this.xmlValidator.reset();
                 }
             } catch (IOException e) {
-                Log.d(this.TAG, getName() + " read failed " + e.getMessage());
+                Log.i(this.TAG, getName() + " read failed " + e.getMessage());
             }
         }
         connectionEnded();
@@ -55,11 +55,11 @@ public class ChatConnectedThread extends ConnectedThread {
         String intent = XMLUtils.getMessageIntent(xml);
         Intent msg = new Intent(intent).putExtra("message", xml);
         this.service.sendBroadcast(msg);
-        Log.d(this.TAG, "received message! " + xml);
+        Log.i(this.TAG, "received message! " + xml);
     }
 
     /* JADX WARN: Code restructure failed: missing block: B:17:0x0030, code lost:
-        android.util.Log.d(r8.TAG, "sent message! " + r9);
+        android.util.Log.i(r8.TAG, "sent message! " + r9);
      */
     /*
         Code decompiled incorrectly, please refer to instructions dump.
@@ -86,7 +86,7 @@ public class ChatConnectedThread extends ConnectedThread {
             }
         } else if (send.length > 0) {
             write(send, 0, send.length);
-            Log.d(this.TAG, "sent message! " + message);
+            Log.i(this.TAG, "sent message! " + message);
         }
         try {
             Thread.sleep(50L);

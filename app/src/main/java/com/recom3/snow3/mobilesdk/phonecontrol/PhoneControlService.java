@@ -36,7 +36,7 @@ public class PhoneControlService extends Service {
 
     PhoneStateListener b = new PhoneStateListener(/*this*/) {
         public void onCallStateChanged(int param1Int, String param1String) {
-            Log.d("PhoneControlService", "currentState: " +
+            Log.i("PhoneControlService", "currentState: " +
                     PhoneControlService.this.telephonyManager.getCallState() + " newState: " + param1Int + " number: " + param1String);
             if (param1Int == 2) {
                 String str = (new PhoneMessage((Enum)PhoneMessage.Status.STARTED, new String[] { param1String })).a();

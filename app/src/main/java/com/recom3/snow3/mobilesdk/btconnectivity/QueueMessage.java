@@ -42,7 +42,7 @@ public class QueueMessage extends HUDConnectivityMessage
     }
 
     private byte[] compress(byte[] paramArrayOfbyte) {
-        Log.d(TAG, "compressing file to be sent");
+        Log.i(TAG, "compressing file to be sent");
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         byte[] paramArrayOfbyteResult;
         try {
@@ -52,11 +52,11 @@ public class QueueMessage extends HUDConnectivityMessage
             byteArrayOutputStream.close();
             byte[] arrayOfByte = byteArrayOutputStream.toByteArray();
             gZIPOutputStream.close();
-            Log.d(TAG, "binary length: " + paramArrayOfbyte.length);
-            Log.d(TAG, "gzipped length: " + arrayOfByte.length);
+            Log.i(TAG, "binary length: " + paramArrayOfbyte.length);
+            Log.i(TAG, "gzipped length: " + arrayOfByte.length);
             paramArrayOfbyteResult = arrayOfByte;
         } catch (IOException iOException) {
-            Log.d(TAG, "error gzipping data stream", iOException);
+            Log.i(TAG, "error gzipping data stream", iOException);
             paramArrayOfbyteResult = null;
         }
         return paramArrayOfbyteResult;
@@ -96,7 +96,7 @@ public class QueueMessage extends HUDConnectivityMessage
         randomAccessFile.readFully(arrayOfByte);
         String str = TAG;
         StringBuilder stringBuilder = new StringBuilder();
-        Log.d(str, stringBuilder.append("raw file: ").append(arrayOfByte.length).toString());
+        Log.i(str, stringBuilder.append("raw file: ").append(arrayOfByte.length).toString());
         randomAccessFile.close();
         return arrayOfByte;
     }
