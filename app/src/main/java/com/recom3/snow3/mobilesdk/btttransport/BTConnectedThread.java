@@ -69,7 +69,7 @@ class BTConnectedThread extends Thread {
 
     public void run() {
         setName("BTConnectedThread " + this.mChannel.name() + " " + this);
-        Log.d("BTConnectedThread", "BEGIN " + getName());
+        Log.i("BTConnectedThread", "BEGIN " + getName());
         this.mManager.mHandler.obtainMessage(5, this.mChannel.name() + " connected to " + this.mSocket.getRemoteDevice().getName()).sendToTarget();
         this.mManager.connectionSuccessed(this.mChannel, this.mSocket.getRemoteDevice());
         byte[] arrayOfByte = new byte[25600];
@@ -78,7 +78,7 @@ class BTConnectedThread extends Thread {
                 int i = this.mInStream.read(arrayOfByte);
                 if (i > 0)
                     if (this.mChannel.equals(HUDConnectivityService.Channel.FILE_CHANNEL)) {
-                        Log.d("BTConnectedThread", "Going to write file to storage and pass pointer");
+                        Log.i("BTConnectedThread", "Going to write file to storage and pass pointer");
                         this.mManager.mHandler.obtainMessage(7, i, -1, arrayOfByte.clone()).sendToTarget();
                     } else {
                         this.mManager.mHandler.obtainMessage(2, i, -1, arrayOfByte.clone()).sendToTarget();

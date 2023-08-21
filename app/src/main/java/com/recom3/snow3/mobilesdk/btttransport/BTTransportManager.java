@@ -703,7 +703,9 @@ public class BTTransportManager {
                     }
                 }
             }
-            Log.w(TAG, "Skip to send data since the QueueMessage is null");
+            else {
+                Log.w(TAG, "Skip to send data since the QueueMessage is null");
+            }
             return result;
 
         }

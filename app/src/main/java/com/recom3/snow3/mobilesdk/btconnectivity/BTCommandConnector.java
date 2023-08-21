@@ -19,12 +19,14 @@ class BTCommandConnector extends BTConnector {
     }
 
     boolean processing(QueueMessage paramQueueMessage) {
-        Log.d("BTCommandConnector", "Processing the message " + paramQueueMessage.toString());
+        Log.i("BTCommandConnector", "Processing the message " + paramQueueMessage.toString());
+
         //if (BTMfiSessionManager.getInstance(this.mContext).isInUse()) {
         //    Log.d("BTCommandConnector", "Sending the message data to iOS device: " + paramQueueMessage.toString());
         //    return BTMfiSessionManager.getInstance(this.mContext).sendSessionData(HUDConnectivityService.Channel.COMMAND_CHANNEL, paramQueueMessage.toByteArray());
         //}
-        Log.d("BTCommandConnector", "Sending the message data: " + paramQueueMessage.toString());
+
+        Log.i("BTCommandConnector", "Sending the message data: " + paramQueueMessage.toString());
         return this.mBTTransportManager.write(HUDConnectivityService.Channel.COMMAND_CHANNEL, paramQueueMessage.toByteArray());
     }
 }

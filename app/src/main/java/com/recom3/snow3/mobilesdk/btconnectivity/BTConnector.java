@@ -85,7 +85,7 @@ public abstract class BTConnector extends Thread {
                         StringBuilder stringBuilder = new StringBuilder();
                         queueMessage3 = queueMessage1;
                         queueMessage3 = queueMessage1;
-                        Log.i("BTConnector", stringBuilder.append("Taking the message from the object queue: ").append(queueMessage1.getIntentFilter()).toString());
+                        Log.i("BTConnector", stringBuilder.append("Taking the message from the file queue: ").append(queueMessage1.getIntentFilter()).toString());
                         queueMessage = queueMessage1;
                     }
                     break;

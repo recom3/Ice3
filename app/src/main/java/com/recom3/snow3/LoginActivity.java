@@ -298,6 +298,7 @@ public class LoginActivity extends AppCompatActivity {
         //Manifest.permission.READ_CALL_LOG
 
         int read_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int write_storage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         int fine_location = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
         int coarse_location = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -312,12 +313,10 @@ public class LoginActivity extends AppCompatActivity {
             listPermissionsNeeded.add(Manifest.permission.READ_CALL_LOG);
         }
 
-        //?
         if (process_outgoing_calls != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.PROCESS_OUTGOING_CALLS);
         }
 
-        //?
         if (internet != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.INTERNET);
         }
@@ -334,6 +333,9 @@ public class LoginActivity extends AppCompatActivity {
         if(isRequestExternal) {
             if (read_storage != PackageManager.PERMISSION_GRANTED) {
                 listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+            }
+            if (write_storage != PackageManager.PERMISSION_GRANTED) {
+                listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
             }
         }
 

@@ -171,6 +171,7 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
     }
 
     private void setStateDisconnected() {
+        this.mConnectedIcon.setVisibility(View.INVISIBLE);
         //this.mPairingHudConnectionStatusFragment.setStateDisconnected();
         //this.mPairingRemoteConnectionStatusFragment.setStateDisconnected();
         this.mGgoggleImageButton.setEnabled(true);

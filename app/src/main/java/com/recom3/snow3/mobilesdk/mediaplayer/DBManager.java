@@ -106,9 +106,6 @@ public class DBManager {
                 File file = new File(str1);
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 BufferedOutputStream bufferedOutputStream1 = new BufferedOutputStream(fileOutputStream);
-                //this(str1);
-                //this(file);
-                //this(fileOutputStream);
                 bufferedOutputStream = bufferedOutputStream1;
             } catch (FileNotFoundException fileNotFoundException) {
                 Log.e("DBManager", "caught exception: " + fileNotFoundException);
@@ -164,8 +161,7 @@ public class DBManager {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file1);
             BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(fileOutputStream);
-            //this(file1);
-            //this(fileOutputStream);
+
             try {
                 bufferedOutputStream.write(paramArrayOfbyte);
                 bufferedOutputStream.flush();
@@ -196,44 +192,9 @@ public class DBManager {
     }
 
     public void buildMusicDB() {
-        // Byte code:
-        //   0: aload_0
-        //   1: monitorenter
-        //   2: aload_0
-        //   3: getfield builder : Lcom/reconinstruments/mobilesdk/mediaplayer/DBBuilderTask;
-        if (builder == null
-                || builder.getStatus() == AsyncTask.Status.FINISHED) {
-            //   6: ifnull -> 22
-            //   9: aload_0
-            //   10: getfield builder : Lcom/reconinstruments/mobilesdk/mediaplayer/DBBuilderTask;
-            //   13: invokevirtual getStatus : ()Landroid/os/AsyncTask$Status;
-            //   16: getstatic android/os/AsyncTask$Status.FINISHED : Landroid/os/AsyncTask$Status;
-            //   19: if_acmpne -> 42
-
-        //   22: new com/reconinstruments/mobilesdk/mediaplayer/DBBuilderTask
-        //   25: astore_1
-        //   26: aload_1
-        //   27: aload_0
-        //   28: getfield onBuildMusicDB : Lcom/reconinstruments/mobilesdk/mediaplayer/IDBBuilder;
-        //   31: getstatic com/reconinstruments/mobilesdk/mediaplayer/DBManager.mOwner : Lcom/reconinstruments/mobilesdk/mediaplayer/MediaPlayerService;
-        //   34: invokespecial <init> : (Lcom/reconinstruments/mobilesdk/mediaplayer/IDBBuilder;Lcom/reconinstruments/mobilesdk/mediaplayer/MediaPlayerService;)V
-        //   37: aload_0
-        //   38: aload_1
-        //   39: putfield builder : Lcom/reconinstruments/mobilesdk/mediaplayer/DBBuilderTask;
-        //   42: aload_0
-        //   43: monitorexit
-        //   44: return
-            builder = new DBBuilderTask(onBuildMusicDB, DBManager.mOwner);
+        if (this.builder == null || this.builder.getStatus() == AsyncTask.Status.FINISHED) {
+            this.builder = new DBBuilderTask(this.onBuildMusicDB, mOwner);
         }
-        //   45: astore_1
-        //   46: aload_0
-        //   47: monitorexit
-        //   48: aload_1
-        //   49: athrow
-        // Exception table:
-        //   from	to	target	type
-        //   2	22	45	finally
-        //   22	42	45	finally
     }
 
     public DBBuilderTask getBuilder() {
@@ -241,36 +202,7 @@ public class DBManager {
     }
 
     public DBState getMusicDBBuilderState() {
-        // Byte code:
-        //   0: aload_0
-        //   1: monitorenter
-        //   2: aload_0
-        //   3: getfield builder : Lcom/reconinstruments/mobilesdk/mediaplayer/DBBuilderTask;
-        //   6: ifnull -> 21
-
-        //   9: aload_0
-        //   10: getfield builder : Lcom/reconinstruments/mobilesdk/mediaplayer/DBBuilderTask;
-        //   13: invokevirtual getState : ()Lcom/reconinstruments/mobilesdk/mediaplayer/DBManager$DBState;
-        //   16: astore_1
-        //   17: aload_0
-        //   18: monitorexit
-        //   19: aload_1
-        //   20: areturn
-        //   21: getstatic com/reconinstruments/mobilesdk/mediaplayer/DBManager$DBState.ERROR : Lcom/reconinstruments/mobilesdk/mediaplayer/DBManager$DBState;
-        //   24: astore_1
-        //   25: goto -> 17
-        //   28: astore_1
-        //   29: aload_0
-        //   30: monitorexit
-        //   31: aload_1
-        //   32: athrow
-        // Exception table:
-        //   from	to	target	type
-        //   2	17	28	finally
-        //   21	25	28	finally
-
-        //!!!!!
-        return null;
+        return this.builder != null ? this.builder.getState() : DBState.ERROR;
     }
 
     public String performOwnChecksumForGoggle() {

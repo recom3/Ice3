@@ -60,7 +60,7 @@ public abstract class MediaPlayerService extends EngageSdkService {
                 Bundle bundle = param1Intent.getExtras();
                 if (bundle != null) {
                     String str = new String((new HUDConnectivityMessage(bundle.getByteArray("message"))).getData());
-                    Log.d("MediaPlayerServiceSDK", "music message received :" + str);
+                    Log.i("MediaPlayerServiceSDK", "music message received :" + str);
                     MusicMessage musicMessage = new MusicMessage(str);
                     if (musicMessage != null && musicMessage.type == MusicMessage.Type.CONTROL)
                         MediaPlayerService.this.mMediaManager.getMPlayer().gotMessage(musicMessage);
@@ -68,35 +68,35 @@ public abstract class MediaPlayerService extends EngageSdkService {
                 return;
             }
             if (param1Intent.getAction().equals("REMOTE_DB_CHECKSUM_REQUEST")) {
-                Log.d("MediaPlayerServiceSDK", "received broadcast with intent: " + param1Intent.getAction());
+                Log.i("MediaPlayerServiceSDK", "received broadcast with intent: " + param1Intent.getAction());
                 Bundle bundle = param1Intent.getExtras();
                 if (bundle != null) {
                     HUDConnectivityMessage hUDConnectivityMessage = new HUDConnectivityMessage(bundle.getByteArray("message"));
                     String str = MediaPlayerService.this.parseSimpleMessageForValue(new String(hUDConnectivityMessage.getData()), "synced");
-                    Log.d("MediaPlayerServiceSDK", "match: " + str);
+                    Log.i("MediaPlayerServiceSDK", "match: " + str);
                     if (!str.equals("true")) {
                         MediaPlayerService.this.getDbMgr().pushGoggleDB();
-                        Log.d("MediaPlayerServiceSDK", "mismatch, pushed db to goggles");
+                        Log.i("MediaPlayerServiceSDK", "mismatch, pushed db to goggles");
                         return;
                     }
-                    Log.d("MediaPlayerServiceSDK", "goggles have correct DB!");
+                    Log.i("MediaPlayerServiceSDK", "goggles have correct DB!");
                 }
                 return;
             }
             if (param1Intent.getAction().equals("LOCAL_DB_CHECKSUM_REQUEST")) {
-                Log.d("MediaPlayerServiceSDK", "received broadcast with intent: " + param1Intent.getAction());
+                Log.i("MediaPlayerServiceSDK", "received broadcast with intent: " + param1Intent.getAction());
                 Bundle bundle = param1Intent.getExtras();
                 if (bundle != null) {
                     HUDConnectivityMessage hUDConnectivityMessage = new HUDConnectivityMessage(bundle.getByteArray("message"));
                     String str = MediaPlayerService.this.parseSimpleMessageForValue(new String(hUDConnectivityMessage.getData()), "remoteChecksum");
-                    Log.d("MediaPlayerServiceSDK", "remoteChecksum: " + str);
+                    Log.i("MediaPlayerServiceSDK", "remoteChecksum: " + str);
                     if (MediaPlayerService.this.getDbMgr().performOwnChecksumForGoggle().equals(str)) {
-                        Log.d("MediaPlayerServiceSDK", "goggles have correct DB!");
+                        Log.i("MediaPlayerServiceSDK", "goggles have correct DB!");
                         return;
                     }
                     if (MediaPlayerService.this.getDbMgr().getMusicDBBuilderState().equals(DBManager.DBState.READY)) {
                         MediaPlayerService.this.getDbMgr().buildGoggleDb();
-                        Log.d("MediaPlayerServiceSDK", "request for building db for goggles");
+                        Log.i("MediaPlayerServiceSDK", "request for building db for goggles");
                     }
                 }
                 return;
@@ -108,22 +108,22 @@ public abstract class MediaPlayerService extends EngageSdkService {
                 return;
             }
             if (param1Intent.getAction().equals("FAILED_DB_REQUEST")) {
-                Log.d("MediaPlayerServiceSDK", "received broadcast with intent: " + param1Intent.getAction());
+                Log.i("MediaPlayerServiceSDK", "received broadcast with intent: " + param1Intent.getAction());
                 Log.w("MediaPlayerServiceSDK", "failed uploading DB!");
                 if (MediaPlayerService.this.countSyncRetries < 5) {
                     MediaPlayerService.this.getDbMgr().buildMusicDB();
                     //!!!!
                     //MediaPlayerService.access$108(MediaPlayerService.this);
-                    Log.d("MediaPlayerServiceSDK", "reattempting to uploading DB by building it again.");
+                    Log.i("MediaPlayerServiceSDK", "reattempting to uploading DB by building it again.");
                     return;
                 }
                 Log.e("MediaPlayerServiceSDK", "Failed to upload DB 5 times, stopping now.");
                 return;
             }
             if (param1Intent.getAction().equals("com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService")) {
-                Log.d("MediaPlayerServiceSDK", "received broadcast with intent: " + param1Intent.getAction());
+                Log.i("MediaPlayerServiceSDK", "received broadcast with intent: " + param1Intent.getAction());
                 if (param1Intent.getBooleanExtra("result", false)) {
-                    Log.d("MediaPlayerServiceSDK", "message was successfully sent");
+                    Log.i("MediaPlayerServiceSDK", "message was successfully sent");
                     return;
                 }
                 Log.e("MediaPlayerServiceSDK", "message was NOT sent");
@@ -169,7 +169,7 @@ public abstract class MediaPlayerService extends EngageSdkService {
     BroadcastReceiver mediaReceiver = new BroadcastReceiver() {
         public void onReceive(Context param1Context, Intent param1Intent) {
             String str = param1Intent.getAction();
-            Log.d("MediaPlayerServiceSDK", str);
+            Log.i("MediaPlayerServiceSDK", str);
             if (str.equals("android.intent.action.MEDIA_UNMOUNTED") || str.equals("android.intent.action.MEDIA_EJECT")) {
                 if (MediaPlayerService.this.mMediaManager.getMPlayer().getPlayerState() != MusicMessage.PlayerState.NOT_INIT)
                     MediaPlayerService.this.mMediaManager.getMPlayer().setPlayerState(MusicMessage.PlayerState.NOT_INIT);
@@ -206,7 +206,7 @@ public abstract class MediaPlayerService extends EngageSdkService {
         hUDConnectivityMessage.setRequestKey(0);
         hUDConnectivityMessage.setSender("com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService");
         hUDConnectivityMessage.setData((new MusicMessage(paramPlayerInfo, MusicMessage.Type.STATUS)).toXML().getBytes());
-        Log.d("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
+        Log.i("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
         hudSrvc.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
     }
 
@@ -225,7 +225,7 @@ public abstract class MediaPlayerService extends EngageSdkService {
             str = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource).getElementsByTagName("recon").item(0).getFirstChild().getAttributes().getNamedItem(paramString2).getNodeValue();
             StringBuilder stringBuilder = new StringBuilder();
             //this();
-            Log.d("MediaPlayerServiceSDK", stringBuilder.append("handled ").append(paramString2).append(": ").append(paramString1).toString());
+            Log.i("MediaPlayerServiceSDK", stringBuilder.append("handled ").append(paramString2).append(": ").append(paramString1).toString());
         } catch (Exception exception) {
             exception.printStackTrace();
             str = "";
