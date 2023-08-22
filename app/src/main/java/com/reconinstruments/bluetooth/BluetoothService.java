@@ -148,6 +148,17 @@ public abstract class BluetoothService extends Service {
         return false;
     }
 
+    public boolean connect(ConnectionManager.BTType type, String addr) {
+        if (BluetoothAdapter.checkBluetoothAddress(addr)) {
+            this.device = BluetoothAdapter.getDefaultAdapter().getRemoteDevice(addr);
+            Log.i(this.TAG, type.name() + " connect(" + this.device.getAddress() + ")");
+            getService(type).connect();
+            return true;
+        }
+        Log.i(this.TAG, "Device not found, invalid bluetooth address: " + addr);
+        return false;
+    }
+
     public boolean listen(ConnectionManager.BTType type) {
         getService(type).startListening();
         return true;

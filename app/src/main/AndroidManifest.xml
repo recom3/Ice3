@@ -101,6 +101,14 @@
             </intent-filter>
         </service>
 
+        <service
+            android:name="com.reconinstruments.modlive.bluetooth.MLBluetoothService"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.reconinstruments.modlive.bluetooth.MLBLUETOOTHSERVICE" />
+            </intent-filter>
+        </service>
+
         <!-- android:name="com.recom3.snow3.service.ConnectivityHudService-->
         <!--<action android:name="com.recom3.snow3.service.CONNECTIVITYHUDSERVICE" />-->
         <service

@@ -28,6 +28,11 @@ import com.recom3.snow3.model.PairingConnectionStateEnum;
 import com.recom3.snow3.pairing.PairedListDeviceDialogFragment;
 import com.recom3.snow3.pairing.TitleDescriptionModel;
 import com.recom3.snow3.service.MediaPlayerHudService;
+import com.reconinstruments.bluetooth.BluetoothProvider;
+import com.reconinstruments.bluetooth.BluetoothService;
+import com.reconinstruments.modlive.bluetooth.MLBluetoothService;
+
+import static com.reconinstruments.bluetooth.ConnectionManager.BTType.BT_FILETRANSFER;
 
 /**
  * Created by Recom3 on 05/07/2022.
@@ -59,6 +64,10 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
 
     //private AlertDialogBuilder mAlertDialogBuilder;
 
+    protected BluetoothService btService;
+
+    private String macAddress;
+
     private ServiceConnection mediaPlayerHudServiceConnection = new ServiceConnection() {
         public void onServiceConnected(ComponentName param1ComponentName, IBinder param1IBinder) {
             BlueFragment.this.startService(MediaPlayerHudService.class);
@@ -75,6 +84,19 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
             BlueFragment.this.stopService(MediaPlayerHudService.class);
             BlueFragment.mMediaPlayerHudService = null;
             BlueFragment.this.mediaPlayerBound = false;
+        }
+    };
+
+    private ServiceConnection BTServiceConnection = new ServiceConnection() { // from class: com.reconinstruments.bluetooth.BluetoothProvider.1
+        @Override // android.content.ServiceConnection
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            BlueFragment.this.btService = ((BluetoothService.LocalBinder) service).getService();
+        }
+
+        @Override // android.content.ServiceConnection
+        public void onServiceDisconnected(ComponentName className) {
+            Log.d(BlueFragment.TAG, "bluetooth service disconnected");
+            BlueFragment.this.btService = null;
         }
     };
 
@@ -109,6 +131,7 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
                     }
                 });
 
+        bindBT();
 
         return rootView;
     }
@@ -144,6 +167,13 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
             //bindService((Service)mMediaPlayerHudService, MediaPlayerHudService.class, this.mediaPlayerHudServiceConnection);
             Intent intent = new Intent(getContext(), MediaPlayerHudService.class);
             getContext().bindService(intent, this.mediaPlayerHudServiceConnection, Context.BIND_AUTO_CREATE);
+
+            Log.i(TAG, "Trying to connect bluetooth service #1");
+            if(this.btService!=null)
+            {
+                Log.i(TAG, "Trying to connect bluetooth service #2");
+                this.btService.connect(BT_FILETRANSFER, this.macAddress);
+            }
         }
     }
 
@@ -225,8 +255,9 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
         boolean doHudSrvConnect = true;
         boolean doHudWebSrvConnect = false;
 
-        //!recom3: disconnect task on 60 seconds, why?
         if(doHudSrvConnect) {
+            this.macAddress = param1TitleDescriptionModel.getDescription();
+
             MainActivityTest.mConnectivityHudService.connect(HUDConnectivityService.DeviceType.ANDROID, param1TitleDescriptionModel.getDescription());
 
             //!recom3: desconection time out task is commented, because we need to be connected in all moment
@@ -236,6 +267,14 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
         if(doHudWebSrvConnect)
         {
             MainActivityTest.mHUDWebService.connect("jet", 1);
+        }
+    }
+
+    public synchronized void bindBT() {
+        if (this.btService == null) {
+            Intent intent = new Intent(getContext(), MLBluetoothService.class);
+            getContext().bindService(intent, this.BTServiceConnection, Context.BIND_AUTO_CREATE);
+            //getContext().bindService(new Intent("RECON_BLUETOOTH_SERVICE"), this.BTServiceConnection, Context.BIND_AUTO_CREATE);
         }
     }
 }
