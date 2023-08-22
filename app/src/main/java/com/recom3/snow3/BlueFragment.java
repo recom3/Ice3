@@ -172,7 +172,7 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
             if(this.btService!=null)
             {
                 Log.i(TAG, "Trying to connect bluetooth service #2");
-                this.btService.connect(BT_FILETRANSFER, this.macAddress);
+                //this.btService.connect(BT_FILETRANSFER, this.macAddress);
             }
         }
     }

@@ -452,8 +452,10 @@ public class BTConnectivityManager {
             public void onCompleted(boolean param1Boolean) {
                 Intent intent = new Intent(qMsg.getSender());
                 intent.putExtra("result", param1Boolean);
+
                 if (qMsg.getChannel().equals(HUDConnectivityService.Channel.FILE_CHANNEL))
                     qMsg.setData(new byte[0]);
+
                 intent.putExtra(HUDConnectivityMessage.TAG, (Parcelable)qMsg.toHUDConnectivityMessage());
                 BTConnectivityManager.this.mContext.sendBroadcast(intent);
                 Log.i("BTConnectivityManager", "HUDConnectivityCallBack broadcast " + qMsg.toHUDConnectivityMessage().toString() + " with result " + param1Boolean);

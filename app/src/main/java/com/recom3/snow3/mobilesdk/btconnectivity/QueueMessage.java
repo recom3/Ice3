@@ -6,7 +6,9 @@ import com.recom3.snow3.hudconnectivity.HUDConnectivityMessage;
 import com.recom3.snow3.mobilesdk.HUDConnectivityService;
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.zip.GZIPOutputStream;
@@ -33,8 +35,8 @@ public class QueueMessage extends HUDConnectivityMessage
         this.intentFilter = paramHUDConnectivityMessage.getIntentFilter();
         this.info = paramHUDConnectivityMessage.getInfo();
         if (paramChannel.equals(HUDConnectivityService.Channel.FILE_CHANNEL)) {
-            //this.data = compress(getFileFromPointer(paramHUDConnectivityMessage.getData()));
-            this.data = compress(paramHUDConnectivityMessage.getData());
+            this.data = compress(getFileFromPointer(paramHUDConnectivityMessage.getData()));
+            //this.data = compress(paramHUDConnectivityMessage.getData());
         } else {
             this.data = paramHUDConnectivityMessage.getData();
         }
@@ -93,11 +95,16 @@ public class QueueMessage extends HUDConnectivityMessage
             randomAccessFile.close();
         }
         byte[] arrayOfByte = new byte[i];
-        randomAccessFile.readFully(arrayOfByte);
+        //randomAccessFile.readFully(arrayOfByte);
+
+        DataInputStream dis = new DataInputStream(new FileInputStream(paramFile));
+        dis.readFully(arrayOfByte);
+
         String str = TAG;
         StringBuilder stringBuilder = new StringBuilder();
         Log.i(str, stringBuilder.append("raw file: ").append(arrayOfByte.length).toString());
-        randomAccessFile.close();
+        //randomAccessFile.close();
+        dis.close();
         return arrayOfByte;
     }
 

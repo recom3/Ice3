@@ -65,7 +65,6 @@ public class FileUtils {
     public static String md5(String paramString, boolean paramBoolean) {
         try {
             FileInputStream fileInputStream = new FileInputStream(paramString);
-            //this(paramString);
             byte[] arrayOfByte = readByteArray(fileInputStream, 0);
             if (paramBoolean)
                 for (byte b = 24; b < 28; b++)
@@ -112,27 +111,22 @@ public class FileUtils {
         }
     }
 
-    //!!!!
-    //Check all this function: several lines commented
-    public static byte[] readByteArray(InputStream paramInputStream, int paramInt) {
-        int i = paramInt;
-        if (paramInt == 0) {
+    public static byte[] readByteArray(InputStream input, int size) {
+        if (size == 0) {
             try {
-                i = paramInputStream.available();
-                byte[] arrayOfByte4 = new byte[i];
-                paramInputStream.read(arrayOfByte4);
-                byte[] arrayOfByte3 = arrayOfByte4;
-            } catch (IOException iOException) {
-                Log.i("FileUtils", "failed to read byte array", iOException);
-                //iOException = null;
+                size = input.available();
+            } catch (IOException e) {
+                Log.d(TAG, "failed to read byte array", e);
                 return null;
             }
-            //return (byte[])iOException;
         }
-        byte[] arrayOfByte2 = new byte[i];
-        //iOException.read(arrayOfByte2);
-        //byte[] arrayOfByte1 = arrayOfByte2;
-        return arrayOfByte2;
+        byte[] data = new byte[size];
+        try {
+            input.read(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
     public static class FilePath implements Serializable {
