@@ -34,7 +34,8 @@ import java.util.zip.GZIPInputStream;
 /**
  * Created by Recom3 on 25/01/2022.
  * Main class for bluetooth communication
- * This class is not holding the threads. The threads are in BTransportManager
+ * This class is not holding the communication threads themselves.
+ * The threads are in BTransportManager
  */
 
 public class BTConnectivityManager {
@@ -599,76 +600,22 @@ public class BTConnectivityManager {
      */
     public void start() {
 
-        // Byte code:
-        //   0: aload_0
-        //   1: monitorenter
-        //   2: ldc 'BTConnectivityManager'
-        //   4: ldc_w 'Starting Bluetooth transport manager...'
-        //   7: invokestatic i : (Ljava/lang/String;Ljava/lang/String;)I
         Log.i("BTConnectivityManager", "'Starting Bluetooth transport manager...'");
-
-        //   10: pop
-        //   11: new com/reconinstruments/mobilesdk/bttransport/BTTransportManager
-        //   14: astore_1
-        //   15: aload_1
-        //   16: aload_0
-        //   17: getfield mContext : Landroid/content/Context;
-        //   20: aload_0
-        //   21: getfield mTransportHandler : Landroid/os/Handler;
-
-        //   24: invokespecial <init> : (Landroid/content/Context;Landroid/os/Handler;)V
-        //   27: aload_0
-        //   28: aload_1
-        //   29: putfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
-        //   32: aload_0
-        //   33: getfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
 
         mBTTransportManager = new BTTransportManager(mContext, mTransportHandler);
 
-        //   36: ifnull -> 55
         if(mBTTransportManager!=null)
         {
-            //mBTTransportManager.stop(true);
+            //!recom3
+            //this.mBTTransportManager.stop(true);
+            //this.mBTTransportManager.start(true);
         }
-        //mBTTransportManager.start(true);
 
-        //   39: aload_0
-        //   40: getfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
-        //   43: iconst_1
-        //   44: invokevirtual stop : (Z)V
-        //   47: aload_0
-        //   48: getfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
-        //   51: iconst_1
-        //   52: invokevirtual start : (Z)V
-        //   55: ldc 'BTConnectivityManager'
-        //   57: ldc_w 'Restarting all of the Bluetooth connectors...'
-        //   60: invokestatic i : (Ljava/lang/String;Ljava/lang/String;)I
-        //   63: pop
-        //   64: aload_0
-
-        //   65: getfield mBtCommandConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   68: ifnull -> 130
-        //   71: aload_0
-        //   72: getfield mBtCommandConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   75: invokevirtual cancel : ()V
-        //   78: aload_0
-        //   79: getfield mBtObjectConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   82: ifnull -> 159
-        //   85: aload_0
-        //   86: getfield mBtObjectConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   89: invokevirtual cancel : ()V
-        //   92: aload_0
-        //   93: getfield mBtFileConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   96: ifnull -> 183
-        //   99: aload_0
-        //   100: getfield mBtFileConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   103: invokevirtual cancel : ()V
-        //   106: aload_0
+        Log.i(TAG, "Restarting all of the Bluetooth connectors...");
 
         if(mBtCommandConnector==null)
         {
             mBtCommandConnector = new BTCommandConnector(mContext, mBTTransportManager);
-
             mBtCommandConnector.start();;
         }
         else
@@ -679,7 +626,6 @@ public class BTConnectivityManager {
         if(mBtObjectConnector==null)
         {
             mBtObjectConnector = new BTObjectConnector(mContext, mBTTransportManager);
-
             mBtObjectConnector.start();
         }
         else
@@ -690,7 +636,6 @@ public class BTConnectivityManager {
         if(mBtFileConnector==null)
         {
             mBtFileConnector = new BTFileConnector(mContext, mBTTransportManager);
-
             mBtFileConnector.start();
         }
         else
@@ -698,80 +643,15 @@ public class BTConnectivityManager {
             mBtFileConnector.cancel();
         }
 
-        //   107: getfield mBtCommandConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   110: invokevirtual start : ()V
-        //   113: aload_0
-        //   114: getfield mBtObjectConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   117: invokevirtual start : ()V
-        //   120: aload_0
-        //   121: getfield mBtFileConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   124: invokevirtual start : ()V
-        //   127: aload_0
-        //   128: monitorexit
-        //   129: return
-        //   130: new com/reconinstruments/mobilesdk/btconnectivity/BTCommandConnector
-        //   133: astore_1
-        //   134: aload_1
-        //   135: aload_0
-        //   136: getfield mContext : Landroid/content/Context;
-        //   139: aload_0
-        //   140: getfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
-        //   143: invokespecial <init> : (Landroid/content/Context;Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;)V
-        //   146: aload_0
-        //   147: aload_1
-        //   148: putfield mBtCommandConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   151: goto -> 78
-        //   154: astore_1
-        //   155: aload_0
-        //   156: monitorexit
-        //   157: aload_1
-        //   158: athrow
-        //   159: new com/reconinstruments/mobilesdk/btconnectivity/BTObjectConnector
-        //   162: astore_1
-        //   163: aload_1
-        //   164: aload_0
-        //   165: getfield mContext : Landroid/content/Context;
-        //   168: aload_0
-        //   169: getfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
-        //   172: invokespecial <init> : (Landroid/content/Context;Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;)V
-        //   175: aload_0
-        //   176: aload_1
-        //   177: putfield mBtObjectConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   180: goto -> 92
-        //   183: new com/reconinstruments/mobilesdk/btconnectivity/BTFileConnector
-        //   186: astore_1
-        //   187: aload_1
-        //   188: aload_0
-        //   189: getfield mContext : Landroid/content/Context;
-        //   192: aload_0
-        //   193: getfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
-        //   196: invokespecial <init> : (Landroid/content/Context;Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;)V
-        //   199: aload_0
-        //   200: aload_1
-        //   201: putfield mBtFileConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   204: goto -> 106
-
-        // Exception table:
-        //   from	to	target	type
-        //   2	55	154	finally
-        //   55	78	154	finally
-        //   78	92	154	finally
-        //   92	106	154	finally
-        //   106	127	154	finally
-        //   130	151	154	finally
-        //   159	180	154	finally
-        //   183	204	154	finally
+        //!recom3
+        //this.mBtCommandConnector.start();
+        //this.mBtObjectConnector.start();
+        //this.mBtFileConnector.start();
     }
 
     public void stop() {
 
-        // Byte code:
-        //   0: aload_0
-        //   1: monitorenter
-        //   2: ldc 'BTConnectivityManager'
-        //   4: ldc_w 'Shutdown Bluetooth TransportManager...'
-        //   7: invokestatic i : (Ljava/lang/String;Ljava/lang/String;)I
-
+        Log.i(TAG, "Shutdown Bluetooth TransportManager...");
         if(mBTTransportManager!=null)
         {
             mBTTransportManager.stop(true);
@@ -781,59 +661,17 @@ public class BTConnectivityManager {
             mBtCommandConnector.cancel();
             mBtCommandConnector = null;
         }
-        //   10: pop
-        //   11: aload_0
-        //   12: getfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
-        //   15: ifnull -> 26
-        //   18: aload_0
-        //   19: getfield mBTTransportManager : Lcom/reconinstruments/mobilesdk/bttransport/BTTransportManager;
-        //   22: iconst_1
-        //   23: invokevirtual stop : (Z)V
-        //   26: ldc 'BTConnectivityManager'
-        //   28: ldc_w 'Shutdown all of the Bluetooth connectors...'
-        //   31: invokestatic i : (Ljava/lang/String;Ljava/lang/String;)I
-        //   34: pop
-        //   35: aload_0
-        //   36: getfield mBtCommandConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   39: ifnull -> 54
-        //   42: aload_0
-        //   43: getfield mBtCommandConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   46: invokevirtual cancel : ()V
-        //   49: aload_0
-        //   50: aconst_null
-        //   51: putfield mBtCommandConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   54: aload_0
-        //   55: getfield mBtObjectConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   58: ifnull -> 73
-        //   61: aload_0
-        //   62: getfield mBtObjectConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   65: invokevirtual cancel : ()V
-        //   68: aload_0
-        //   69: aconst_null
-        //   70: putfield mBtObjectConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   73: aload_0
-        //   74: getfield mBtFileConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   77: ifnull -> 92
-        //   80: aload_0
-        //   81: getfield mBtFileConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   84: invokevirtual cancel : ()V
-        //   87: aload_0
-        //   88: aconst_null
-        //   89: putfield mBtFileConnector : Lcom/reconinstruments/mobilesdk/btconnectivity/BTConnector;
-        //   92: aload_0
-        //   93: monitorexit
-        //   94: return
-        //   95: astore_1
-        //   96: aload_0
-        //   97: monitorexit
-        //   98: aload_1
-        //   99: athrow
-        // Exception table:
-        //   from	to	target	type
-        //   2	26	95	finally
-        //   26	54	95	finally
-        //   54	73	95	finally
-        //   73	92	95	finally
+        //!recom3
+        /*
+        if (this.mBtObjectConnector != null) {
+            this.mBtObjectConnector.cancel();
+            this.mBtObjectConnector = null;
+        }
+        if (this.mBtFileConnector != null) {
+            this.mBtFileConnector.cancel();
+            this.mBtFileConnector = null;
+        }
+        */
     }
 
     public String writeFile(byte[] paramArrayOfbyte) {

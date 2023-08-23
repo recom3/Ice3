@@ -26,6 +26,7 @@ import static com.recom3.snow3.mobilesdk.HUDConnectivityService.Channel.OBJECT_C
 
 /**
  * Created by Recom3 on 27/01/2022.
+ * Holding the threads for communications.
  */
 
 public class BTTransportManager {

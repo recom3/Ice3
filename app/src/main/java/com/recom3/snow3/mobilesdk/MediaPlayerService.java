@@ -205,8 +205,10 @@ public abstract class MediaPlayerService extends EngageSdkService {
         hUDConnectivityMessage.setIntentFilter("RECON_MUSIC_MESSAGE");
         hUDConnectivityMessage.setRequestKey(0);
         hUDConnectivityMessage.setSender("com.reconinstruments.mobilesdk.mediaplayer.MediaPlayerService");
-        hUDConnectivityMessage.setData((new MusicMessage(paramPlayerInfo, MusicMessage.Type.STATUS)).toXML().getBytes());
-        Log.i("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
+        String str = (new MusicMessage(paramPlayerInfo, MusicMessage.Type.STATUS)).toXML();
+        hUDConnectivityMessage.setData(str.getBytes());
+        Log.i("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length
+            + " " + str);
         hudSrvc.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
     }
 
@@ -218,13 +220,10 @@ public abstract class MediaPlayerService extends EngageSdkService {
         String str;
         try {
             InputSource inputSource = new InputSource();
-            //this();
             StringReader stringReader = new StringReader(paramString1);
-            //this(paramString1);
             inputSource.setCharacterStream(stringReader);
             str = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(inputSource).getElementsByTagName("recon").item(0).getFirstChild().getAttributes().getNamedItem(paramString2).getNodeValue();
             StringBuilder stringBuilder = new StringBuilder();
-            //this();
             Log.i("MediaPlayerServiceSDK", stringBuilder.append("handled ").append(paramString2).append(": ").append(paramString1).toString());
         } catch (Exception exception) {
             exception.printStackTrace();

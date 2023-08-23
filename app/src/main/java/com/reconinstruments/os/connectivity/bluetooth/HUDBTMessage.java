@@ -22,7 +22,6 @@ public class HUDBTMessage {
         this.idMsg = b2;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     public static int a(int nBytesInBuffer, int nHeaderLen, int nPayloadLen, int nReceivedBytes) {
         int nRemain = nPayloadLen - nReceivedBytes;
 
@@ -33,7 +32,6 @@ public class HUDBTMessage {
         return nReturn;
     }
 
-    /* JADX INFO: Access modifiers changed from: package-private */
     public final boolean isBodyComplete() {
         boolean z = true;
         if (this.d != null) {
@@ -44,8 +42,7 @@ public class HUDBTMessage {
         }
         return z;
     }
-
-    /* JADX INFO: Access modifiers changed from: package-private */
+    
     public final boolean isPayloadComplete() {
         boolean z = true;
         if (this.payload != null && this.nReceivedBytes < this.payload.length) {

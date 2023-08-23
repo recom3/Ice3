@@ -131,7 +131,8 @@ public class BlueFragment extends Fragment implements PairedListDeviceDialogFrag
                     }
                 });
 
-        bindBT();
+        //!recom3
+        //bindBT();
 
         return rootView;
     }
