@@ -138,8 +138,14 @@ public class TripListManager {
     public EngageWebClientRequest getTripList() {
         Log.i(TAG, "REQUEST FOR TRIP LIST");
         EngageWebClient ewc = new EngageWebClient(this.getTripListHandler);
-        String token = TripService.authSrvc.getUserInfo().getAccessToken();
-        return ewc.sendReqWithAuth(EngageWebClientRequest.HTTP_METHOD.GET, TripService.URL_TRIP, token, null);
+        if(TripService.authSrvc.getUserInfo() != null) {
+            String token = TripService.authSrvc.getUserInfo().getAccessToken();
+            return ewc.sendReqWithAuth(EngageWebClientRequest.HTTP_METHOD.GET, TripService.URL_TRIP, token, null);
+        }
+        else
+        {
+            return null;
+        }
     }
 
     public EngageWebClientRequest getTripMetaData(String id) {

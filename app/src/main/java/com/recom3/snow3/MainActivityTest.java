@@ -123,8 +123,16 @@ public class MainActivityTest extends AppCompatActivity implements BuddyEnableCa
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Bundle bundle = new Bundle();
+                //bundle.putBoolean(LoginActivity.KEY_CODE_REQUEST_COMES_FROM_MENU_ITEM, true);
+                //goToActivityWithNoAnimation(LoginActivity.class, bundle);
+
+                Intent intent = new Intent(MainActivityTest.this, LoginActivity.class);
+                intent.putExtra(LoginActivity.KEY_CODE_REQUEST_COMES_FROM_MENU_ITEM, true);
+                startActivity(intent);
+
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
             }
         });
 

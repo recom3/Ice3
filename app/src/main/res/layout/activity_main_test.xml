@@ -47,6 +47,6 @@
         android:layout_margin="@dimen/fab_margin"
         app:backgroundTint="@color/_30_gray"
         app:tint="@android:color/holo_orange_dark"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@android:drawable/ic_menu_revert" />
 
 </android.support.design.widget.CoordinatorLayout>

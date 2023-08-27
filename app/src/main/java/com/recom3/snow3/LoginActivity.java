@@ -17,6 +17,8 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -141,6 +143,8 @@ public class LoginActivity extends AppCompatActivity {
         this.mAirwaveService = new AirwaveService();
         this.mAirwaveService.mAirwaveRepository = this.mAirwaveRepository;
 
+        verifyIfUserRequestedLoginOrLogout();
+
         //Test for parsing trip file
 
         InputStream ins = getResources().openRawResource(
@@ -205,6 +209,27 @@ public class LoginActivity extends AppCompatActivity {
         if(isNotLogin)
         {
             goToActivity(MainActivityTest.class);
+        }
+
+        //This is nor working as fab is null
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        if(fab!=null) {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (LoginActivity.this.mUserService.isLogged()) {
+                        Log.i(LOG_TAG, "Logout");
+                        LoginActivity.this.mUserService.delete();
+                        goToActivity(LoginActivity.class);
+                    } else {
+                        Log.i(LOG_TAG, "Explore");
+                        goToActivity(MainActivityTest.class);
+                    }
+                    //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    //        .setAction("Action", null).show();
+
+                }
+            });
         }
     }
 
@@ -591,10 +616,18 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onExplore(View param1View) {
 
-        String url = "https://www.recom3.com/web/#/market";
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
+        boolean isGoToRecon = false;
+
+        if(isGoToRecon) {
+            String url = "https://www.recom3.com/web/#/market";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+        }
+        else
+        {
+            goToActivity(MainActivityTest.class);
+        }
     }
 
     @Override
@@ -711,4 +744,16 @@ public class LoginActivity extends AppCompatActivity {
             LoginActivity.this.mHUDWebService = null;
         }
     };
+
+    //Is called onCreate
+    private void verifyIfUserRequestedLoginOrLogout() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            boolean requestedLoginOrLogout = extras.getBoolean(KEY_CODE_REQUEST_COMES_FROM_MENU_ITEM, false);
+            if (requestedLoginOrLogout && this.mUserService!=null && this.mUserService.isLogged()) {
+                this.mUserService.delete();
+                //authSrvc.logout();
+            }
+        }
+    }
 }

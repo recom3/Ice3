@@ -115,8 +115,7 @@ public class ReconMusicPlayer extends MediaPlayer {
     }
 
     /*
-    JC 23.07.2022
-    This function has to be re-checked, sinde the logic is not clear
+    recom3 23.07.2022
     1. Store song id in variable 1 (songId)
     2. Get a cursor
     3. Dump column names
@@ -137,6 +136,7 @@ public class ReconMusicPlayer extends MediaPlayer {
             }
         }
         cursor.moveToFirst();
+
         while (true) {
             String tempSongAudioId = cursor.getString(1).trim();
             if (tempSongAudioId.equals(this.song.songId)) {
