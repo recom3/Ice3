@@ -21,15 +21,21 @@ import android.widget.ListView;
 import com.recom3.mobilesdk.buddytracking.BuddyAirwaveService;
 import com.recom3.snow3.activity.buddy.BuddiesTabFragment;
 import com.recom3.snow3.activity.trip.TripCursorAdapter;
+import com.recom3.snow3.activity.trip.TripDetailsActivity;
+import com.recom3.snow3.activity.trip.TripItemArrayAdapter;
 import com.recom3.snow3.mobilesdk.EngageSdkService;
 import com.recom3.snow3.mobilesdk.tripviewer.ITripListQueryCallback;
 import com.recom3.snow3.mobilesdk.tripviewer.Trip;
+import com.recom3.snow3.model.trip.TripParcelable;
 import com.recom3.snow3.service.TripAirwaveService;
 import com.recom3.snow3.service.TripListHandler;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 
 /**
  * Created by Recom3 on 05/07/2022.
@@ -42,12 +48,43 @@ public class GreenFragment extends Fragment {
     private boolean mTripAirwaveServiceIsBound;
     ListView mListView;
 
+    private double mMaxSpeedAllTimeBest = -9.99999999E8d;
+    private double mTotalVerticalAllTimeVertical = 0.0d;
+    private double mTotalDistanceAllTimeDistance = 0.0d;
+    private double mMaxAltitudeAllTimeBest = -9.99999999E8d;
+
     private final ListView.OnItemClickListener onItemClickListener = new ListView.OnItemClickListener() {
 
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        //public void onItemClick(AdapterView<?> adapterView, View view2, int section, int position, long id) {
+            int section = 1;
+            try {
+                TripCursorAdapter adapter = (TripCursorAdapter) adapterView.getAdapter();
+                if (adapter != null) {
+                    Trip trip = (Trip) ((TripCursorAdapter) adapterView.getAdapter()).getItem(position);
+                    Intent intent = new Intent(GreenFragment.this.getContext(), TripDetailsActivity.class);
+                    intent.putExtra(TripDetailsActivity.TRIP_PARCELABLE_KEY, new TripParcelable(trip));
+                    intent.putExtra(TripDetailsActivity.TRIP_DETAILS_MAX_SPEED_ALL_TIME_BEST, GreenFragment.this.mMaxSpeedAllTimeBest);
+                    intent.putExtra(TripDetailsActivity.TRIP_DETAILS_TOTAL_VERTICAL_ALL_TIME_VERTICAL, GreenFragment.this.mTotalVerticalAllTimeVertical);
+                    intent.putExtra(TripDetailsActivity.TRIP_DETAILS_TOTAL_DISTANCE_ALL_TIME_DISTANCE, GreenFragment.this.mTotalDistanceAllTimeDistance);
+                    intent.putExtra(TripDetailsActivity.TRIP_DETAILS_MAX_ALTITUDE_ALL_TIME_BEST, GreenFragment.this.mMaxAltitudeAllTimeBest);
+                    GreenFragment.this.startActivity(intent);
 
+                    //Intent intent1 = new Intent((MainActivityTest)getActivity(), LoginActivityCopy.class);
+                    //startActivity(intent1);
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
+
+        //@Override
+        //public void onSectionClick(AdapterView<?> adapterView, View view2, int section, long id) {
+        //    TripsTabFragment.this.mListView.setSelection(0);
+        //}
     };
 
     private ServiceConnection tripsServiceConnection = new ServiceConnection() { // from class: com.oakley.snow.activity.trip.GreenFragment.1
@@ -139,7 +176,6 @@ public class GreenFragment extends Fragment {
         }
     };
 
-    /*
     public HashMap<String, ArrayList<Trip>> createTripListWithHeaders(ArrayList<Trip> trips) {
         HashMap<String, ArrayList<Trip>> hashMap = new HashMap<>();
         Iterator<Trip> it = trips.iterator();
@@ -157,10 +193,45 @@ public class GreenFragment extends Fragment {
         }
         return hashMap;
     }
-    */
 
-    //public void onRefreshStarted(View arg0) {
-    //    loadTripsList();
-    //}
+    private void setValuesForTripDetails(Trip trip) {
+        setMaxSpeedAllTimeBest(trip);
+        setTotalVerticalAllTimeVertical(trip);
+        setTotalDistanceAllTimeDistance(trip);
+        setMaxAltitudeAllTimeBest(trip);
+    }
+
+    private void setMaxSpeedAllTimeBest(Trip trip) {
+        double maxSpeed = Double.parseDouble(trip.trip_max_speed);
+        if (maxSpeed > this.mMaxSpeedAllTimeBest) {
+            this.mMaxSpeedAllTimeBest = maxSpeed;
+        }
+    }
+
+    private void setTotalVerticalAllTimeVertical(Trip trip) {
+        this.mTotalVerticalAllTimeVertical += Math.abs(Double.parseDouble(trip.trip_total_vertical));
+    }
+
+    private void setTotalDistanceAllTimeDistance(Trip trip) {
+        this.mTotalDistanceAllTimeDistance += Math.abs(Double.parseDouble(trip.trip_total_distance));
+    }
+
+    private void setMaxAltitudeAllTimeBest(Trip trip) {
+        double maxAltitude = Double.parseDouble(trip.trip_max_alt);
+        if (maxAltitude > this.mMaxAltitudeAllTimeBest) {
+            this.mMaxAltitudeAllTimeBest = maxAltitude;
+        }
+    }
+
+    private String getHeaderDateFormated(Trip trip) {
+        Calendar instance = Calendar.getInstance();
+        instance.setTimeInMillis(Long.parseLong(trip.trip_day_first_timestamp));
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM, yyyy", Locale.US);
+        return sdf.format(instance.getTime());
+    }
+
+    public void onRefreshStarted(View arg0) {
+        loadTripsList();
+    }
 
 }

@@ -210,27 +210,7 @@ public class LoginActivity extends AppCompatActivity {
         {
             goToActivity(MainActivityTest.class);
         }
-
-        //This is nor working as fab is null
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        if(fab!=null) {
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (LoginActivity.this.mUserService.isLogged()) {
-                        Log.i(LOG_TAG, "Logout");
-                        LoginActivity.this.mUserService.delete();
-                        goToActivity(LoginActivity.class);
-                    } else {
-                        Log.i(LOG_TAG, "Explore");
-                        goToActivity(MainActivityTest.class);
-                    }
-                    //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    //        .setAction("Action", null).show();
-
-                }
-            });
-        }
+        
     }
 
     /**
@@ -626,7 +606,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         else
         {
-            goToActivity(MainActivityTest.class);
+            Intent intent = new Intent(this, MainActivityTest.class);
+            intent.putExtra(LoginActivity.KEY_CODE_REQUEST_COMES_FROM_MENU_ITEM, true);
+            startActivity(intent);
+            //goToActivity(MainActivityTest.class);
         }
     }
 

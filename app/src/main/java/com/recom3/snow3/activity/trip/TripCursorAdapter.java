@@ -46,17 +46,6 @@ public class TripCursorAdapter extends BaseAdapter {
         public TextView totalVerticalSuffix;
     }
 
-    /*
-    public TripItemArrayAdapter(Activity activity, int textViewResourceId,
-                                HashMap<String, ArrayList<Trip>> entries,
-                                AirwaveService airwaveService) {
-        this.mAirwaveService = airwaveService;
-        this.mKeys = entries.keySet().toArray();
-        this.mEntries = entries;
-        this.mActivity = activity;
-    }
-    */
-
     public TripCursorAdapter(ArrayList<Trip> map, TripAirwaveService airwaveService) {
 
         mData = map;

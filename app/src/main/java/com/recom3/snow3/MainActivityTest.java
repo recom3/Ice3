@@ -34,10 +34,13 @@ import com.recom3.snow3.hudconnectivity.HUDConnectivityMessage;
 import com.recom3.snow3.mobilesdk.HUDConnectivityService;
 //import com.recom3.snow3.service.ConnectivityHudService;
 import com.recom3.snow3.mobilesdk.messages.PhoneMessage;
+import com.recom3.snow3.util.validation.ICallback;
 import com.reconinstruments.os.connectivity.HUDWebService;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import static com.recom3.snow3.LoginActivity.KEY_CODE_REQUEST_COMES_FROM_MENU_ITEM;
 
 public class MainActivityTest extends AppCompatActivity implements BuddyEnableCallback {
 
@@ -58,6 +61,8 @@ public class MainActivityTest extends AppCompatActivity implements BuddyEnableCa
     int NUM_PAGES = 3;
 
     public static boolean mDoAuthLogin = false;
+
+    ViewPager viewPager;
 
     @Override
     public void onBuddyTrackingEnabled(boolean activate) {
@@ -128,7 +133,7 @@ public class MainActivityTest extends AppCompatActivity implements BuddyEnableCa
                 //goToActivityWithNoAnimation(LoginActivity.class, bundle);
 
                 Intent intent = new Intent(MainActivityTest.this, LoginActivity.class);
-                intent.putExtra(LoginActivity.KEY_CODE_REQUEST_COMES_FROM_MENU_ITEM, true);
+                intent.putExtra(KEY_CODE_REQUEST_COMES_FROM_MENU_ITEM, true);
                 startActivity(intent);
 
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -137,7 +142,7 @@ public class MainActivityTest extends AppCompatActivity implements BuddyEnableCa
         });
 
         //View pager
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         //viewPager.setAdapter(new CustomPagerAdapter(this));
 
         // Create the adapter that will return a fragment for each of the three
@@ -153,6 +158,8 @@ public class MainActivityTest extends AppCompatActivity implements BuddyEnableCa
         startServices();
 
         //startWebServices();
+
+        verifyIfUserRequestedLoginOrLogout();
     }
 
     private ServiceConnection hudServiceConnection = new ServiceConnection() {
@@ -324,6 +331,30 @@ public class MainActivityTest extends AppCompatActivity implements BuddyEnableCa
             Log.i("MediaPlayerServiceSDK", "size of music status message: " + (hUDConnectivityMessage.toByteArray()).length);
             hudSrvc.push(hUDConnectivityMessage, HUDConnectivityService.Channel.OBJECT_CHANNEL);
             */
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /*
+        this.mUserService.executeWhenUserIsNotLogged(new ICallback() { // from class: com.oakley.snow.activity.MainViewPagerActivity.3
+            @Override // com.sook.android.utility.ICallback
+            public void execute() {
+                MainViewPagerActivity.this.mViewPager.setCurrentItem(2);
+            }
+        });
+        */
+
+    }
+
+    private void verifyIfUserRequestedLoginOrLogout() {
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            boolean requestedLoginOrLogout = extras.getBoolean(KEY_CODE_REQUEST_COMES_FROM_MENU_ITEM, false);
+            if (requestedLoginOrLogout) {
+                viewPager.setCurrentItem(2);
+            }
         }
     }
 }

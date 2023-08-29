@@ -116,10 +116,13 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter implements F
         return super.getItemPosition(object);
     }
 
+    /**
+     * Trying to load trip details
+     * @param activate
+     * @return
+     */
     public boolean setBuddiesListFragment(boolean activate)
     {
-        mBuddyList = activate;
-
         if(activate)
         {
             mFragmentManager.beginTransaction().remove(mFragmentAtPos0).commit();
@@ -128,6 +131,18 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter implements F
         }
 
         return mBuddyList;
+    }
+
+    public boolean setTripDetailFragment(boolean activate)
+    {
+        if(activate)
+        {
+            mFragmentManager.beginTransaction().remove(mFragmentAtPos0).commit();
+            mFragmentAtPos0 = new BuddiesTabFragment();
+            notifyDataSetChanged();
+        }
+
+        return activate;
     }
 
     @Override

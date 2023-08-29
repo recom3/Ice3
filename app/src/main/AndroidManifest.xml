@@ -146,6 +146,10 @@
             android:label="@string/title_activity_browser_login"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
+        <activity
+            android:name=".activity.trip.TripDetailsActivity">
+        </activity>
+
         <receiver
             android:name="com.recom3.snow3.mobilesdk.phonecontrol.PhoneReceiver"
             android:enabled="true"

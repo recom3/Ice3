@@ -45,4 +45,5 @@ Tap to disconnect it"</string>
     <string name="trips_layout_info_three">123.3</string>
     <string name="trips_stats_list_kmh_text">km/h</string>
     <string name="trips_layout_place">La Jolla</string>
+    <string name="trip_details">Trip Details</string>
 </resources>
