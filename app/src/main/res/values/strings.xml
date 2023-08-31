@@ -46,4 +46,13 @@ Tap to disconnect it"</string>
     <string name="trips_stats_list_kmh_text">km/h</string>
     <string name="trips_layout_place">La Jolla</string>
     <string name="trip_details">Trip Details</string>
+    <string name="trips_stats_list_image_run_text">run</string>
+    <string name="trips_stats_list_max_speed_number">59.80</string>
+    <string name="trip_details_internal_max_speed_top_left_description">AVERAGE SPEED</string>
+    <string name="trip_details_internal_max_speed_top_right_description">ALL TIME BEST</string>
+    <string name="trip_details_internal_metric_kilometers_per_hour_description">km/h</string>
+    <string name="trip_details_internal_total_vertical_top_right_description">ALL TIME VERTICAL</string>
+    <string name="trip_details_internal_total_vertical_top_left_description">BEST RUN</string>
+    <string name="trips_stats_list_total_vertical_number">4,186</string>
+    <string name="trips_stats_list_km_text">km</string>
 </resources>

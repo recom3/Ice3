@@ -9,4 +9,8 @@
     <dimen name="login_layout_button_login_or_signup_margin_left">1.5dip</dimen>
     <dimen name="login_layout_button_explore_margin_top">70.0dip</dimen>
     <dimen name="login_layout_button_explore_margin_left">1.5dip</dimen>
+    <dimen name="trips_details_max_speed_fragment_text_view_margin_left">115.0dip</dimen>
+    <dimen name="trips_details_max_speed_fragment_text_view_margin_top">12.0dip</dimen>
+    <dimen name="trips_details_total_vertical_fragment_text_view_margin_left">115.0dip</dimen>
+    <dimen name="trips_details_total_vertical_fragment_text_view_margin_top">12.0dip</dimen>
 </resources>

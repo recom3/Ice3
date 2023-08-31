@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <ImageButton android:id="@+id/trip_details_total_vertical_fragment_image_button_box" android:background="@drawable/trips_list_total_vertical_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="@dimen/trips_details_total_vertical_fragment_text_view_margin_left" android:layout_marginTop="@dimen/trips_details_total_vertical_fragment_text_view_margin_top">
+            <TextView android:textSize="30.0sp" android:textStyle="bold" android:textColor="@android:color/black" android:id="@+id/trip_details_total_vertical_fragment_text_view_total_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/trips_stats_list_total_vertical_number" />
+            <TextView android:textSize="12.0sp" android:textStyle="bold" android:textColor="@android:color/black" android:id="@+id/trip_details_total_vertical_fragment_text_view_total_vertical_metric" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:text="@string/trips_stats_list_km_text" />
+        </LinearLayout>
+    </FrameLayout>
+    <FrameLayout android:id="@id/trip_internal_details_fragment" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</LinearLayout>

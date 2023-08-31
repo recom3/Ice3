@@ -10,4 +10,6 @@
     <color name="semi_transparent_black">#c8000000</color>
     <color name="_50_gray">#ffc2c2c2</color>
     <color name="_30_gray">#ffdadada</color>
+    <color name="trip_details_green">#ff64fe5d</color>
+    <color name="trip_details_blue">#ff1aeffc</color>
 </resources>

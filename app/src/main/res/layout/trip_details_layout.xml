@@ -4,18 +4,18 @@
 
     <ImageView android:id="@+id/trip_details_layout_button_image" android:background="@drawable/trips_list_image_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     <TextView android:textSize="18.0sp" android:textStyle="normal" android:textColor="@android:color/white" android:id="@+id/trip_details_layout_text_view_location" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" android:layout_marginTop="8.0dip" />
-    <!--
       <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content">
           <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content">
-              <TextView android:textSize="45.0sp" android:textStyle="bold" android:textColor="@android:color/white" android:id="@id/trip_details_layout_text_view_run_number" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" />
-              <TextView android:textSize="40.0sp" android:textStyle="normal" android:textColor="@android:color/white" android:id="@id/trip_details_layout_text_view_runs_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:text="@string/trips_stats_list_image_run_text" />
-              <TextView android:textSize="15.0sp" android:textStyle="normal" android:textColor="@android:color/white" android:id="@id/trip_details_layout_text_view_time_spent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="65.0dip" />
+              <TextView android:textSize="45.0sp" android:textStyle="bold" android:textColor="@android:color/white" android:id="@+id/trip_details_layout_text_view_run_number" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="20.0dip" />
+              <TextView android:textSize="40.0sp" android:textStyle="normal" android:textColor="@android:color/white" android:id="@+id/trip_details_layout_text_view_runs_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:text="@string/trips_stats_list_image_run_text" />
+              <TextView android:textSize="15.0sp" android:textStyle="normal" android:textColor="@android:color/white" android:id="@+id/trip_details_layout_text_view_time_spent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="65.0dip" />
           </LinearLayout>
-          <fragment android:name="com.oakley.snow.activity.trip.details.MaxSpeedDetailsFragment" android:id="@id/trip_details_max_speed_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-          <fragment android:name="com.oakley.snow.activity.trip.details.TotalVerticalDetailsFragment" android:id="@id/trip_details_total_vertical_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-          <fragment android:name="com.oakley.snow.activity.trip.details.TotalDistanceDetailsFragment" android:id="@id/trip_details_total_distance_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-          <fragment android:name="com.oakley.snow.activity.trip.details.MaxAltitudeDetailsFragment" android:id="@id/trip_details_max_altitude_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-          <fragment android:name="com.oakley.snow.activity.trip.details.TotalJumpsDetailsFragment" android:id="@id/trip_details_total_jumps_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+          <fragment android:name="com.recom3.snow3.activity.trip.details.MaxSpeedDetailsFragment" android:id="@+id/trip_details_max_speed_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+          <fragment android:name="com.recom3.snow3.activity.trip.details.TotalVerticalDetailsFragment" android:id="@+id/trip_details_total_vertical_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+          <!--
+        <fragment android:name="com.recom3.snow3.activity.trip.details.TotalDistanceDetailsFragment" android:id="@id/trip_details_total_distance_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <fragment android:name="com.recom3.snow3.activity.trip.details.MaxAltitudeDetailsFragment" android:id="@id/trip_details_max_altitude_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <fragment android:name="com.recom3.snow3.activity.trip.details.TotalJumpsDetailsFragment" android:id="@id/trip_details_total_jumps_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        -->
       </LinearLayout>
-      -->
 </FrameLayout>

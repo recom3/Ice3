@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:background="@null" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/trip_details_internal" />
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <TextView android:gravity="center" android:id="@+id/trip_details_internal_top_left_description" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="50.0" />
+            <TextView android:gravity="center" android:id="@+id/trip_details_internal_top_right_description" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="50.0" />
+        </LinearLayout>
+        <LinearLayout android:gravity="bottom" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent" android:baselineAligned="false">
+            <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="50.0">
+                <TextView android:textSize="26.0sp" android:textStyle="bold" android:id="@+id/trip_details_internal_fragment_text_view_bottom_left_value" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <TextView android:id="@+id/trip_details_internal_fragment_text_view_bottom_left_metric" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dip" android:text="@string/trip_details_internal_metric_kilometers_per_hour_description" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center_horizontal" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="50.0">
+                <TextView android:textSize="26.0sp" android:textStyle="bold" android:id="@+id/trip_details_internal_fragment_text_view_bottom_right_value" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+                <TextView android:id="@+id/trip_details_internal_fragment_text_view_bottom_right_metric" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="8.0dip" android:text="@string/trip_details_internal_metric_kilometers_per_hour_description" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>
