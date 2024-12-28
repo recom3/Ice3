@@ -112,8 +112,6 @@ public abstract class MediaPlayerService extends EngageSdkService {
                 Log.w("MediaPlayerServiceSDK", "failed uploading DB!");
                 if (MediaPlayerService.this.countSyncRetries < 5) {
                     MediaPlayerService.this.getDbMgr().buildMusicDB();
-                    //!!!!
-                    //MediaPlayerService.access$108(MediaPlayerService.this);
                     Log.i("MediaPlayerServiceSDK", "reattempting to uploading DB by building it again.");
                     return;
                 }

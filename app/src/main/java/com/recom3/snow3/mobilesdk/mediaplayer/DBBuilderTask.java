@@ -178,23 +178,6 @@ public class DBBuilderTask extends ConcurrentAsyncTask<Void, DBManager.DBState, 
         int numArtists = DBBuilderUtils.writeTable(this.mSrvc, this.database, MusicDBContentProvider.ARTISTS_TABLE, MusicDBContentProvider.artistsUri, MusicDBContentProvider.artistsTableColumns, MusicDBContentProvider.artistsTableColumnTypes, null, false);
         Log.i(TAG, "saved " + numArtists + " artists");
 
-        /*
-        int playlist = DBBuilderUtils.writeTable(this.mSrvc.getBaseContext(), this.database, "playlists",
-                MusicDBPlaylistColumnsProvider.getPlaylistsTableUri(1),
-                MusicDBPlaylistColumnsProvider.getPlaylistsTableBuildColumns(1),
-                MusicDBPlaylistColumnsProvider.getPlaylistsTableColumnTypes(),
-                null, true);
-
-        if(playlist==0) {
-
-            playlist = DBBuilderUtils.writeTable(this.mSrvc.getBaseContext(), this.database, "playlists",
-                    MusicDBPlaylistColumnsProvider.getPlaylistsTableUri(2),
-                    MusicDBPlaylistColumnsProvider.getPlaylistsTableBuildColumns(2),
-                    MusicDBPlaylistColumnsProvider.getPlaylistsTableColumnTypes(),
-                    null, true);
-        }
-        */
-
         try {
             numPlaylists = DBBuilderUtils.writeTable(this.mSrvc, this.database, MusicDBContentProvider.PLAYLISTS_TABLE, MusicDBPlaylistColumnsProvider.getPlaylistsTableUri(1), MusicDBPlaylistColumnsProvider.getPlaylistsTableBuildColumns(1), MusicDBPlaylistColumnsProvider.getPlaylistsTableColumnTypes(), null, true);
         } catch (IllegalArgumentException e2) {
