@@ -12,10 +12,9 @@
           </LinearLayout>
           <fragment android:name="com.recom3.snow3.activity.trip.details.MaxSpeedDetailsFragment" android:id="@+id/trip_details_max_speed_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
           <fragment android:name="com.recom3.snow3.activity.trip.details.TotalVerticalDetailsFragment" android:id="@+id/trip_details_total_vertical_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-          <!--
-        <fragment android:name="com.recom3.snow3.activity.trip.details.TotalDistanceDetailsFragment" android:id="@id/trip_details_total_distance_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-        <fragment android:name="com.recom3.snow3.activity.trip.details.MaxAltitudeDetailsFragment" android:id="@id/trip_details_max_altitude_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-        <fragment android:name="com.recom3.snow3.activity.trip.details.TotalJumpsDetailsFragment" android:id="@id/trip_details_total_jumps_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
-        -->
+          <fragment android:name="com.recom3.snow3.activity.trip.details.TotalDistanceDetailsFragment" android:id="@+id/trip_details_total_distance_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+          <fragment android:name="com.recom3.snow3.activity.trip.details.MaxAltitudeDetailsFragment" android:id="@+id/trip_details_max_altitude_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+          <fragment android:name="com.recom3.snow3.activity.trip.details.TotalJumpsDetailsFragment" android:id="@+id/trip_details_total_jumps_fragment" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
       </LinearLayout>
 </FrameLayout>

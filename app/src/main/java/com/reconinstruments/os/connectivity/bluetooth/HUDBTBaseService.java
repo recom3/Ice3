@@ -38,13 +38,13 @@ public abstract class HUDBTBaseService implements IHUDBTService {
             this.mBlockingQueue = arrayBlockingQueue;
         }
 
-        public final OutputStreamContainer a() throws InterruptedException {
+        public final OutputStreamContainer get() throws InterruptedException {
             StringBuilder sb = new StringBuilder("OutputStreamPool obtain: ").append(this.mBlockingQueue.size());
             Log.i(a, sb.toString());
             return this.mBlockingQueue.take();
         }
 
-        public final void a(OutputStreamContainer outputStreamContainer) throws InterruptedException {
+        public final void put(OutputStreamContainer outputStreamContainer) throws InterruptedException {
             this.mBlockingQueue.put(outputStreamContainer);
             new StringBuilder("OutputStreamPool release: ").append(this.mBlockingQueue.size());
         }

@@ -41,18 +41,40 @@ Tap to disconnect it"</string>
     <string name="buddies_pending_request_alert_neutral_button_later">Decide Later</string>
     <string name="trips_layout_info_one">1</string>
     <string name="trips_layout_info_two">144</string>
-    <string name="trips_stats_list_m_text">m</string>
+
     <string name="trips_layout_info_three">123.3</string>
-    <string name="trips_stats_list_kmh_text">km/h</string>
+
     <string name="trips_layout_place">La Jolla</string>
-    <string name="trip_details">Trip Details</string>
-    <string name="trips_stats_list_image_run_text">run</string>
+
+    <string name="trips_stats_list_total_jumps_number">0</string>
+    <string name="trips_stats_list_total_jumps_number_two">0.00</string>
+    <string name="trip_details_total_jumps_jumps_text">jumps</string>
+    <string name="trips_stats_list_max_altitude_number">1,898</string>
+    <string name="trips_stats_list_max_altitude_number_two">698</string>
+    <string name="trips_stats_list_m_text">m</string>
+    <string name="trips_stats_list_total_distance_number">22.07</string>
+    <string name="trips_stats_list_km_text">km</string>
+    <string name="trips_stats_list_total_vertical_number">4,186</string>
     <string name="trips_stats_list_max_speed_number">59.80</string>
-    <string name="trip_details_internal_max_speed_top_left_description">AVERAGE SPEED</string>
+    <string name="trips_stats_list_kmh_text">km/h</string>
+    <string name="trips_stats_list_image_parenthesis">)</string>
+    <string name="trips_stats_list_image_runs_text">runs</string>
+    <string name="trips_stats_list_image_run_text">run</string>
+    <string name="trip_details">Trip Details</string>
     <string name="trip_details_internal_max_speed_top_right_description">ALL TIME BEST</string>
-    <string name="trip_details_internal_metric_kilometers_per_hour_description">km/h</string>
+    <string name="trip_details_internal_max_speed_top_left_description">AVERAGE SPEED</string>
     <string name="trip_details_internal_total_vertical_top_right_description">ALL TIME VERTICAL</string>
     <string name="trip_details_internal_total_vertical_top_left_description">BEST RUN</string>
-    <string name="trips_stats_list_total_vertical_number">4,186</string>
-    <string name="trips_stats_list_km_text">km</string>
+    <string name="trip_details_internal_total_distance_top_right_description">ALL TIME DISTANCE</string>
+    <string name="trip_details_internal_total_distance_top_left_description">BEST RUN</string>
+    <string name="trip_details_internal_max_altitude_top_right_description">ALL TIME BEST</string>
+    <string name="trip_details_internal_max_altitude_top_left_description">MIN ALTITUDE</string>
+    <string name="trip_details_internal_total_jumps_top_right_description">BEST HEIGHT</string>
+    <string name="trip_details_internal_total_jumps_top_left_description">BEST DISTANCE</string>
+    <string name="trip_details_internal_metric_miles_per_hour_description">mph</string>
+    <string name="trip_details_internal_metric_miles_description">miles</string>
+    <string name="trip_details_internal_metric_feet_description">ft</string>
+    <string name="trip_details_internal_metric_meters_description">m</string>
+    <string name="trip_details_internal_metric_kilometers_description">km</string>
+    <string name="trip_details_internal_metric_kilometers_per_hour_description">km/h</string>
 </resources>

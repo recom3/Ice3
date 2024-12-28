@@ -12,4 +12,7 @@
     <color name="_30_gray">#ffdadada</color>
     <color name="trip_details_green">#ff64fe5d</color>
     <color name="trip_details_blue">#ff1aeffc</color>
+    <color name="trip_details_yellow">#ffffdc5f</color>
+    <color name="trip_details_orange">#ffff9b52</color>
+    <color name="trip_details_pink">#ffe536f6</color>
 </resources>

@@ -24,7 +24,9 @@ public class HUDSPPService extends HUDBTBaseService {
 
     private static final String[] g = new String[] { "3007e231-e2af-4742-bcc4-70648bf22599", "798e999d-5fe8-4199-bc03-ab87f8545f1a", "5ed5a87f-15af-44c4-affc-9cbb686486e5", "c88436a2-0526-47c3-b365-c8519a5ea4e1" };
     private static final int h = 4;
+
     private static int i = 4;
+
     private final UUID[] j;
     private final String k;
 
@@ -294,7 +296,14 @@ public class HUDSPPService extends HUDBTBaseService {
                 e1.printStackTrace();
             }
             this.d.add(bluetoothSocket);
-            this.mBlockingQueue.offer(outputStreamContainer);
+
+            //!recom3
+            //Add to blocking queue only one, because consumer application in HUD is using only the 1st
+            //for reading
+            int sz = this.mBlockingQueue.size();
+            if(sz == 0) {
+                this.mBlockingQueue.offer(outputStreamContainer);
+            }
         }
 
         public final void closeBluetooth() {
@@ -426,10 +435,10 @@ public class HUDSPPService extends HUDBTBaseService {
         }
     }
 
-    //@Override // com.reconinstruments.os.connectivity.bluetooth.IHUDBTService
+    @Override // com.reconinstruments.os.connectivity.bluetooth.IHUDBTService
     public final void a(HUDBTBaseService.OutputStreamContainer outputStreamContainer) {
         try {
-            this.sppOutStreamWriter.a(outputStreamContainer);
+            this.sppOutStreamWriter.put(outputStreamContainer);
         } catch (InterruptedException e) {
             Log.wtf(this.f2726a, "Couldn't release OutputStreamContainer", e);
         }
@@ -512,7 +521,7 @@ public class HUDSPPService extends HUDBTBaseService {
     public final HUDBTBaseService.OutputStreamContainer getOutputStreamCont() {
         HUDBTBaseService.OutputStreamContainer osc = null;
         try {
-            osc =  this.sppOutStreamWriter.a();
+            osc =  this.sppOutStreamWriter.get();
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }
